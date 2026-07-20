@@ -49,6 +49,19 @@ class _ModelCost(BaseModel):
 
 # Per-1M-token pricing (USD). Maintainer-curated.
 _PRICING: dict[str, _ModelCost] = {
+    # As below, use the higher audio rates for aggregate input/cache tokens.
+    "gemini-3.1-flash-lite": _ModelCost(
+        input=0.50, cache_hit=0.05, output=1.50
+    ),
+    # 2.5 Flash prices audio input above text/image input. The current cost
+    # result only exposes aggregate prompt tokens, so use the higher audio rate
+    # for every input token to keep the local budget ledger conservative.
+    "gemini-2.5-flash": _ModelCost(
+        input=1.00, cache_hit=0.10, output=2.50
+    ),
+    "gemini-3.5-flash": _ModelCost(
+        input=1.50, cache_hit=0.15, output=9.00
+    ),
     "gemini-3.1-flash-lite-preview": _ModelCost(
         input=0.25, cache_hit=0.025, output=1.50
     ),
@@ -115,6 +128,7 @@ _AUDIO_MIME = {
 
 
 _THINKING_LEVEL_BY_EFFORT = {
+    "minimal": "MINIMAL",
     "low": "LOW",
     "medium": "MEDIUM",
     "high": "HIGH",
@@ -179,8 +193,9 @@ def run_gemini_api(
     model: str,
     reasoning_effort: str = "high",
     timeout: int | None = None,
+    max_output_tokens: int | None = None,
 ) -> InferenceResult:
-    """One genai SDK generation. Native schema enforcement, metered cost."""
+    """Run one metered Gemini request with optional output-token limiting."""
     client = _api_client()
     thinking_level = resolve_gemini_thinking_level(reasoning_effort)
     # The genai SDK takes its per-request timeout in milliseconds; the rest of
@@ -194,6 +209,8 @@ def run_gemini_api(
         ),
         http_options=genai.types.HttpOptions(timeout=timeout_secs * 1000),
     )
+    if max_output_tokens is not None:
+        config_kwargs["max_output_tokens"] = max_output_tokens
     if schema is not None:
         config_kwargs["response_mime_type"] = "application/json"
         config_kwargs["response_json_schema"] = schema.model_json_schema()

@@ -177,6 +177,10 @@ class Settings(BaseSettings):
         default=None,
         description="Path to cookies.txt file used for downloading content",
     )
+    download_max_height: int | None = Field(
+        default=None,
+        description="Optional maximum downloaded video height in pixels (for example 720). None keeps the best available quality.",
+    )
     archived_path: Path | None = Field(
         default=None,
         description="Path for automatic archival. If set, completed projects will be archived to this location",

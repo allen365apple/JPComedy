@@ -1,9 +1,11 @@
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from services.ytdlp.download import (
     _JpegThumbnailFixupPP,
+    _download_format,
     parse_section_time,
 )
 
@@ -93,6 +95,24 @@ class ParseSectionTimeTests(unittest.TestCase):
     def test_invalid_value_raises(self):
         with self.assertRaises(ValueError):
             parse_section_time("abc")
+
+
+class DownloadFormatTests(unittest.TestCase):
+    def test_default_keeps_best_available_quality(self):
+        with patch(
+            "services.ytdlp.download.settings.download_max_height", None
+        ):
+            self.assertEqual(_download_format(), "bestvideo+bestaudio/best")
+
+    def test_height_cap_applies_to_combined_and_muxed_formats(self):
+        with patch(
+            "services.ytdlp.download.settings.download_max_height", 720
+        ):
+            self.assertEqual(
+                _download_format(),
+                "bestvideo[height<=720]+bestaudio/"
+                "best[height<=720]/best",
+            )
 
 
 if __name__ == "__main__":

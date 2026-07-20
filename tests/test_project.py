@@ -259,6 +259,32 @@ class SourceParsingTests(unittest.TestCase):
             "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
         )
 
+    def test_parse_acfun_url(self):
+        self.assertEqual(
+            Project.parse_source_str(
+                "https://www.acfun.cn/v/ac48119302_2"
+            ),
+            "ac=48119302_2",
+        )
+
+    def test_acfun_prefixed_id_passthrough(self):
+        self.assertEqual(
+            Project.parse_source_str("ac=48119302_2"),
+            "ac=48119302_2",
+        )
+
+    def test_acfun_source_detection_and_url(self):
+        project = Project(id="ac=48119302_2")
+        self.assertEqual(project.source, VideoSource.ACFUN)
+        self.assertEqual(
+            project.source_url,
+            "https://www.acfun.cn/v/ac48119302_2",
+        )
+
+    def test_invalid_acfun_url_raises(self):
+        with self.assertRaises(ValueError):
+            Project.parse_source_str("https://www.acfun.cn/v/not-a-video")
+
     def test_parse_abema_slot_url(self):
         self.assertEqual(
             Project.parse_source_str(
@@ -290,6 +316,9 @@ class SourceParsingTests(unittest.TestCase):
         )
         self.assertEqual(
             Project(id="90-979_s1_p360").source, VideoSource.ABEMA
+        )
+        self.assertEqual(
+            Project(id="ac=48119302_2").source, VideoSource.ACFUN
         )
 
 

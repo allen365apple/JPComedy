@@ -19,6 +19,17 @@ from settings import settings
 from .client import get_ytdlp_download_options_for_url
 
 
+def _download_format() -> str:
+    """Return the yt-dlp selector honoring the optional height cap."""
+    max_height = settings.download_max_height
+    if max_height is None:
+        return "bestvideo+bestaudio/best"
+    return (
+        f"bestvideo[height<={max_height}]+bestaudio/"
+        f"best[height<={max_height}]/best"
+    )
+
+
 class _JpegThumbnailFixupPP(PostProcessor):
     """Rename thumbnails whose bytes are JPEG but whose extension is not.
 
@@ -99,7 +110,7 @@ def download_video(
             "thumbnail": f"{output_path}/poster",
         },
         "merge_output_format": "mp4",
-        "format": "bestvideo+bestaudio/best",
+        "format": _download_format(),
         # NB: the thumbnail convertor is not declared here — it is added via
         # add_post_processor below so the jpeg-extension fixup can run first.
         "postprocessors": [

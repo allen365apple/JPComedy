@@ -4,7 +4,7 @@ The goal is the calendar date a show's official SNS announces ("○月○日放�
 公開") — platform-local wall-clock date, not a UTC date:
 
 - YouTube: publish time (release time for premieres), JST.
-- BiliBili: pubdate, CST (UTC+8) — announcements target a CST audience.
+- BiliBili/AcFun: pubdate, CST (UTC+8) — announcements target a CST audience.
 - TVer: the TV on-air date from `broadcastDateLabel` (month/day, no year;
   year inferred from the TVer availability start). Falls back to the
   availability date itself when the label is missing.
@@ -119,7 +119,7 @@ def _resolve_broadcast_date(
     video_id: str,
     video_info: YtDlpVideoInfo,
 ) -> date | None:
-    if source == "bilibili":
+    if source in ("bilibili", "acfun"):
         return date_from_epoch(video_info.timestamp, CST)
 
     if source == "youtube":
