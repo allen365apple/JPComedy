@@ -103,6 +103,8 @@ def process(
                 "Video source, id or url (e.g., 'BV1ZArvBaEqL', "
                 "'https://www.bilibili.com/video/BV1ZArvBaEqL', "
                 "'https://youtu.be/dQw4w9WgXcQ', 'v=dQw4w9WgXcQ')."
+                " AcFun URLs such as "
+                "'https://www.acfun.cn/v/ac48119302_2' are also supported."
             ),
             show_default=False,
         ),

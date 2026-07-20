@@ -263,10 +263,62 @@ class RunInferenceDispatchTests(unittest.TestCase):
 
 
 class GeminiApiReasoningTests(unittest.TestCase):
+    def test_minimal_maps_to_minimal_thinking_level(self):
+        from services.inference.gemini_api import resolve_gemini_thinking_level
+
+        self.assertEqual(
+            resolve_gemini_thinking_level("minimal").name, "MINIMAL"
+        )
+
     def test_extra_clamps_to_high_thinking_level(self):
         from services.inference.gemini_api import resolve_gemini_thinking_level
 
         self.assertEqual(resolve_gemini_thinking_level("extra").name, "HIGH")
+
+    def test_gemini_35_flash_cost_uses_official_rates(self):
+        from types import SimpleNamespace
+
+        from services.inference.gemini_api import calculate_cost
+
+        usage = SimpleNamespace(
+            prompt_token_count=10_000,
+            cached_content_token_count=2_000,
+            candidates_token_count=3_000,
+            thoughts_token_count=1_000,
+        )
+        cost = calculate_cost(usage, "gemini-3.5-flash")
+
+        self.assertAlmostEqual(cost, 0.0483)
+
+    def test_gemini_25_flash_cost_uses_conservative_audio_rate(self):
+        from types import SimpleNamespace
+
+        from services.inference.gemini_api import calculate_cost
+
+        usage = SimpleNamespace(
+            prompt_token_count=10_000,
+            cached_content_token_count=2_000,
+            candidates_token_count=3_000,
+            thoughts_token_count=1_000,
+        )
+        cost = calculate_cost(usage, "gemini-2.5-flash")
+
+        self.assertAlmostEqual(cost, 0.0182)
+
+    def test_gemini_31_flash_lite_cost_uses_conservative_audio_rate(self):
+        from types import SimpleNamespace
+
+        from services.inference.gemini_api import calculate_cost
+
+        usage = SimpleNamespace(
+            prompt_token_count=10_000,
+            cached_content_token_count=2_000,
+            candidates_token_count=3_000,
+            thoughts_token_count=1_000,
+        )
+        cost = calculate_cost(usage, "gemini-3.1-flash-lite")
+
+        self.assertAlmostEqual(cost, 0.0101)
 
 
 class CodexCommandTests(unittest.TestCase):

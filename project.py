@@ -72,6 +72,7 @@ class VideoSource(str, Enum):
     TVER = "tver"
     ABEMA = "abema"
     YOUTUBE = "youtube"
+    ACFUN = "acfun"
 
 
 class SourceTalent(BaseModel):
@@ -145,7 +146,8 @@ class Project(BaseModel):
 
         Handles various input formats including direct IDs and full URLs.
         Supports: Bilibili (URL/BV), TVer (URL/ID), Abema (URL/ID),
-        YouTube (URL or `v=<id>` prefixed form).
+        YouTube (URL or `v=<id>` prefixed form), and AcFun (URL or
+        `ac=<id>` prefixed form).
 
         Args:
             source_str: Video source as ID or URL.
@@ -165,6 +167,17 @@ class Project(BaseModel):
         # so re-parsing a stored ID is idempotent.
         if source_str.startswith("v="):
             return source_str
+
+        # AcFun uses numeric content IDs with an optional part suffix. Store
+        # them behind a prefix so they cannot collide with Abema's fallback ID
+        # space. Both /v/ac48119302_2 and an already-canonical ac= ID work.
+        if source_str.startswith("ac="):
+            return source_str
+        if "acfun.cn" in source_str:
+            match = re.search(r"/v/ac([0-9]+(?:_[0-9]+)?)", source_str)
+            if match:
+                return f"ac={match.group(1)}"
+            raise ValueError(f"Invalid AcFun URL: {source_str}")
 
         # 3. Handle YouTube URLs: youtube.com/watch?v=ID, youtu.be/ID,
         # youtube.com/shorts/ID, youtube.com/live/ID, m.youtube.com/...
@@ -434,6 +447,9 @@ class Project(BaseModel):
         if self.id.startswith("v="):
             return VideoSource.YOUTUBE
 
+        if self.id.startswith("ac="):
+            return VideoSource.ACFUN
+
         # TVer: IDs typically start with 'ep' (episode) or 'sh' (series)
         # and contain ONLY alphanumeric characters (no hyphens/underscores).
         if self.id.startswith(("ep", "sh")) and self.id.isalnum():
@@ -467,6 +483,9 @@ class Project(BaseModel):
 
         if self.source == VideoSource.YOUTUBE:
             return f"https://www.youtube.com/watch?v={self.id[2:]}"
+
+        if self.source == VideoSource.ACFUN:
+            return f"https://www.acfun.cn/v/ac{self.id[3:]}"
 
         raise ValueError(f"Invalid video source: {self.source}")
 

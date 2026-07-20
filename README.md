@@ -6,6 +6,25 @@
 ![](/doc/image3.png)
 ![](/doc/image1.png)
 
+> 本專案 fork 自 [elishahung/owarai-grillmaster](https://github.com/elishahung/owarai-grillmaster)，
+> 並依繁體中文使用者與日本漫才影片的實際翻譯需求持續擴充。
+
+## 本 Fork 的主要特色
+
+1. **同時支援線上與本機影片**
+   - 可直接輸入 AcFun（含分 P）等 yt-dlp 支援的線上影片網址。
+   - 也可輸入已下載到本機的影片檔案路徑，不必重新下載。
+2. **主要透過 Codex 使用 GPT‑5.6 翻譯**
+   - ElevenLabs Scribe v2 負責日文語音辨識與字幕時間軸。
+   - GPT‑5.6 負責全片分析、繁中翻譯、語句潤飾、結構修正與詞彙校對。
+   - Gemini 仍保留為可替換 backend，適合需要直接把音訊交給模型判讀的情況。
+3. **視覺化漫才詞庫管理**
+   - 不必直接修改 JSON，即可搜尋、新增、編輯、封存與還原組合名、成員名、節目名和漫才術語。
+   - 可用正式翻譯流程的 matcher 預覽日文句子會命中哪些固定譯名。
+
+完整的設計理由、翻譯流程與實作經驗，請見
+[日本綜藝與漫才影片翻譯：工作流與實作筆記](doc/漫才翻譯工作流與實作筆記.md)。
+
 ## 說明
 
 - 目標是 one shot 即可直接觀看，不想校準 (避免被暴雷)
@@ -23,9 +42,9 @@
 
 ### 翻譯
 
-測試多種模型還是 `Gemini 3` 系列的潤飾最能抓住日本綜藝的韻味，加上圖片音檔的理解真的很好，但 `Gemini 3` 的輸出常常會漏 Index 或弄錯時間軸，所以如果驗證錯誤，會交給其他 agent (Codex/Claude) 驗證修正結構
+本 Fork 的主要流程透過 `Codex` 使用 `GPT‑5.6`。模型會先根據完整日文字幕、節目資訊與代表影格理解人物關係、專有名詞、ボケ／ツッコミ分工及笑點結構，再進行分塊翻譯與後處理。
 
-目前翻譯也預設使用 `Gemini CLI` 的 Agent 搭配工具去主動取得影片截圖和網路搜尋確認資訊。
+模型 backend 仍可依階段自由更換為 `gemini-api`、`gemini-cli`、`gemini-agy`、`claude` 或 `codex`。其中 `Gemini CLI` 可以直接接收音訊；Codex 則主要使用 ElevenLabs 產生的日文字幕、節目脈絡與影片影格完成翻譯。
 
 進行**兩階段翻譯**：
 
@@ -38,14 +57,14 @@
 
 另外，翻譯過程的 chunk / pre-pass 資源與回應會保留在專案資料夾中，方便失敗後直接 resume，不用每次都重切音訊、重抽圖、重跑整個翻譯
 
-> 目前只有 `Gemini CLI` 可以輸入音訊
+> GPT‑5.6／Codex 不取代 ASR：語音辨識與時間碼仍由 ElevenLabs Scribe v2 提供。
 
 ## 流程
 
 ```
-Video ID
+線上網址 / 影片 ID / 本機影片
     ↓
-下載影片 (yt-dlp)
+下載或匯入影片 (yt-dlp / 本機檔案)
     ↓
 合併影片 (FFmpeg)
     ↓
@@ -90,6 +109,22 @@ pip install -e .
 
 ## 使用方式
 
+### 視覺化漫才詞庫管理
+
+不需要直接編輯 JSON。macOS 可雙擊專案根目錄的
+`開啟漫才詞庫管理.command`，瀏覽器會開啟本機介面；也可以執行：
+
+```bash
+.venv/bin/python -m glossary_ui.server
+```
+
+然後開啟 <http://127.0.0.1:8765>。介面可搜尋、新增、修改、封存與還原
+藝人組合、成員和節目術語，也能用正式翻譯流程的 matcher 預覽命中結果。
+儲存前會保留本機備份，備份不會納入 Git。
+
+從模型選擇、影片處理到詞庫維護的完整設計與實作經驗，請見
+[漫才翻譯工作流與實作筆記](doc/漫才翻譯工作流與實作筆記.md)。
+
 ### 方式一：加入 PATH
 
 將 `scripts/` 資料夾加到系統 PATH，然後執行：
@@ -118,6 +153,9 @@ grill BV1CakEBaEJp "華大千鳥 - 全力100萬 - 間諜 1/7"
 
 # 使用完整 URL
 grill "https://www.bilibili.com/video/BV18KBJBeEmV"
+
+# AcFun（含分 P 網址）
+grill "https://www.acfun.cn/v/ac48119302_2" "M-1 Grand Prix 2025 決勝戰 FIRST ROUND 後半戰 6～10組目"
 ```
 
 ## 環境變數
@@ -137,8 +175,8 @@ ELEVENLABS_STT_LANGUAGE_CODE=jpn
 AGENT_GEMINI_API_KEY=xxx
 AGENT_GEMINI_GCP_PROJECT=your-project-id       # 可選；gemini-cli 訂閱/Code Assist auth 時，臨時注入為 GOOGLE_CLOUD_PROJECT
 
-AGENT_PREPASS_MODEL=gemini-cli/gemini-3.1-pro-preview/high  # backend: gemini-api / gemini-cli / gemini-agy / claude / codex
-AGENT_CHUNK_MODEL=gemini-cli/gemini-3.1-pro-preview/high    # "backend/model" 或 "backend/model/effort"
+AGENT_PREPASS_MODEL=codex/gpt-5.6-sol/extra                 # backend: gemini-api / gemini-cli / gemini-agy / claude / codex
+AGENT_CHUNK_MODEL=codex/gpt-5.6-sol/extra                   # "backend/model" 或 "backend/model/effort"
 AGENT_POSTPROCESS_MODEL=codex/gpt-5.6-sol/extra             # 後處理（refine/glossary）：codex / claude / gemini-cli / gemini-agy
 AGENT_COMMON_MODEL=codex/gpt-5.5/medium                     # 輕量工具 agent（chunk 結構修正、播出日調查）；封面固定用 codex 並沿用此 effort
 
@@ -164,6 +202,7 @@ ENABLE_BROADCAST_DATE_AGENT_FALLBACK=true # metadata 解析不到放送日時，
 # 可選：下載/歸檔/封裝
 ENABLE_OFFICIAL_SUBTITLES=true     # 下載時順抓平台官方 CC 字幕（TVer/Abema 等），作為翻譯的 ground truth 參照
 COOKIES_TXT_PATH=cookies.txt       # 影片來源網站 cookies (供 yt-dlp 使用)
+DOWNLOAD_MAX_HEIGHT=720            # 可選：下載畫質高度上限；未設定則下載最佳畫質
 ARCHIVED_PATH=NAS:\video\ai\     # 歸檔路徑 - 處理完移至 <archived_path>/YY/MM/YYMMDD_<id>_<name>/（YYMMDD 為放送/發布日期，無日期時移至 <archived_path>/etc/<id>_<name>/）
 PACKAGE_PATH=NAS:\video\package\ # 封裝路徑 - 將 ASS 字幕燒錄進影片並複製封面到 <package_path>/YYMMDD_<id>_<name>/（平面，不分子目錄；無日期時省略前綴）
 ```

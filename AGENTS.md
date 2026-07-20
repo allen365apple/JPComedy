@@ -11,6 +11,7 @@ touching:
 | `services/inference/` (backends, schema repair, frame tools)              | **inference-layer** |
 | `services/translate/` (pre-pass, chunking, chunk workers, caches, prompts) | **translate-pipeline** |
 | `services/postprocess/`, `services/finalize/`, `services/package/`        | **postprocess-and-packaging** |
+| `glossary_ui/`, `開啟漫才詞庫管理.command`、`scripts/` 下的同名啟動檔     | **glossary-ui** |
 
 For a change that spans modules (new stage, new setting, new platform), start
 with **project-architecture** — it holds the orchestration contract and the

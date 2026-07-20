@@ -104,6 +104,14 @@ class ResolveBroadcastDateTests(unittest.TestCase):
         )
         self.assertEqual(result, date(2026, 5, 3))
 
+    def test_acfun_uses_pubdate_in_cst(self):
+        result = resolve_broadcast_date(
+            source="acfun",
+            video_id="ac=48119302_2",
+            video_info=_video_info(timestamp=1777822200),
+        )
+        self.assertEqual(result, date(2026, 5, 3))
+
     def test_youtube_prefers_release_timestamp(self):
         result = resolve_broadcast_date(
             source="youtube",

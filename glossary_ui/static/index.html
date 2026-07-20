@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GrillMaster 漫才詞庫</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand-mark" aria-hidden="true">GM</div>
+      <div class="brand-copy">
+        <p class="eyebrow">OWARAI GRILLMASTER</p>
+        <h1>日本漫才詞庫</h1>
+      </div>
+      <div class="save-area">
+        <span id="saveStatus" class="save-status">已載入</span>
+        <button id="saveButton" class="button button-primary" type="button" disabled>
+          儲存所有變更
+        </button>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-intro">
+          <span class="soft-icon" aria-hidden="true">字</span>
+          <div>
+            <strong>固定譯名管理</strong>
+            <p>這裡儲存後，下一支影片會直接套用。</p>
+          </div>
+        </div>
+
+        <nav class="filter-nav" aria-label="詞庫分類">
+          <button class="nav-item is-active" data-filter="all" type="button">
+            <span>全部詞庫</span><b id="countAll">0</b>
+          </button>
+          <button class="nav-item" data-filter="groups" type="button">
+            <span>漫才組合</span><b id="countGroups">0</b>
+          </button>
+          <button class="nav-item" data-filter="solo" type="button">
+            <span>單人藝人</span><b id="countSolo">0</b>
+          </button>
+          <button class="nav-item" data-filter="others" type="button">
+            <span>節目與術語</span><b id="countOthers">0</b>
+          </button>
+          <button class="nav-item" data-filter="archived" type="button">
+            <span>已封存</span><b id="countArchived">0</b>
+          </button>
+        </nav>
+
+        <section class="help-card">
+          <p class="eyebrow">怎麼使用？</p>
+          <ol>
+            <li>搜尋或新增名稱</li>
+            <li>填入日文與固定繁中譯名</li>
+            <li>按右上角「儲存所有變更」</li>
+          </ol>
+          <p class="help-note">每次儲存都會自動備份，不怕改錯。</p>
+        </section>
+      </aside>
+
+      <main class="main-content">
+        <section class="hero-panel">
+          <div>
+            <p class="eyebrow">TRANSLATION GLOSSARY</p>
+            <h2>讓每次翻譯都叫對名字</h2>
+            <p>管理組合、成員、節目名稱與漫才術語。日文別名可以填很多個，它們都會統一成同一個繁中譯名。</p>
+          </div>
+          <div class="hero-stats" aria-label="詞庫統計">
+            <div><strong id="statTalent">0</strong><span>藝人單位</span></div>
+            <div><strong id="statMembers">0</strong><span>位成員</span></div>
+            <div><strong id="statTerms">0</strong><span>個術語</span></div>
+          </div>
+        </section>
+
+        <section class="toolbar" aria-label="詞庫工具">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" placeholder="搜尋日文、繁中譯名或備註…" />
+          </label>
+          <div class="add-actions">
+            <button class="button button-secondary" data-add="group" type="button">＋ 新增組合</button>
+            <button class="button button-secondary" data-add="solo" type="button">＋ 新增單人</button>
+            <button class="button button-secondary" data-add="term" type="button">＋ 新增術語</button>
+          </div>
+        </section>
+
+        <div class="list-heading">
+          <div>
+            <h3 id="listTitle">全部詞庫</h3>
+            <p id="resultSummary">正在讀取…</p>
+          </div>
+          <span class="legend"><i></i> 啟用中，翻譯時會套用</span>
+        </div>
+
+        <section id="glossaryList" class="glossary-list" aria-live="polite"></section>
+        <section id="emptyState" class="empty-state" hidden>
+          <span aria-hidden="true">⌕</span>
+          <h3>沒有找到符合的詞</h3>
+          <p>換個關鍵字，或直接新增一筆詞庫。</p>
+        </section>
+
+        <section class="matcher-panel">
+          <div class="matcher-copy">
+            <p class="eyebrow">實際套用測試</p>
+            <h3>貼一段日文，看看會抓到哪些詞</h3>
+            <p>這裡使用和正式翻譯完全相同的比對方式。請先儲存變更再測試。</p>
+          </div>
+          <div class="matcher-form">
+            <textarea id="matchText" rows="4" placeholder="例如：次はエバースの佐々木隆史さんです"></textarea>
+            <button id="matchButton" class="button button-dark" type="button">開始比對</button>
+          </div>
+          <div id="matchResults" class="match-results" hidden></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="modalBackdrop" class="modal-backdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <header class="modal-header">
+          <div>
+            <p id="modalEyebrow" class="eyebrow">編輯詞庫</p>
+            <h2 id="modalTitle">編輯</h2>
+          </div>
+          <button id="closeModal" class="icon-button" type="button" aria-label="關閉">×</button>
+        </header>
+        <div id="modalBody" class="modal-body"></div>
+        <footer class="modal-footer">
+          <p>編輯完成後，還要按頁面右上角的「儲存所有變更」。</p>
+          <div>
+            <button id="cancelModal" class="button button-ghost" type="button">取消</button>
+            <button id="applyModal" class="button button-primary" type="button">套用這筆修改</button>
+          </div>
+        </footer>
+      </section>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

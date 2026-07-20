@@ -128,7 +128,8 @@ Key control-flow details that are easy to break:
 `Project` is the single source of truth. It owns:
 
 - **Identity**: `parse_source_str` extracts the canonical ID from an ID or URL
-  across Bilibili (`BV…`), YouTube (stored as `v=…`), TVer (`ep…`/`sh…`), Abema
+  across Bilibili (`BV…`), YouTube (stored as `v=…`), AcFun (stored as
+  `ac=…`, including `_N` part suffixes), TVer (`ep…`/`sh…`), and Abema
   (fallback). `source` and `source_url` are derived from the ID's shape — keep
   these consistent if you add a platform. Abema has two URL kinds: episode IDs
   contain `-`/`_`; pure-alphanumeric IDs are slots (live archives) and rebuild
@@ -155,7 +156,7 @@ Key control-flow details that are easy to break:
   truncate, so a too-short output raises instead of shipping.
 - `services/ytdlp/` — download + metadata + TVer/Abema talent scraping +
   `broadcast_date.py` (resolves the announced on-air/publish date: YouTube/
-  BiliBili from yt-dlp timestamps, TVer from `broadcastDateLabel` month/day +
+  BiliBili/AcFun from yt-dlp timestamps, TVer from `broadcastDateLabel` month/day +
   year inferred from the availability start, Abema from program `broadcastAt`
   or slot `startAt`; all best-effort → None) +
   `subtitles.py` (platform CC → `video.official.ja.srt`; single video part
@@ -202,6 +203,8 @@ Pydantic-settings, loaded from `.env`. Notable patterns:
 - `AGENT_GEMINI_API_KEY` is required **only** when a stage uses `gemini-api`.
 - `AGENT_GEMINI_GCP_PROJECT` is optional and applies **only** to `gemini-cli`
   (see **inference-layer** for the env handling).
+- `DOWNLOAD_MAX_HEIGHT` optionally caps yt-dlp video height (for example 720);
+  when unset, downloads retain the best available quality.
 
 ## Prompts are `.md` files
 
