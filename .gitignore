@@ -219,6 +219,11 @@ __marimo__/
 projects/
 cookies.txt
 _test*
+services/fixed_glossary/backups/
+
+# Local operating-system and test artifacts
+.DS_Store
+NUL
 
 # platform
 .next/

@@ -238,6 +238,33 @@ class LoadFixedGlossaryTests(unittest.TestCase):
             self.assertIsInstance(zh, str)
             self.assertTrue(zh)
 
+    def test_disabled_entries_are_preserved_but_not_loaded(self):
+        g = self._load(
+            {
+                "talents": [
+                    {
+                        "group": {"jp": ["封存組合"], "zh": "封存組合"},
+                        "members": [{"jp": ["甲"], "zh": "甲"}],
+                        "disabled": True,
+                    },
+                    {
+                        "group": {"jp": ["啟用組合"], "zh": "啟用組合"},
+                        "members": [
+                            {"jp": ["乙"], "zh": "乙"},
+                            {"jp": ["封存成員"], "zh": "封存成員", "disabled": True},
+                        ],
+                    },
+                ],
+                "others": [
+                    {"jp": ["ボケ"], "zh": "裝傻"},
+                    {"jp": ["封存術語"], "zh": "封存術語", "disabled": True},
+                ],
+            }
+        )
+        self.assertEqual(len(g.talents), 1)
+        self.assertEqual([zh for _, zh in g.talents[0].members], ["乙"])
+        self.assertEqual([zh for _, zh in g.others], ["裝傻"])
+
 
 class FormatFixedGlossaryBlockTests(unittest.TestCase):
     def test_falsy_glossary_renders_empty(self):

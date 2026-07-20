@@ -61,6 +61,8 @@ def _parse_mapping_block(obj: object, ctx: str) -> FixedGlossaryEntry | None:
     if not isinstance(obj, dict):
         logger.warning(f"[fixed-glossary] Skipping non-object {ctx}: {obj!r}")
         return None
+    if obj.get("disabled") is True:
+        return None
     jp = obj.get("jp")
     zh = obj.get("zh")
     if (
@@ -90,6 +92,8 @@ def _parse_talent_unit(obj: object, idx: int) -> TalentUnit | None:
         logger.warning(
             f"[fixed-glossary] Skipping non-object talents[{idx}]: {obj!r}"
         )
+        return None
+    if obj.get("disabled") is True:
         return None
     group: FixedGlossaryEntry | None = None
     if obj.get("group") is not None:
