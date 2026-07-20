@@ -90,6 +90,22 @@ pip install -e .
 
 ## 使用方式
 
+### 視覺化漫才詞庫管理
+
+不需要直接編輯 JSON。macOS 可雙擊專案根目錄的
+`開啟漫才詞庫管理.command`，瀏覽器會開啟本機介面；也可以執行：
+
+```bash
+.venv/bin/python -m glossary_ui.server
+```
+
+然後開啟 <http://127.0.0.1:8765>。介面可搜尋、新增、修改、封存與還原
+藝人組合、成員和節目術語，也能用正式翻譯流程的 matcher 預覽命中結果。
+儲存前會保留本機備份，備份不會納入 Git。
+
+從模型選擇、影片處理到詞庫維護的完整設計與實作經驗，請見
+[漫才翻譯工作流與實作筆記](doc/漫才翻譯工作流與實作筆記.md)。
+
 ### 方式一：加入 PATH
 
 將 `scripts/` 資料夾加到系統 PATH，然後執行：
@@ -118,6 +134,9 @@ grill BV1CakEBaEJp "華大千鳥 - 全力100萬 - 間諜 1/7"
 
 # 使用完整 URL
 grill "https://www.bilibili.com/video/BV18KBJBeEmV"
+
+# AcFun（含分 P 網址）
+grill "https://www.acfun.cn/v/ac48119302_2" "M-1 Grand Prix 2025 決勝戰 FIRST ROUND 後半戰 6～10組目"
 ```
 
 ## 環境變數
@@ -164,6 +183,7 @@ ENABLE_BROADCAST_DATE_AGENT_FALLBACK=true # metadata 解析不到放送日時，
 # 可選：下載/歸檔/封裝
 ENABLE_OFFICIAL_SUBTITLES=true     # 下載時順抓平台官方 CC 字幕（TVer/Abema 等），作為翻譯的 ground truth 參照
 COOKIES_TXT_PATH=cookies.txt       # 影片來源網站 cookies (供 yt-dlp 使用)
+DOWNLOAD_MAX_HEIGHT=720            # 可選：下載畫質高度上限；未設定則下載最佳畫質
 ARCHIVED_PATH=NAS:\video\ai\     # 歸檔路徑 - 處理完移至 <archived_path>/YY/MM/YYMMDD_<id>_<name>/（YYMMDD 為放送/發布日期，無日期時移至 <archived_path>/etc/<id>_<name>/）
 PACKAGE_PATH=NAS:\video\package\ # 封裝路徑 - 將 ASS 字幕燒錄進影片並複製封面到 <package_path>/YYMMDD_<id>_<name>/（平面，不分子目錄；無日期時省略前綴）
 ```
