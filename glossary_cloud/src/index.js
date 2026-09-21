@@ -72,7 +72,10 @@ function decodeBase64(text) {
 /** Read the glossary and use GitHub's authoritative blob SHA for optimistic locking. */
 async function rawGlossary(env) {
   const path = `${contentsPath(env)}?ref=${encodeURIComponent(env.GLOSSARY_BRANCH)}`;
-  const result = await github(path);
+  const token = env.GH_APP_ID && env.GH_INSTALLATION_ID && env.GH_PRIVATE_KEY
+    ? await installationToken(env)
+    : "";
+  const result = await github(path, token);
   if (typeof result.content !== "string" || !/^[0-9a-f]{40}$/.test(result.sha || "")) {
     throw new ApiError(502, "GitHub 沒有回傳有效的詞庫檔案");
   }

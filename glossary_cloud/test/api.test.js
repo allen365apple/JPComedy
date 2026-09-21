@@ -66,7 +66,9 @@ test("public reads use GitHub's authoritative Contents SHA", async (t) => {
       content: Buffer.from(JSON.stringify(data)).toString("base64"),
     });
   });
-  const response = await worker.fetch(new Request("https://api.test/api/glossary"), env);
+  const response = await worker.fetch(new Request("https://api.test/api/glossary"), {
+    ...env, GH_APP_ID: "", GH_INSTALLATION_ID: "", GH_PRIVATE_KEY: "",
+  });
   assert.equal(response.status, 200);
   const body = await response.json();
   assert.deepEqual(body.data, data);
