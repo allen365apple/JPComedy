@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  notice.textContent = "輸入柏文提供的共用密碼，就可以編輯並儲存詞庫。密碼不會顯示或保存。";
+  notice.textContent = "輸入密碼即可編輯；按右上角儲存才會更新共用詞庫。";
   login.onclick = async () => {
     if (cloudSession) {
       cloudSession = null;
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       cloudSession = result.token;
       password.value = "";
       login.textContent = "登出編輯模式";
-      notice.textContent = "已解鎖，可以編輯；按右上角按鈕才會真正更新共用詞庫。";
+      notice.textContent = "已解鎖，可以編輯；按右上角儲存才會更新詞庫。";
       document.querySelector("#saveButton").disabled = !state.dirty;
     } catch (error) {
       notice.textContent = error.message;

@@ -60,7 +60,12 @@ button { color: inherit; }
 .brand-copy h1, .brand-copy p { margin: 0; }
 .brand-copy h1 { font-size: 20px; letter-spacing: 0.02em; }
 .eyebrow { margin: 0 0 5px; color: var(--orange); font-size: 10px; font-weight: 800; letter-spacing: 0.14em; }
-.save-area { display: flex; align-items: center; gap: 15px; margin-left: auto; }
+.header-editor-tools { display: flex; align-items: center; gap: 9px; min-width: 0; margin-left: auto; margin-right: 20px; }
+.cloud-notice { max-width: 230px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.35; }
+.header-editor-tools .password-box { margin: 0; }
+.header-editor-tools .password-box input { width: 145px; padding: 8px 10px; }
+.header-editor-tools .button { padding: 9px 12px; white-space: nowrap; }
+.save-area { display: flex; align-items: center; gap: 15px; margin-left: 0; }
 .save-status { color: var(--muted); font-size: 13px; }
 .save-status.is-dirty { color: var(--orange); font-weight: 700; }
 
@@ -81,6 +86,10 @@ button { color: inherit; }
 .password-box input { width: 180px; padding: 10px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
 .help-card ol { margin: 10px 0 12px; padding-left: 21px; color: var(--ink); font-size: 12px; line-height: 1.8; }
 .help-note { margin: 0; padding-top: 11px; border-top: 1px dashed var(--line); color: var(--muted); font-size: 11px; line-height: 1.5; }
+.sidebar-actions { display: grid; gap: 8px; margin-top: 24px; padding: 18px 0 0; border-top: 1px solid var(--line); }
+.sidebar-actions .eyebrow { margin-bottom: 2px; }
+.sidebar-button { display: flex; align-items: center; justify-content: flex-start; width: 100%; min-height: 38px; padding: 9px 11px; text-decoration: none; font-size: 12px; }
+.sidebar-button:hover { border-color: #b9b5aa; background: #fff; }
 .help-card h2 { margin: 4px 0 10px; font-family: Georgia, "Noto Serif TC", serif; font-size: 22px; font-weight: 600; }
 .help-card p, .help-card li { color: var(--muted); font-size: 13px; line-height: 1.75; }
 .help-card li + li { margin-top: 5px; }
