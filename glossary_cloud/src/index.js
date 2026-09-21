@@ -1,11 +1,11 @@
 import { SignJWT, jwtVerify, importPKCS8 } from "jose";
 import { createPrivateKey } from "node:crypto";
-import { validateGlossary, isAllowed } from "./validation.js";
+import { validateGlossary } from "./validation.js";
 
-/** @typedef {Cloudflare.Env & {GH_CLIENT_ID?:string, GH_CLIENT_SECRET?:string, GH_APP_ID?:string, GH_INSTALLATION_ID?:string, GH_PRIVATE_KEY?:string, SESSION_SECRET?:string}} Bindings */
+/** @typedef {Cloudflare.Env & {GH_APP_ID?:string, GH_INSTALLATION_ID?:string, GH_PRIVATE_KEY?:string, SESSION_SECRET?:string, EDITOR_PASSWORD?:string}} Bindings */
 
 const MAX_BODY = 2_000_000;
-const secrets = ["GH_CLIENT_ID", "GH_CLIENT_SECRET", "GH_APP_ID", "GH_INSTALLATION_ID", "GH_PRIVATE_KEY", "SESSION_SECRET"];
+const secrets = ["GH_APP_ID", "GH_INSTALLATION_ID", "GH_PRIVATE_KEY", "SESSION_SECRET", "EDITOR_PASSWORD"];
 
 /** Encode UTF-8 JSON as Base64 without relying on Node's Buffer global. */
 function encodeBase64(text) {
@@ -140,51 +140,34 @@ async function installationToken(env) {
   return result.token;
 }
 
-/** Require complete OAuth configuration; secrets never go to the browser. */
+/** Require complete server configuration; secrets never go to the browser. */
 function requireConfigured(env) {
-  if (secrets.some(name => !env[name]) || env.SESSION_SECRET.length < 32) throw new ApiError(503, "管理員尚未完成 GitHub 登入設定，目前可以瀏覽詞庫");
+  if (secrets.some(name => !env[name]) || env.SESSION_SECRET.length < 32) {
+    throw new ApiError(503, "管理員尚未完成詞庫編輯設定，目前可以瀏覽詞庫");
+  }
 }
 
-/** Begin OAuth in a popup with a signed, HttpOnly state cookie. */
-async function login(request, env) {
-  requireConfigured(env);
-  const state = await signSession({ nonce: crypto.randomUUID() }, env.SESSION_SECRET, "oauth", "10m");
-  const url = new URL("https://github.com/login/oauth/authorize");
-  url.search = new URLSearchParams({ client_id: env.GH_CLIENT_ID, state,
-    redirect_uri: `${new URL(request.url).origin}/auth/callback` }).toString();
-  return new Response(null, { status: 302, headers: {
-    Location: url.href, "Set-Cookie": `__Host-jp-state=${state}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`,
-  } });
+/** Compare the shared password without putting it in public code. */
+function sameSecret(candidate, expected) {
+  const left = new TextEncoder().encode(candidate);
+  const right = new TextEncoder().encode(expected);
+  let difference = left.length ^ right.length;
+  const length = Math.max(left.length, right.length);
+  for (let index = 0; index < length; index += 1) {
+    difference |= (left[index] || 0) ^ (right[index] || 0);
+  }
+  return difference === 0;
 }
 
-/** Exchange a one-use OAuth code and send a short session only to our opener. */
-async function callback(request, env) {
+/** Issue an in-memory editor session after verifying the shared password. */
+async function passwordLogin(request, env) {
   requireConfigured(env);
-  const url = new URL(request.url);
-  const cookie = request.headers.get("Cookie")?.match(/(?:^|;\s*)__Host-jp-state=([^;]+)/)?.[1];
-  const state = url.searchParams.get("state");
-  if (!cookie || !state || cookie !== state) throw new ApiError(403, "登入狀態不符，請重新登入");
-  await verifySession(state, env.SESSION_SECRET, "oauth");
-  const code = url.searchParams.get("code");
-  if (!code) throw new ApiError(400, "GitHub 授權已取消");
-  const response = await fetch("https://github.com/login/oauth/access_token", {
-    method: "POST", signal: AbortSignal.timeout(12000), redirect: "manual",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
-    body: JSON.stringify({ client_id: env.GH_CLIENT_ID, client_secret: env.GH_CLIENT_SECRET, code,
-      redirect_uri: `${url.origin}/auth/callback` }),
-  });
-  const auth = await readJson(response.body);
-  if (!response.ok || !auth.access_token) throw new ApiError(401, "GitHub 登入失敗");
-  const user = await github("/user", auth.access_token);
-  if (!isAllowed(user.id, env.ALLOWED_USER_IDS)) throw new ApiError(403, "這個帳號還沒有編輯權限，請聯絡柏文");
-  const token = await signSession({ sub: String(user.id), login: user.login }, env.SESSION_SECRET, "editor");
-  const nonce = crypto.randomUUID();
-  const data = JSON.stringify({ type: "jpcomedy-login", token, login: user.login }).replaceAll("<", "\\u003c");
-  const target = JSON.stringify(env.SITE_ORIGIN);
-  return new Response(`<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><p>登入完成，可以關閉此視窗。</p><script nonce="${nonce}">if(window.opener){window.opener.postMessage(${data},${target});window.close();}</script></html>`, {
-    headers: { "Content-Type": "text/html; charset=utf-8", "Content-Security-Policy": `default-src 'none'; script-src 'nonce-${nonce}'; frame-ancestors 'none'`,
-      "Set-Cookie": "__Host-jp-state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0" },
-  });
+  if (request.headers.get("Origin") !== env.SITE_ORIGIN) throw new ApiError(403, "來源不允許");
+  const body = await readJson(request.body);
+  const password = typeof body.password === "string" ? body.password : "";
+  if (!sameSecret(password, env.EDITOR_PASSWORD)) throw new ApiError(401, "共用密碼不正確");
+  const token = await signSession({ sub: "shared-password" }, env.SESSION_SECRET, "editor", "8h");
+  return Response.json({ ok: true, token });
 }
 
 /** Authenticated optimistic write: reject stale SHA instead of overwriting others. */
@@ -193,8 +176,7 @@ async function save(request, env) {
   if (request.headers.get("Origin") !== env.SITE_ORIGIN) throw new ApiError(403, "來源不允許");
   const bearer = request.headers.get("Authorization")?.match(/^Bearer (.+)$/)?.[1];
   if (!bearer) throw new ApiError(401, "請先登入");
-  const user = await verifySession(bearer, env.SESSION_SECRET, "editor");
-  if (!isAllowed(user.sub, env.ALLOWED_USER_IDS)) throw new ApiError(403, "此帳號無編輯權限");
+  await verifySession(bearer, env.SESSION_SECRET, "editor");
   const body = await readJson(request.body);
   if (!/^[0-9a-f]{40}$/.test(body.sha || "")) throw new ApiError(400, "缺少詞庫版本，請重新載入");
   let data;
@@ -202,7 +184,7 @@ async function save(request, env) {
   const token = await installationToken(env);
   const result = await github(contentsPath(env), token, {
     method: "PUT", body: JSON.stringify({ branch: env.GLOSSARY_BRANCH, sha: body.sha,
-      message: `fix(glossary): 更新詞庫（@${user.login}, GitHub ID ${user.sub}）`,
+      message: "fix(glossary): 更新共用漫才詞庫（密碼編輯）",
       content: encodeBase64(JSON.stringify(data, null, 2) + "\n") }),
   });
   return Response.json({ ok: true, data, sha: result.content.sha, commit: result.commit.sha });
@@ -212,9 +194,8 @@ async function save(request, env) {
 async function route(request, env) {
   const url = new URL(request.url);
   if (request.method === "OPTIONS") return new Response(null, { status: 204 });
-  if (request.method === "GET" && url.pathname === "/health") return Response.json({ ok: true, loginConfigured: secrets.every(s => Boolean(env[s])) });
-  if (request.method === "GET" && url.pathname === "/auth/login") return login(request, env);
-  if (request.method === "GET" && url.pathname === "/auth/callback") return callback(request, env);
+  if (request.method === "GET" && url.pathname === "/health") return Response.json({ ok: true, editorConfigured: secrets.every(s => Boolean(env[s])) });
+  if (request.method === "POST" && url.pathname === "/auth/password") return passwordLogin(request, env);
   if (url.pathname === "/api/glossary") {
     if (request.method === "PUT") return save(request, env);
     if (request.method === "GET") {
@@ -237,7 +218,7 @@ export default {
     const headers = new Headers(response.headers);
     if (request.headers.get("Origin") === env.SITE_ORIGIN) headers.set("Access-Control-Allow-Origin", env.SITE_ORIGIN);
     headers.set("Vary", "Origin");
-    headers.set("Access-Control-Allow-Methods", "GET, PUT, OPTIONS");
+    headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
     headers.set("Access-Control-Allow-Headers", "Authorization, Content-Type");
     headers.set("Cache-Control", "no-store");
     headers.set("Referrer-Policy", "no-referrer");

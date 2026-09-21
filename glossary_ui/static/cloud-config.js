@@ -2,5 +2,5 @@
 window.JPCOMEDY_CLOUD = {
   repository: "allen365apple/jpcomedy-glossary",
   branch: "main",
-  apiBase: "", // Fill with the deployed Worker URL after OAuth is configured.
+  apiBase: "https://jpcomedy-glossary.allen365apple.workers.dev",
 };

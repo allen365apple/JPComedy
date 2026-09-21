@@ -9,7 +9,6 @@
   "vars": {
     "SITE_ORIGIN": "https://allen365apple.github.io",
     "GLOSSARY_REPO": "allen365apple/jpcomedy-glossary",
-    "GLOSSARY_BRANCH": "main",
-    "ALLOWED_USER_IDS": "73839257"
+    "GLOSSARY_BRANCH": "main"
   }
 }

@@ -13,10 +13,11 @@ description: >-
 
 `static/storage.js` selects local Python API on localhost and cloud mode on
 GitHub Pages. `cloud-config.js` contains only public repo/branch/API URL config.
-An empty API URL explicitly offers read, draft edit/export and issue suggestions,
-not a simulated save. Cloud auth/write API lives in `glossary_cloud/` with
-GitHub App OAuth, numeric user-ID allowlist, short-lived sessions, schema
-validation and SHA optimistic concurrency. See `doc/共享詞庫部署.md` for activation.
+Cloud auth/write API lives in `glossary_cloud/`: editors enter a shared
+password, the Worker issues a short-lived session, and its server-side GitHub
+App token writes only the fixed glossary path. Schema validation and SHA
+optimistic concurrency remain server-side. See `doc/共享詞庫部署.md` for
+activation.
 Do not deploy keys, `.env`, project media, or cleanup scripts to Pages.
 
 `glossary_ui/` is a localhost-only browser interface for people who should not

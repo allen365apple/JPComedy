@@ -63,9 +63,14 @@
       <main class="main-content">
         <section id="cloudPanel" class="help-card" hidden>
           <p id="cloudNotice" role="status"></p>
-          <button id="loginButton" class="button button-dark" type="button">使用 GitHub 登入</button>
+          <label id="passwordBox" class="password-box">
+            <span>共用編輯密碼</span>
+            <input id="editorPassword" type="password" autocomplete="current-password" placeholder="請向柏文索取密碼" />
+          </label>
+          <button id="loginButton" class="button button-dark" type="button">解鎖編輯功能</button>
           <button id="exportDraft" class="button button-secondary" type="button">匯出草稿</button>
           <a id="suggestLink" target="_blank" rel="noopener noreferrer">提出詞庫建議</a>
+          <a href="./tutorial.html">新手教學：怎麼翻譯影片？</a>
           <a href="https://github.com/allen365apple/owarai-grillmaster#readme">如何自己翻譯影片</a>
         </section>
         <section class="hero-panel">
