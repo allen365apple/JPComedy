@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JPComedy 新手教學</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand-mark" aria-hidden="true">JP</div>
+      <div class="brand-copy">
+        <p class="eyebrow">JP COMEDY BEGINNER GUIDE</p>
+        <h1>第一次翻譯日本搞笑影片</h1>
+      </div>
+      <div class="save-area">
+        <a class="button button-secondary" href="./index.html">回到漫才詞庫</a>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar-intro">
+          <span class="soft-icon" aria-hidden="true">1</span>
+          <div>
+            <strong>照著做就可以</strong>
+            <p>第一次設定比較久，以後只要貼網址。</p>
+          </div>
+        </div>
+        <nav class="filter-nav" aria-label="教學章節">
+          <a class="nav-item is-active" href="#before">先準備什麼</a>
+          <a class="nav-item" href="#elevenlabs">取得 ElevenLabs Key</a>
+          <a class="nav-item" href="#mac">Mac 做法</a>
+          <a class="nav-item" href="#windows">Windows 做法</a>
+          <a class="nav-item" href="#result">完成後在哪裡</a>
+        </nav>
+        <section class="help-card">
+          <p class="eyebrow">先記住三件事</p>
+          <ol>
+            <li>API Key 是秘密，不要貼到群組。</li>
+            <li>語音辨識和翻譯可能會消耗額度。</li>
+            <li>AI 翻完一定要人工檢查。</li>
+          </ol>
+        </section>
+      </aside>
+
+      <main class="main-content">
+        <section class="hero-panel" id="before">
+          <div>
+            <p class="eyebrow">從零開始</p>
+            <h2>你不需要會寫程式</h2>
+            <p>只要先把工具安裝好，接著雙擊啟動檔、貼上影片網址，JPComedy 就會幫你產生繁體中文字幕，並可選擇燒進影片。</p>
+          </div>
+        </section>
+
+        <section class="help-card" id="elevenlabs">
+          <p class="eyebrow">第 1 步｜準備 ElevenLabs</p>
+          <h2>申請帳號並取得 API Key</h2>
+          <p>ElevenLabs 負責「聽懂日文、做出字幕時間軸」。它不是本專案的帳號，請使用你自己的帳號與額度。</p>
+          <ol>
+            <li>打開 <a href="https://elevenlabs.io/app/sign-up" target="_blank" rel="noopener noreferrer">ElevenLabs 註冊頁</a>，建立帳號並登入。</li>
+            <li>進入 <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener noreferrer">API Keys 設定頁</a>；如果頁面改版，也可以看<a href="https://elevenlabs.io/docs/help-center/technical/how-do-i-authorize-myself-using-an-api-key" target="_blank" rel="noopener noreferrer">官方說明</a>。</li>
+            <li>按「Create API key」或類似按鈕，名稱可以填 <code>JPComedy</code>。</li>
+            <li>Key 通常只會完整顯示一次，立刻複製；不要貼到 LINE、Slack、GitHub 或公開網頁。</li>
+            <li>之後在 JPComedy 的設定畫面貼上，或在終端機執行 <code>jpcomedy.py --setup</code> 時貼上。</li>
+          </ol>
+          <p class="help-note">ElevenLabs 的 API Key 會使用你的帳號額度；請先看當前方案與費用，第一次建議先用短片測試。</p>
+        </section>
+
+        <section class="help-card">
+          <p class="eyebrow">第 2 步｜準備翻譯帳號</p>
+          <h2>登入 Codex CLI</h2>
+          <p>Codex 負責把日文字幕翻成繁體中文。安裝後在終端機輸入：</p>
+          <pre><code>npm install -g @openai/codex
+codex login</code></pre>
+          <p>登入畫面會帶你用自己的 ChatGPT／Codex 帳號完成登入。請看<a href="https://developers.openai.com/codex/cli" target="_blank" rel="noopener noreferrer">Codex CLI 官方教學</a>。</p>
+        </section>
+
+        <section class="help-card" id="mac">
+          <p class="eyebrow">第 3 步｜Mac</p>
+          <h2>Mac 只要雙擊這個檔案</h2>
+          <ol>
+            <li>從 GitHub 下載 JPComedy，第一次依 README 安裝 Git、uv、Node、FFmpeg。</li>
+            <li>完成 <code>uv sync</code> 與 <code>jpcomedy.py --setup</code>。</li>
+            <li>雙擊 <strong>開始翻譯.command</strong>。</li>
+            <li>貼上 YouTube、Bilibili、AcFun 網址，或貼本機影片路徑。</li>
+            <li>看完費用提醒後輸入 <code>YES</code>，才會開始送出語音辨識與翻譯。</li>
+          </ol>
+        </section>
+
+        <section class="help-card" id="windows">
+          <p class="eyebrow">第 3 步｜Windows</p>
+          <h2>Windows 也有一鍵啟動</h2>
+          <ol>
+            <li>安裝 <a href="https://www.python.org/downloads/windows/" target="_blank" rel="noopener noreferrer">Python</a>、<a href="https://git-scm.com/download/win" target="_blank" rel="noopener noreferrer">Git</a>、<a href="https://docs.astral.sh/uv/getting-started/installation/" target="_blank" rel="noopener noreferrer">uv</a> 和 Node.js。</li>
+            <li>從 <a href="https://ffmpeg.org/download.html" target="_blank" rel="noopener noreferrer">FFmpeg 官方下載頁</a>取得 Windows build，解壓縮後把包含 <code>ffmpeg.exe</code> 與 <code>ffprobe.exe</code> 的資料夾加入 PATH。</li>
+            <li>在 JPComedy 資料夾按右鍵，選「在終端機開啟」，輸入 <code>uv sync</code>。</li>
+            <li>輸入 <code>npm install -g @openai/codex</code>、<code>codex login</code>，再輸入 <code>uv run python jpcomedy.py --setup</code>。</li>
+            <li>之後雙擊 <strong>開始翻譯.bat</strong>；也可以右鍵用 PowerShell 執行 <strong>開始翻譯.ps1</strong>。</li>
+          </ol>
+          <p class="help-note">如果 Windows 跳出「未知的發行者」，請確認檔案確實是從你的 JPComedy 資料夾啟動；遇到錯誤可先執行 <code>uv run python jpcomedy.py --check</code>。</p>
+        </section>
+
+        <section class="help-card" id="result">
+          <p class="eyebrow">第 4 步｜找成果</p>
+          <h2>字幕和影片會放在哪裡？</h2>
+          <p>每支影片都會放在專案內的 <code>projects</code> 資料夾。你會看到：</p>
+          <ul>
+            <li><code>video.cht.finalized.srt</code>：繁體中文字幕檔。</li>
+            <li><code>video.cht.ass</code>：帶字幕樣式的檔案。</li>
+            <li><code>.burnin/.../video.cht.blackbox.mp4</code>：已把黑底字幕燒進去的影片。</li>
+          </ul>
+          <p>翻譯完成後請人工檢查人名、雙關語、日文大字卡與字幕位置；確認後再分享。</p>
+        </section>
+
+        <section class="help-card">
+          <p class="eyebrow">共用詞庫</p>
+          <h2>不用 GitHub 帳號也能幫忙修改</h2>
+          <p>打開詞庫網頁後，先編輯畫面上的詞，再向柏文取得共用編輯密碼，輸入後按「解鎖編輯功能」，最後按右上角「儲存所有變更」。密碼不會顯示在網址，也不會保存到你的瀏覽器。</p>
+          <p class="help-note">如果只是想提供建議、不確定譯名，請按「匯出草稿」或「提出詞庫建議」，不要直接亂改。</p>
+        </section>
+
+        <section class="help-card">
+          <p class="eyebrow">還有問題？</p>
+          <h2>先把錯誤畫面截圖</h2>
+          <p>請把終端機最後 20 行和你使用的作業系統告訴柏文。不要把 ElevenLabs API Key、共用詞庫密碼或其他秘密一起截圖。</p>
+          <a class="button button-primary" href="https://github.com/allen365apple/owarai-grillmaster/issues/new" target="_blank" rel="noopener noreferrer">提出問題</a>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
