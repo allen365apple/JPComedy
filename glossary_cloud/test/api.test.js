@@ -56,19 +56,21 @@ test("unauthorized and cross-origin writes fail before any GitHub call", async (
   }
 });
 
-test("public reads bypass raw-file caches and return the Git blob SHA", async (t) => {
+test("public reads use GitHub's authoritative Contents SHA", async (t) => {
   const data = { talents: [], others: [{ jp: ["漫才"], zh: "漫才" }] };
   t.mock.method(globalThis, "fetch", async (url, init) => {
-    assert.equal(url, "https://raw.githubusercontent.com/test/glossary/main/glossary.json");
-    assert.equal(init.cache, "no-store");
-    assert.deepEqual(init.cf, { cacheTtl: 0, cacheEverything: false });
-    return new Response(JSON.stringify(data));
+    assert.equal(url, "https://api.github.com/repos/test/glossary/contents/glossary.json?ref=main");
+    assert.equal(init.headers["User-Agent"], "JPComedy");
+    return Response.json({
+      sha: "a".repeat(40),
+      content: Buffer.from(JSON.stringify(data)).toString("base64"),
+    });
   });
   const response = await worker.fetch(new Request("https://api.test/api/glossary"), env);
   assert.equal(response.status, 200);
   const body = await response.json();
   assert.deepEqual(body.data, data);
-  assert.match(body.sha, /^[0-9a-f]{40}$/);
+  assert.equal(body.sha, "a".repeat(40));
 });
 
 test("authorized writes target only glossary.json and preserve optimistic locking", async (t) => {
