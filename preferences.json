@@ -1,0 +1,15 @@
+{
+  "subtitle": {
+    "font_name": "Noto Sans CJK TC",
+    "font_size": 117,
+    "bottom_margin_v": 52,
+    "above_margin_v": 230
+  },
+  "podcast": {
+    "width": 1920,
+    "height": 1080,
+    "cover_width": 640,
+    "font_name": "Noto Sans CJK TC",
+    "font_size": 60
+  }
+}

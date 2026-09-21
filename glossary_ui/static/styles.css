@@ -1,3 +1,5 @@
+[hidden] { display: none !important; }
+
 :root {
   --ink: #1f2522;
   --muted: #6f7772;

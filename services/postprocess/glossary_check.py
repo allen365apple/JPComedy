@@ -23,6 +23,7 @@ from settings import settings
 from services.inference import Backend, is_agent_backend, run_inference
 from services.inference.tools import build_glossary_check_frame_tool_instruction
 from services.fixed_glossary.fixed_glossary import (
+    ACTIVE_GLOSSARY_PATH,
     FIXED_GLOSSARY_PATH,
     load_fixed_glossary,
 )
@@ -191,22 +192,23 @@ def glossary_check_subtitles(project: Project) -> None:
     original_pre_pass = _copy_pre_pass_raw_once(project)
 
     project.glossary_check_cache_dir.mkdir(parents=True, exist_ok=True)
-    project.glossary_check_report_path.unlink(missing_ok=True)
     gloss_json_dst = project.glossary_check_cache_dir / FIXED_GLOSSARY_PATH.name
     gloss_md_dst = (
         project.glossary_check_cache_dir / _FIXED_GLOSSARY_MD_PATH.name
     )
-    copied: list[Path] = []
     try:
         if not FIXED_GLOSSARY_PATH.exists():
             raise GlossaryCheckError(
                 f"fixed glossary json missing: {FIXED_GLOSSARY_PATH}"
-            )
-        shutil.copyfile(FIXED_GLOSSARY_PATH, gloss_json_dst)
-        copied.append(gloss_json_dst)
+        )
+        active = ACTIVE_GLOSSARY_PATH.get()
+        if active is not None:
+            pinned = json.loads(active.read_text(encoding="utf-8"))
+            gloss_json_dst.write_text(json.dumps(pinned["data"], ensure_ascii=False), encoding="utf-8")
+        else:
+            shutil.copyfile(FIXED_GLOSSARY_PATH, gloss_json_dst)
         if _FIXED_GLOSSARY_MD_PATH.exists():
             shutil.copyfile(_FIXED_GLOSSARY_MD_PATH, gloss_md_dst)
-            copied.append(gloss_md_dst)
         else:
             logger.warning(
                 f"fixed glossary philosophy md missing, proceeding without "
@@ -286,8 +288,5 @@ def glossary_check_subtitles(project: Project) -> None:
                 f"only when changes occur)"
             )
     finally:
-        for path in copied:
-            try:
-                path.unlink(missing_ok=True)
-            except OSError:
-                pass
+        # Preserve copied glossary artifacts for resumability and inspection.
+        pass

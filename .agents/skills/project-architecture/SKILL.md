@@ -147,13 +147,26 @@ Key control-flow details that are easy to break:
 
 ## Supporting services
 
+`services/fixed_glossary/sync.py` pins a validated glossary before processing,
+in `projects/<id>/.glossary/snapshot.json` (data, source commit, checksum).
+`GLOSSARY_REMOTE_REPO` opts into the shared source; empty means bundled local.
+`GLOSSARY_REMOTE_BRANCH` defaults to main. A ContextVar routes all default
+loader calls to the snapshot through translation/check/finalize, including
+async tasks; explicit paths (local UI matcher) still bypass this binding.
+Resumes do not update snapshots. Legacy pre-pass projects pin current local
+data with a warning; remote errors use last valid cache or local fallback.
+`jpcomedy.py` is the interactive novice entry point with setup/doctor and an
+explicit service-charge confirmation; `main.py` remains the advanced CLI.
+
 - `services/srt/` — SRT primitives: `SrtBlock`, `parse_srt`, `serialize_srt`,
   timecode math. The shared subtitle data model used everywhere.
 - `services/media.py` — `MediaProcessor`: ffmpeg wrappers (combine, extract
   audio, frame sampling, burn-in). FFmpeg must be on PATH. Burn-in runs with
   `-nostdin` (headless safety) and **validates output duration** afterward
   (`BURN_IN_DURATION_TOLERANCE_SECONDS`, 2 s): ffmpeg can exit 0 yet silently
-  truncate, so a too-short output raises instead of shipping.
+  truncate, so a too-short output raises instead of shipping. Combining source
+  media keeps downloaded inputs intact for resumable and alternate-output
+  workflows.
 - `services/ytdlp/` — download + metadata + TVer/Abema talent scraping +
   `broadcast_date.py` (resolves the announced on-air/publish date: YouTube/
   BiliBili/AcFun from yt-dlp timestamps, TVer from `broadcastDateLabel` month/day +

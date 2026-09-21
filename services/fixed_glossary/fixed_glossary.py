@@ -2,6 +2,7 @@
 
 import json
 import unicodedata
+from contextvars import ContextVar
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -9,6 +10,7 @@ from loguru import logger
 
 
 FIXED_GLOSSARY_PATH = Path(__file__).parent / "fixed_glossary.json"
+ACTIVE_GLOSSARY_PATH: ContextVar[Path | None] = ContextVar("active_glossary", default=None)
 
 # An entry maps a list of JP source aliases (ASR may transcribe the same term
 # in several forms) to a single ZH target. The alias list now holds only the
@@ -117,13 +119,14 @@ def _parse_talent_unit(obj: object, idx: int) -> TalentUnit | None:
     return TalentUnit(group, tuple(members))
 
 
-def load_fixed_glossary(path: Path = FIXED_GLOSSARY_PATH) -> FixedGlossary:
+def load_fixed_glossary(path: Path | None = None) -> FixedGlossary:
     """Load and validate the fixed glossary file.
 
     Missing file → empty glossary (feature off). Malformed entries are skipped
     with a warning so a typo never breaks the whole pipeline. An old flat-list
     file degrades safely to an empty glossary instead of crashing.
     """
+    path = path if path is not None else (ACTIVE_GLOSSARY_PATH.get() or FIXED_GLOSSARY_PATH)
     if not path.exists():
         logger.info(f"[fixed-glossary] File not found at {path}, skipping")
         return FixedGlossary()
@@ -137,6 +140,9 @@ def load_fixed_glossary(path: Path = FIXED_GLOSSARY_PATH) -> FixedGlossary:
             f"[fixed-glossary] Expected object at top level, got {type(raw).__name__}"
         )
         return FixedGlossary()
+
+    if "data" in raw and "sha256" in raw:
+        raw = raw["data"]  # immutable per-project snapshot envelope
 
     talents: list[TalentUnit] = []
     talents_raw = raw.get("talents", [])

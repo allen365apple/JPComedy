@@ -64,8 +64,8 @@ async def fix_chunk_structure(
     (workspace_dir / "source.srt").write_text(source_srt, encoding="utf-8")
     (workspace_dir / "broken.srt").write_text(broken_output, encoding="utf-8")
     fixed_path = workspace_dir / "fixed.srt"
-    # Drop any stale artifact so a crashed prior run cannot masquerade as success.
-    fixed_path.unlink(missing_ok=True)
+    # Preserve every artifact. A successful agent invocation must rewrite this
+    # path before it is read below.
 
     prompt = _PROMPT + _concrete_section(error)
     spec = settings.agent_common_model

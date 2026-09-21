@@ -1,233 +1,174 @@
-# Owarai GrillMaster
+# JPComedy｜一起看更多日本搞笑
 
-下載日本綜藝節目，生成繁體中文 SRT / ASS 字幕方便個人使用識讀
+我是「看我笑話工作室」的柏文。
 
-![](/doc/image2.jpg)
-![](/doc/image3.png)
-![](/doc/image1.png)
+看到 [elishahung 的 Owarai GrillMaster](https://github.com/elishahung/owarai-grillmaster) 之後，我覺得這個工具很棒，就在原作者的基礎上，加了一些自己翻譯時需要的功能，也整理成台灣搞笑夥伴可以一起使用的版本。
 
-> 本專案 fork 自 [elishahung/owarai-grillmaster](https://github.com/elishahung/owarai-grillmaster)，
-> 並依繁體中文使用者與日本漫才影片的實際翻譯需求持續擴充。
+以前我們想看日本搞笑，常常得靠字幕組和翻譯大大分享的資源。謝謝這些前輩，讓我們接觸到那麼多作品。現在有了 AI，希望大家也能動手翻譯更多日本綜藝、漫才和搞笑影片，看到不同的表演、學到更多東西，讓台灣的漫才圈、日式搞笑圈慢慢長大。
 
-## 本 Fork 的主要特色
+這個工具會把日文影片轉成**繁體中文字幕**，也可以把字幕直接燒進影片裡。AI 還是會聽錯人名、搞錯梗，需要大家幫忙看；我們也有一份共用詞庫，讓修正可以累積下來。
 
-1. **同時支援線上與本機影片**
-   - 可直接輸入 AcFun（含分 P）等 yt-dlp 支援的線上影片網址。
-   - 也可輸入已下載到本機的影片檔案路徑，不必重新下載。
-2. **主要透過 Codex 使用 GPT‑5.6 翻譯**
-   - ElevenLabs Scribe v2 負責日文語音辨識與字幕時間軸。
-   - GPT‑5.6 負責全片分析、繁中翻譯、語句潤飾、結構修正與詞彙校對。
-   - Gemini 仍保留為可替換 backend，適合需要直接把音訊交給模型判讀的情況。
-3. **視覺化漫才詞庫管理**
-   - 不必直接修改 JSON，即可搜尋、新增、編輯、封存與還原組合名、成員名、節目名和漫才術語。
-   - 可用正式翻譯流程的 matcher 預覽日文句子會命中哪些固定譯名。
+> 這是原作的 fork，保留與原作者的連結。翻譯在你自己的電腦上執行；詞庫網頁不會替你上傳或翻譯影片。
 
-完整的設計理由、翻譯流程與實作經驗，請見
-[日本綜藝與漫才影片翻譯：工作流與實作筆記](doc/漫才翻譯工作流與實作筆記.md)。
+## 我想做什麼？
 
-## 說明
+| 你想做的事 | 從這裡開始 |
+| --- | --- |
+| 自己翻譯一支影片 | 往下看「第一次使用」 |
+| 幫忙補藝人名稱、修譯名 | [打開漫才詞庫](https://allen365apple.github.io/owarai-grillmaster/) |
+| 發現翻譯錯字，想提供建議 | [提出詞庫建議](https://github.com/allen365apple/jpcomedy-glossary/issues/new) |
+| 已裝好，想開始翻譯 | Mac 雙擊 `開始翻譯.command` |
+| 想調整字幕字體和版面 | 看「我的字幕樣式」 |
 
-- 目標是 one shot 即可直接觀看，不想校準 (避免被暴雷)
-- 1 小時左右的影片成本大概 $20 台幣 (ASR $6 + 翻譯 $14)，處理時間約 15 分鐘，如果使用訂閱方是那就只有 ASR 成本
-- 設定偏好都是個人主觀，如需修改請自行 fork
-- 更詳細請[查看心得](/article.md)
+## 第一次使用：先花一點時間設定，以後貼網址就好
 
-## 工具
+目前以 **Mac** 為主要入門路線。你不需要會寫程式，但第一次需要安裝幾個工具、登入自己的帳號。
 
-經過各種嘗試，API、自架等組合後，覺得以下方式最合適
+### 1. 準備帳號與工具
 
-### ASR
+- **ElevenLabs 帳號與 API Key**：負責聽日文、產生時間軸。API Key 可以理解成給程式使用的帳號鑰匙，不要傳給別人。
+- **可使用 Codex 的帳號**：負責翻譯。依你的方案有使用額度，不代表無限免費。
+- **Homebrew**：Mac 的安裝工具。如果還沒裝，先照 [Homebrew 官網](https://brew.sh/) 完成。
 
-`ElevenLabs Scribe v2` 日文辨識效果穩定，尤其在一堆人大聲喧嘩，或者裝傻吐槽之間無間隔狀況都能分析出來
-
-### 翻譯
-
-本 Fork 的主要流程透過 `Codex` 使用 `GPT‑5.6`。模型會先根據完整日文字幕、節目資訊與代表影格理解人物關係、專有名詞、ボケ／ツッコミ分工及笑點結構，再進行分塊翻譯與後處理。
-
-模型 backend 仍可依階段自由更換為 `gemini-api`、`gemini-cli`、`gemini-agy`、`claude` 或 `codex`。其中 `Gemini CLI` 可以直接接收音訊；Codex 則主要使用 ElevenLabs 產生的日文字幕、節目脈絡與影片影格完成翻譯。
-
-進行**兩階段翻譯**：
-
-1. **Pre-pass**：完整 SRT + 節目資訊 + 完整音檔 + 少量全片代表圖片，輸出：人物對照、專有名詞/ASR 修正 dict、梗的固定譯法、整體語氣、每段局部摘要
-2. **併發翻譯**：SRT 按字元數平均切塊，每塊配上 pre-pass 簡報 + 局部摘要 + 該段音檔切片 + 該段的代表圖片，平行送出翻譯
-3. **組裝**：每塊輸出驗證 index/timecode 連續性，block 數相同時本地快速重對齊，否則交給 agent (Codex/Claude) 自我驗證修正，再拼接寫檔
-
-不只聽音訊，也會參考影片抽出的圖片，幫助辨識人物、場景、道具與畫面上的提示文字
-![](doc/image4.jpg)
-
-另外，翻譯過程的 chunk / pre-pass 資源與回應會保留在專案資料夾中，方便失敗後直接 resume，不用每次都重切音訊、重抽圖、重跑整個翻譯
-
-> GPT‑5.6／Codex 不取代 ASR：語音辨識與時間碼仍由 ElevenLabs Scribe v2 提供。
-
-## 流程
-
-```
-線上網址 / 影片 ID / 本機影片
-    ↓
-下載或匯入影片 (yt-dlp / 本機檔案)
-    ↓
-合併影片 (FFmpeg)
-    ↓
-提取音檔 (FFmpeg, mono 16kHz opus 編碼，輸出 .ogg)
-    ↓
-語音辨識 (ElevenLabs Scribe v2)
-    ↓
-產生 SRT 字幕
-    ↓
-Pre-pass 分析 (全片簡報，定調人物/專名/語氣/分段摘要)
-    ↓
-併發 chunk 翻譯 (分塊平行翻譯 → 組裝驗證修正)
-    ↓
-潤飾字幕 (agent, 可選)
-    ↓
-固定詞彙校對 (agent, 可選)
-    ↓
-Finalize：格式清理，輸出 ASS (套樣式) + SRT
-    ↓
-歸檔 (可選)
-    ↓
-封裝交付 (可選：字幕燒錄進影片)
-```
-
-## 安裝
-
-### 前置需求
-
-- Python 3.13+
-- FFmpeg (自行安裝並加入 PATH)
-- uv (推薦) 或 pip
-
-### 安裝步驟
+打開 Mac「終端機」，逐段貼上以下指令：
 
 ```bash
-# 使用 uv
+brew install git uv node ffmpeg-full
+npm install -g @openai/codex
+codex login
+```
+
+`codex login` 會引導登入。第一次進入 Codex，可確認帳號有哪些模型能用；後面設定時填入你有權限使用的模型名稱。[Codex 官方安裝說明](https://developers.openai.com/codex/cli/)
+
+**費用先說清楚：**語音辨識會使用你 ElevenLabs 的額度或產生費用，翻譯則使用你的 Codex 額度。請先看 [ElevenLabs 當前 API 費率](https://elevenlabs.io/pricing/api)，也可以先用短片試跑。本工具不是全程免費服務，處理時間也會隨片長與方案不同。
+
+### 2. 下載並設定 JPComedy（只做一次）
+
+```bash
+git clone https://github.com/allen365apple/owarai-grillmaster.git
+cd owarai-grillmaster
 uv sync
-
-# 或使用 pip
-pip install -e .
+.venv/bin/python jpcomedy.py --setup
 ```
 
-## 使用方式
+設定程式會請你貼上 ElevenLabs API Key、選擇 Codex 模型。輸入金鑰時不會顯示在畫面上，這是正常的。金鑰只保存在自己電腦的 `.env`，不要把這個檔案分享出去。
 
-### 視覺化漫才詞庫管理
-
-不需要直接編輯 JSON。macOS 可雙擊專案根目錄的
-`開啟漫才詞庫管理.command`，瀏覽器會開啟本機介面；也可以執行：
+確認環境：
 
 ```bash
-.venv/bin/python -m glossary_ui.server
+export PATH="$(brew --prefix ffmpeg-full)/bin:$PATH"
+.venv/bin/python jpcomedy.py --check
 ```
 
-然後開啟 <http://127.0.0.1:8765>。介面可搜尋、新增、修改、封存與還原
-藝人組合、成員和節目術語，也能用正式翻譯流程的 matcher 預覽命中結果。
-儲存前會保留本機備份，備份不會納入 Git。
+若看到找不到工具／尚未登入，照畫面提示處理即可。字幕還需要繁中文字型；預設使用 **Noto Sans CJK TC**，可由 [Noto CJK 官方專案](https://github.com/notofonts/noto-cjk) 下載並安裝，或在設定檔改成已安裝的繁中文字型。
 
-從模型選擇、影片處理到詞庫維護的完整設計與實作經驗，請見
-[漫才翻譯工作流與實作筆記](doc/漫才翻譯工作流與實作筆記.md)。
+### 3. 開始翻譯
 
-### 方式一：加入 PATH
+Mac 雙擊資料夾裡的 **`開始翻譯.command`**，依序：
 
-將 `scripts/` 資料夾加到系統 PATH，然後執行：
+1. 貼上影片網址，或已下載影片的完整路徑。
+2. 補充節目、人物名稱等提示；不知道可以直接按 Enter。
+3. 看完費用提醒，輸入 `YES` 開始。
+4. 等字幕完成，再選要不要把黑底中文字幕燒進影片。
+
+也可以直接執行：
 
 ```bash
-grill <SOURCE> [TRANSLATION_HINT]
+.venv/bin/python jpcomedy.py
 ```
 
-### 方式二：直接執行
+YouTube、Bilibili、AcFun 等網址是否能下載，仍取決於來源網站、影片權限和 yt-dlp 的支援情況。失敗時可以改用你有權取得的本機影片。
+
+**完成的檔案在哪裡？**程式最後會顯示完整路徑，也能在 `projects/影片ID/` 找到：
+
+| 檔案 | 怎麼用 |
+| --- | --- |
+| `video.mp4` | 原始影片 |
+| `video.cht.finalized.srt` | 完成的繁中字幕，可拖進 VLC 等播放器 |
+| `video.cht.ass` | 帶樣式的字幕，搭配支援 ASS 的播放器 |
+| `.burnin/本次輸出編號/video.cht.blackbox.mp4` | 選擇燒錄後產生的影片，字幕直接在畫面上 |
+| `.glossary/snapshot.json` | 這部影片採用的詞庫版本紀錄 |
+
+中途失敗時，重新輸入相同影片網址即可續跑。已完成階段會沿用，但未完成的付費請求仍可能重試並計費。
+
+> Windows／Linux 可以使用 Python 3.13+、uv、FFmpeg 和 Codex CLI 執行同樣的 Python 指令；雙擊 `.command` 的捷徑只適用於 Mac。Windows 的 Python 位於 `.venv\Scripts\python.exe`。
+
+## 一起維護漫才詞庫
+
+你不需要安裝翻譯工具，也可以參與。
+
+[**打開漫才詞庫網頁**](https://allen365apple.github.io/owarai-grillmaster/)
+
+詞庫用來統一「日文名字 → 繁中譯名」，包含漫才組合、成員、節目名稱和術語。它能提供固定譯名參考，但不保證 AI 每一句都會正確套用。
+
+### 現在就能做
+
+1. 搜尋日文或中文名稱，確認是不是已經有人加過。
+2. 按「編輯」或「新增」，填入日文原名、繁中譯名，必要時補充備註。
+3. 如果頁面提示「登入儲存尚未啟用」，先按「匯出草稿」，把 JSON 檔交給柏文整合；也可以按「提出詞庫建議」。
+
+**網站目前開放瀏覽和編輯草稿。**指定帳號直接登入、儲存的程式已備妥，尚待管理員完成 GitHub App 與雲端後端設定；頁面會顯示實際啟用狀態。草稿在按下成功儲存前，不會改動共用詞庫，關閉前請先匯出。
+
+### 登入儲存啟用後
+
+用 GitHub 帳號登入；已被加入編輯名單的夥伴按「儲存所有變更」就能更新共用詞庫。一般訪客仍可瀏覽與提出建議。若兩個人同時修改，系統會擋下舊版本的儲存，請先保留草稿，再重新載入比對。
+
+每次儲存都有修改紀錄，管理員能復原誤改。不確定的譯名請附來源或先提出建議；暫時不用的詞可以「封存」，不必永久刪掉。
+
+### 詞庫更新後，影片會怎樣？
+
+完成上述初次設定的新翻譯，會先檢查共用詞庫，下載有效的新版本。斷網時沿用快取或本機詞庫，畫面會說明。
+
+一部影片會固定使用同一份詞庫：**新詞庫影響下一部新翻譯，不會自動重翻已完成的影片。**已有翻譯進度卻沒有版本紀錄的舊影片，只能固定目前本機版本，無法回溯當時使用的詞庫。
+
+你也能雙擊 `開啟漫才詞庫管理.command` 維護本機詞庫。注意：**本機儲存不會同步到共用詞庫**；若想翻譯時只用自己改的版本，把 `.env` 中的 `GLOSSARY_REMOTE_REPO=` 留空。
+
+## 我的字幕樣式
+
+這個 fork 保存了柏文使用的字幕偏好，放在 [preferences.json](preferences.json)：
+
+- 白字、實心黑底、不加粗。
+- 一般字幕放下面；提供日文字卡出現時段時，這些時段的字幕上移。
+- 字級 117，以 1920×1080 的字幕座標為基準，依影片大小縮放。
+- Podcast 影片用黑底，左側 1/3 放封面，右側 2/3 放字幕。
+
+**避讓日文字卡目前需要提供時段資料，並不是所有影片都會自動偵測。**不同節目的字卡高度不一樣，建議先看截圖，調整位置後再渲染整部影片。
+
+可在 `preferences.local.json` 填入想覆寫的部分；這個檔案不會提交到 GitHub。例如：
+
+```json
+{"subtitle": {"font_size": 100, "above_margin_v": 300}}
+```
+
+已有字幕、只想燒進影片：
 
 ```bash
-python main.py <SOURCE> [TRANSLATION_HINT]
+.venv/bin/python -m services.subtitle_burnin "projects/影片ID"
 ```
 
-- `SOURCE`: 影片 ID 或完整 URL
-- `TRANSLATION_HINT`: 可選，提供給翻譯用的提示，通常是 bilibili 只有隱晦標題的需要
-
-### 範例
+先預覽第 30 秒：
 
 ```bash
-# 使用影片標題作為翻譯提示
-grill BV18KBJBeEmV
-
-# 自訂翻譯提示
-grill BV1CakEBaEJp "華大千鳥 - 全力100萬 - 間諜 1/7"
-
-# 使用完整 URL
-grill "https://www.bilibili.com/video/BV18KBJBeEmV"
-
-# AcFun（含分 P 網址）
-grill "https://www.acfun.cn/v/ac48119302_2" "M-1 Grand Prix 2025 決勝戰 FIRST ROUND 後半戰 6～10組目"
+.venv/bin/python -m services.subtitle_burnin "projects/影片ID" --preview 30
 ```
 
-## 環境變數
+避讓時段範例 `caption-ranges.json`：`[[12.5, 18.0], [35.0, 42.0]]`（秒）。加上 `--ranges caption-ranges.json` 後，字幕與這些時段有任何重疊就上移；超長文字會換行，仍建議檢查有沒有遮住畫面重要內容。
 
-建立 `.env` 檔案：
+Podcast 版型適用於已完成翻譯、具備音檔及封面的專案：
 
-```env
-# ElevenLabs Speech to Text
-ELEVENLABS_API_KEY=xxx
-ELEVENLABS_STT_MODEL=scribe_v2
-ELEVENLABS_STT_LANGUAGE_CODE=jpn
-
-# Agent / 模型 backends（每個階段一條 spec；gemini-cli/gemini-agy/claude/codex
-#   走訂閱制省 API 費用；claude/codex/gemini-agy 無法吃音訊，只用影格+字幕；gemini-agy 為
-#   Antigravity CLI）。AGENT_GEMINI_API_KEY 只在某階段用 gemini-api 時才需要。*_MODEL 寫成
-#   "backend/model" 或 "backend/model/effort"（effort 為 low/medium/high/extra，省略則預設 high）。
-AGENT_GEMINI_API_KEY=xxx
-AGENT_GEMINI_GCP_PROJECT=your-project-id       # 可選；gemini-cli 訂閱/Code Assist auth 時，臨時注入為 GOOGLE_CLOUD_PROJECT
-
-AGENT_PREPASS_MODEL=codex/gpt-5.6-sol/extra                 # backend: gemini-api / gemini-cli / gemini-agy / claude / codex
-AGENT_CHUNK_MODEL=codex/gpt-5.6-sol/extra                   # "backend/model" 或 "backend/model/effort"
-AGENT_POSTPROCESS_MODEL=codex/gpt-5.6-sol/extra             # 後處理（refine/glossary）：codex / claude / gemini-cli / gemini-agy
-AGENT_COMMON_MODEL=codex/gpt-5.5/medium                     # 輕量工具 agent（chunk 結構修正、播出日調查）；封面固定用 codex 並沿用此 effort
-
-# 可選：pre-pass 圖片抽樣與固定譯名表
-PREPASS_FRAME_INTERVAL_SECONDS=120     # pre-pass 全片圖片抽樣頻率（每幾秒一張，另外固定包含影片首尾幀）
-ENABLE_PREPASS_FULL_FIXED_GLOSSARY=false  # 固定譯名表整份帶入 pre-pass（false=只帶比對到的）
-VIDEO_FRAME_MAX_SIDE=768               # 影片抽幀最長邊尺寸（pre-pass、chunk 與 agent 隨選抽幀工具共用）
-
-# 可選：chunk 切塊與圖片抽樣
-CHUNK_CHAR_LIMIT=6000                  # 每塊目標字元數 (約 5 分鐘字幕)
-CHUNK_API_CONCURRENCY=10               # chunk 併發上限（gemini-api 網路請求，可開高）
-CHUNK_AGENT_CONCURRENCY=5              # chunk 併發上限（agent：gemini-cli/gemini-agy/claude/codex 本機子行程，故較低）
-CHUNK_MAX_RETRIES=3                    # chunk 失敗重試次數
-CHUNK_FRAME_INTERVAL_SECONDS=30        # chunk 圖片抽樣頻率（每幾秒一張，另外固定包含每段首尾幀）
-CHUNK_MISSING_BLOCK_TOLERANCE=2        # 每塊允許未對齊/缺漏字幕區塊數上限
-
-# 可選：後處理開關
-ENABLE_POSTPROCESS_REFINE=true            # 翻譯後再用 agent 潤飾繁中字幕
-ENABLE_POSTPROCESS_GLOSSARY_CHECK=true    # 潤飾後再用 agent 校對殘留的英文/假名專名
-ENABLE_COVER_GENERATION=true              # 下載後並行 Codex 風格化封面圖
-ENABLE_BROADCAST_DATE_AGENT_FALLBACK=true # metadata 解析不到放送日時，並行派 agent 上網研究放送日（結果存 .artifacts/date_research.json）
-
-# 可選：下載/歸檔/封裝
-ENABLE_OFFICIAL_SUBTITLES=true     # 下載時順抓平台官方 CC 字幕（TVer/Abema 等），作為翻譯的 ground truth 參照
-COOKIES_TXT_PATH=cookies.txt       # 影片來源網站 cookies (供 yt-dlp 使用)
-DOWNLOAD_MAX_HEIGHT=720            # 可選：下載畫質高度上限；未設定則下載最佳畫質
-ARCHIVED_PATH=NAS:\video\ai\     # 歸檔路徑 - 處理完移至 <archived_path>/YY/MM/YYMMDD_<id>_<name>/（YYMMDD 為放送/發布日期，無日期時移至 <archived_path>/etc/<id>_<name>/）
-PACKAGE_PATH=NAS:\video\package\ # 封裝路徑 - 將 ASS 字幕燒錄進影片並複製封面到 <package_path>/YYMMDD_<id>_<name>/（平面，不分子目錄；無日期時省略前綴）
+```bash
+.venv/bin/python -m services.podcast_video --project-dir "projects/影片ID" --title-zh "這集的中文名稱"
 ```
 
-## 專案結構
+這個指令只負責排版、燒字幕，不會自動取得所有平台（例如 Spotify）的音檔。
 
-```
-projects/{video_id}/
-├── project.json              # 專案狀態
-├── video.mp4                 # 合併後的影片
-├── video.ja.srt              # 日文原文字幕
-├── .asr/                     # ASR 音檔與 ElevenLabs 原始結果
-│   ├── audio.ogg
-│   └── asr.json
-├── .pre_pass/                # pre-pass 簡報與圖片快取
-│   ├── pre_pass.json
-│   └── pre_pass.raw.json     # glossary-check 更正 pre_pass 前的原始備份（可選）
-├── .chunks/                  # chunk 音檔 / 圖片 / 翻譯回應快取（供 resume）
-├── .refine/                  # Agent 潤飾報告（可選）
-├── .glossary_check/          # Agent 名詞校對報告與額外取幀（可選）
-├── poster.jpg                # yt-dlp 取得的原始封面
-├── poster.cover.png          # Agent 風格化封面（可選）
-├── video.cht.srt             # 繁體中文翻譯字幕
-├── video.cht.refined.srt     # Agent 潤飾後字幕（可選）
-├── video.cht.glossary_checked.srt  # Agent 固定詞彙校對後字幕（可選）
-├── video.cht.finalized.srt   # 最終 SRT（標點清理，給不支援 ASS 的裝置）
-└── video.cht.ass             # 最終 ASS（套樣式 + 標點清理）
-```
+## 想看更詳細的操作？
+
+- [進階翻譯與字幕操作](doc/使用指南.md)
+- [共用詞庫與登入部署說明（管理員用）](doc/共享詞庫部署.md)
+- [原本的漫才翻譯工作流與實作筆記](doc/漫才翻譯工作流與實作筆記.md)
+- 原作：[elishahung/owarai-grillmaster](https://github.com/elishahung/owarai-grillmaster)
+
+感謝原作者的開發，也謝謝長期分享翻譯資源的字幕組與前輩。希望這份工具能讓更多台灣搞笑夥伴，一起看懂、討論、學習更多日本搞笑作品。
+
+翻譯結果仍需要人工確認；分享影片或字幕前，請尊重原作者、演出者與影片平台的權利。

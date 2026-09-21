@@ -139,6 +139,20 @@ def _process_project_impl(
     options: WorkflowOptions,
     progress: NoopProgressReporter | None = None,
 ) -> None:
+    """Use one glossary revision for the complete invocation and later resumes."""
+    from services.fixed_glossary.sync import project_glossary
+
+    project = Project.from_source_str(project_id)
+    with project_glossary(project.project_path, repo=settings.glossary_remote_repo,
+                         branch=settings.glossary_remote_branch):
+        _process_project_pinned(project_id, options, progress)
+
+
+def _process_project_pinned(
+    project_id: str,
+    options: WorkflowOptions,
+    progress: NoopProgressReporter | None = None,
+) -> None:
     """Process a project through the resumable captioning pipeline."""
     logger.info(f"Starting project processing: {project_id}")
     if progress is None:

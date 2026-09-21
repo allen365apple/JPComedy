@@ -10,7 +10,6 @@ from pathlib import Path
 import ffmpeg
 import subprocess
 import tempfile
-import os
 import threading
 import shutil
 from loguru import logger
@@ -85,11 +84,12 @@ class MediaProcessor:
     def combine_videos(input_files: list[Path], output_file: Path) -> None:
         """Combine multiple video files into a single output file.
 
-        If only one input file is provided, it will be renamed to the output file.
+        If only one input file is provided, it will be copied to the output file.
         If multiple files are provided, they are concatenated using ffmpeg's concat
         demuxer without re-encoding (using copy codec).
 
-        Note: All input files are deleted after successful combination.
+        Input files are never moved or deleted; this keeps downloaded source
+        media available for resumable and alternative render workflows.
 
         Args:
             input_files: List of paths to input video files to be combined.
@@ -104,13 +104,19 @@ class MediaProcessor:
         )
         assert len(input_files) > 0, "No input files provided"
 
+        if output_file.exists():
+            raise FileExistsError(
+                f"refusing to replace existing combined video: {output_file}"
+            )
+
         try:
             if len(input_files) == 1:
                 only_file = input_files[0]
                 logger.debug(
-                    f"Single input file, renaming {only_file} to {output_file}"
+                    f"Single input file, copying {only_file} to {output_file}"
                 )
-                os.rename(only_file, output_file)
+                output_file.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(only_file, output_file)
                 logger.success(
                     f"Successfully created output file: {output_file}"
                 )
@@ -120,7 +126,10 @@ class MediaProcessor:
                 f"Creating concat file list for {len(input_files)} videos"
             )
             file_list_content = "\n".join(
-                [f"file '{input_file}'" for input_file in sorted(input_files)]
+                [
+                    f"file '{input_file.resolve()}'"
+                    for input_file in sorted(input_files)
+                ]
             )
 
             with tempfile.NamedTemporaryFile(
@@ -130,9 +139,7 @@ class MediaProcessor:
                 temp_file_path = temp_file.name
 
             logger.debug(f"Concatenating videos using ffmpeg")
-            ffmpeg.input(
-                f"concat:{temp_file_path}", format="concat", safe=0
-            ).output(
+            ffmpeg.input(temp_file_path, format="concat", safe=0).output(
                 str(output_file),
                 c="copy",
                 map=0,
@@ -140,11 +147,6 @@ class MediaProcessor:
             ).run(
                 overwrite_output=True
             )
-
-            logger.debug("Cleaning up temporary and input files")
-            os.remove(temp_file_path)
-            for input_file in input_files:
-                input_file.unlink()
 
             logger.success(f"Successfully combined videos into: {output_file}")
         except Exception as e:
@@ -328,6 +330,21 @@ class MediaProcessor:
                 max(0.0, duration_seconds - progress_seconds),
             )
             progress.finish(progress_task)
+
+    @staticmethod
+    def burn_in_subtitles_with_black_box(
+        video_file: Path,
+        subtitle_file: Path,
+        output_file: Path,
+    ) -> Path:
+        """Burn opaque black-box subtitles using the local frame renderer."""
+        from services.subtitle_burnin import burn_in_subtitles_with_black_box
+
+        return burn_in_subtitles_with_black_box(
+            video_file=video_file,
+            subtitle_file=subtitle_file,
+            output_file=output_file,
+        )
 
     @staticmethod
     def prepare_noise_chunks(
