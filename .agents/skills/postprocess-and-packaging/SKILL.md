@@ -77,3 +77,23 @@ Post-loop deliverable assembly (not a pipeline stage): burn ASS into the video
 `refine.md`/`glossary_check.md` — silently skipped when absent), plus a
 `noise`/`remix` packaging path (`noise.py`, `remix.py`). Burn-in itself lives
 in `services/media.py` (duration-validated; see **project-architecture**).
+
+## Podcast layout output
+
+Portable defaults live in `preferences.json`, with untracked
+`preferences.local.json` overrides via `services/preferences.py`.
+`python -m services.subtitle_burnin PROJECT [--ranges JSON] [--preview SECOND]`
+uses the 117px regular opaque-black profile at 1920x1080 ASS coordinates.
+It raises subtitles on any temporal overlap (not just the event midpoint),
+wraps long lines, and creates new `.burnin/<uuid>/` outputs. This CLI consumes
+external/manual caption ranges; automatic OCR is not integrated. FFmpeg runs
+with a safe ASS basename and validates video duration before reporting success.
+
+`services/podcast_video.py` provides a post-finalize renderer for audio-first
+programs. It builds `video.podcast.ass` with large centered subtitles confined
+to the right two-thirds, renders a 1920×1080 black canvas with the source cover
+fit into the left 640-pixel panel, and maps the original audio into
+`video.podcast.mp4`. `render_podcast_project` then creates a `成品/<title>/`
+package with the burned-in MP4 plus matching ASS/SRT and cover. Existing
+artifacts are reused or rejected when they differ; this path never replaces or
+deletes an existing output.

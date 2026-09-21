@@ -35,6 +35,14 @@ Entry point: `main.py` (Typer CLI) → `workflow.submit_project`. Run with
 `grill <SOURCE> [HINT]` (via `scripts/grill.bat` on PATH) or
 `python main.py <SOURCE> [HINT]`.
 
+## Destructive actions
+
+- Deletion is allowed only when the user explicitly requests it and the exact
+  targets are listed for review first.
+- Any cleanup helper must use an explicit allowlist of absolute paths, require
+  a typed confirmation, and must not use broad globs or workspace-wide
+  deletion.
+
 ## Environment & tooling
 
 - **Python 3.13+**, managed with **`uv`** + a local **`.venv`**. Install deps

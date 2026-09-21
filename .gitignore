@@ -232,3 +232,15 @@ node_modules
 
 .claude/settings.local.json
 _migration/
+
+# Personal maintenance tools, credentials, and generated cloud artifacts
+清理_Kotoba_Whisper.command
+.env.*
+!.env.example
+.dev.vars*
+*.pem
+.wrangler/
+site-build/
+.glossary-cache/
+preferences.local.json
+glossary_cloud/worker-configuration.d.ts

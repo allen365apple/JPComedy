@@ -79,6 +79,12 @@ class FakeProgressReporter:
 
 
 class WorkflowProgressTests(unittest.TestCase):
+    def setUp(self):
+        # These orchestration tests mock the project filesystem; snapshot IO
+        # is covered with real temporary files in test_glossary_sync.py.
+        from contextlib import nullcontext
+        self.enterContext(patch("services.fixed_glossary.sync.project_glossary", return_value=nullcontext()))
+
     def _build_project_mock(self):
         project = MagicMock()
         project.id = "demo"

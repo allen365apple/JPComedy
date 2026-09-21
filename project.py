@@ -29,6 +29,8 @@ TRANSLATED_FILE_NAME = "video.cht.srt"
 REFINED_SRT_FILE_NAME = "video.cht.refined.srt"
 FINALIZED_SRT_FILE_NAME = "video.cht.finalized.srt"
 ASS_FILE_NAME = "video.cht.ass"
+PODCAST_ASS_FILE_NAME = "video.podcast.ass"
+PODCAST_VIDEO_FILE_NAME = "video.podcast.mp4"
 POSTER_FILE_NAME = "poster.jpg"
 POSTER_COVER_FILE_NAME = "poster.cover.png"
 PRE_PASS_FILE_NAME = "pre_pass.json"
@@ -551,6 +553,10 @@ class Project(BaseModel):
             if video_file.is_file()
             and video_file.name
             not in (VIDEO_FILE_NAME, FULL_VIDEO_FILE_NAME)
+            # yt-dlp keeps the separately downloaded video stream when
+            # ``keepvideo`` is enabled.  The merged ``0.mp4`` is the actual
+            # segment; ``0.f100024.mp4`` is only an intermediate stream.
+            and ".f" not in video_file.stem
         ]
 
     @property
@@ -636,6 +642,16 @@ class Project(BaseModel):
     def ass_path(self) -> Path:
         """Get the path to the styled ASS subtitle file."""
         return self.project_path / ASS_FILE_NAME
+
+    @property
+    def podcast_ass_path(self) -> Path:
+        """Get the path to the Podcast right-panel ASS subtitle file."""
+        return self.project_path / PODCAST_ASS_FILE_NAME
+
+    @property
+    def podcast_video_path(self) -> Path:
+        """Get the path to the rendered Podcast layout video."""
+        return self.project_path / PODCAST_VIDEO_FILE_NAME
 
     @property
     def refined_srt_path(self) -> Path:

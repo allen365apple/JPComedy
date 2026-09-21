@@ -18,6 +18,12 @@ from services.ytdlp.info import AbemaTalent, TVerTalent, YtDlpVideoInfo
 
 
 class WorkflowBreakpointTests(unittest.TestCase):
+    def setUp(self):
+        # These orchestration tests mock the project filesystem; snapshot IO
+        # is covered with real temporary files in test_glossary_sync.py.
+        from contextlib import nullcontext
+        self.enterContext(patch("services.fixed_glossary.sync.project_glossary", return_value=nullcontext()))
+
     def _make_temp_dir(self) -> Path:
         base = Path(__file__).resolve().parents[1] / "tmp_test_artifacts"
         base.mkdir(parents=True, exist_ok=True)

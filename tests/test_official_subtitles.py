@@ -50,12 +50,12 @@ class NormalizeOfficialSubtitleTests(unittest.TestCase):
         self.assertFalse(normalize_official_subtitle([], self.output_path))
         self.assertFalse(self.output_path.exists())
 
-    def test_single_raw_file_normalized_and_consumed(self):
+    def test_single_raw_file_normalized_and_preserved(self):
         raw_path = self._write_raw()
         self.assertTrue(
             normalize_official_subtitle([raw_path], self.output_path)
         )
-        self.assertFalse(raw_path.exists())
+        self.assertTrue(raw_path.exists())
         blocks = parse_srt(self.output_path.read_text(encoding="utf-8"))
         self.assertEqual([b.index for b in blocks], [1, 2, 3])
         self.assertEqual(blocks[0].text, "（田中）こんばんは")
@@ -81,8 +81,8 @@ class NormalizeOfficialSubtitleTests(unittest.TestCase):
         )
         self.assertTrue(self.output_path.exists())
         # Both variants are consumed; the exact `ja` one was the source.
-        self.assertFalse(raw_exact.exists())
-        self.assertFalse(raw_variant.exists())
+        self.assertTrue(raw_exact.exists())
+        self.assertTrue(raw_variant.exists())
 
     def test_section_shift_filters_and_rebases(self):
         raw_path = self._write_raw()

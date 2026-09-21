@@ -29,9 +29,9 @@ function showToast(message, isError = false) {
 function setDirty(value = true) {
   state.dirty = value;
   const status = $("#saveStatus");
-  status.textContent = value ? "有尚未儲存的變更" : "所有變更已儲存";
+  status.textContent = value ? "有尚未儲存的變更" : "詞庫已載入";
   status.classList.toggle("is-dirty", value);
-  $("#saveButton").disabled = !value;
+  $("#saveButton").disabled = !value || !glossaryStorage.canSave();
 }
 
 function activeMembers(unit) {
@@ -308,8 +308,7 @@ function applyEditor() {
 
 async function loadGlossary() {
   try {
-    const response = await fetch("/api/glossary", { cache: "no-store" });
-    const result = await response.json();
+    const result = await glossaryStorage.load();
     if (!result.ok) throw new Error(result.message);
     state.data = result.data;
     setDirty(false);
@@ -325,13 +324,7 @@ async function saveGlossary() {
   button.disabled = true;
   button.textContent = "儲存中…";
   try {
-    const response = await fetch("/api/glossary/save", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(state.data),
-    });
-    const result = await response.json();
-    if (!response.ok || !result.ok) throw new Error(result.message || "儲存失敗");
+    const result = await glossaryStorage.save(state.data);
     state.data = result.data;
     setDirty(false);
     render();
@@ -341,7 +334,7 @@ async function saveGlossary() {
     showToast(error.message, true);
   } finally {
     button.textContent = "儲存所有變更";
-    button.disabled = !state.dirty;
+    button.disabled = !state.dirty || !glossaryStorage.canSave();
   }
 }
 

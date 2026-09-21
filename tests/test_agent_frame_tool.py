@@ -169,7 +169,7 @@ class FrameToolInstructionTests(unittest.TestCase):
 class GetFramesCliTests(unittest.TestCase):
     def test_stage_wrapper_writes_to_extra_frames(self):
         with tempfile.TemporaryDirectory() as d:
-            root = Path(d)
+            root = Path(d).resolve()
             project_dir = root / "project"
             project_dir.mkdir()
             video = project_dir / "video.mp4"
@@ -216,7 +216,7 @@ class GetFramesCliTests(unittest.TestCase):
 
     def test_glossary_check_wrapper_writes_to_extra_frames(self):
         with tempfile.TemporaryDirectory() as d:
-            root = Path(d)
+            root = Path(d).resolve()
             project_dir = root / "project"
             project_dir.mkdir()
             video = project_dir / "video.mp4"

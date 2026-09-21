@@ -61,6 +61,9 @@ ModelSpecField = Annotated[
 
 
 class Settings(BaseSettings):
+    glossary_remote_repo: str = Field(default="", description="Shared glossary owner/repo; blank uses local glossary")
+    glossary_remote_branch: str = Field(default="main", description="Shared glossary branch, pinned per project")
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

@@ -272,7 +272,7 @@ class GlossaryCheckTests(unittest.TestCase):
             with self.assertRaises(gc.GlossaryCheckError):
                 gc.glossary_check_subtitles(project)
 
-    def test_codex_failure_cleans_copied_glossary(self):
+    def test_codex_failure_preserves_copied_glossary(self):
         project = self._make_project()
         self._write_refined(project, _KANA_SRT)
 
@@ -283,10 +283,10 @@ class GlossaryCheckTests(unittest.TestCase):
                 gc.glossary_check_subtitles(project)
 
         cache = project.glossary_check_cache_dir
-        self.assertFalse((cache / "fixed_glossary.json").exists())
-        self.assertFalse((cache / "fixed_glossary.md").exists())
+        self.assertTrue((cache / "fixed_glossary.json").exists())
+        self.assertTrue((cache / "fixed_glossary.md").exists())
 
-    def test_structural_divergence_raises_and_cleans(self):
+    def test_structural_divergence_raises_and_preserves_evidence(self):
         project = self._make_project()
         self._write_refined(project, _KANA_SRT)
 
@@ -305,8 +305,8 @@ class GlossaryCheckTests(unittest.TestCase):
                 gc.glossary_check_subtitles(project)
 
         cache = project.glossary_check_cache_dir
-        self.assertFalse((cache / "fixed_glossary.json").exists())
-        self.assertFalse((cache / "fixed_glossary.md").exists())
+        self.assertTrue((cache / "fixed_glossary.json").exists())
+        self.assertTrue((cache / "fixed_glossary.md").exists())
 
 
 if __name__ == "__main__":

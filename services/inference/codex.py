@@ -76,14 +76,12 @@ def run_codex_exec(
     if output_last_message_path is not None:
         capture_path = output_last_message_path.resolve()
         capture_path.parent.mkdir(parents=True, exist_ok=True)
-        cleanup_capture = False
     else:
         handle = tempfile.NamedTemporaryFile(
             mode="w", suffix=".txt", delete=False, encoding="utf-8"
         )
         handle.close()
         capture_path = Path(handle.name)
-        cleanup_capture = True
 
     cmd: list[str] = [
         executable,
@@ -112,37 +110,30 @@ def run_codex_exec(
     )
 
     try:
-        try:
-            result = run_cli(
-                cmd,
-                input=prompt,
-                timeout=effective_timeout,
-            )
-        except subprocess.TimeoutExpired as exc:
-            raise CodexInvocationError(
-                f"codex exec timed out after {effective_timeout}s"
-            ) from exc
+        result = run_cli(
+            cmd,
+            input=prompt,
+            timeout=effective_timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise CodexInvocationError(
+            f"codex exec timed out after {effective_timeout}s"
+        ) from exc
 
-        if result.returncode != 0:
-            stderr_tail = "\n".join(
-                (result.stderr or "").strip().splitlines()[-20:]
-            )
-            raise CodexInvocationError(
-                f"codex exec exited with code {result.returncode}: {stderr_tail}"
-            )
+    if result.returncode != 0:
+        stderr_tail = "\n".join(
+            (result.stderr or "").strip().splitlines()[-20:]
+        )
+        raise CodexInvocationError(
+            f"codex exec exited with code {result.returncode}: {stderr_tail}"
+        )
 
-        if capture_path.exists() and capture_path.stat().st_size > 0:
-            final_message = capture_path.read_text(
-                encoding="utf-8", errors="replace"
-            )
-        else:
-            final_message = result.stdout or ""
-        # The final message is logged centrally by `run_inference` (one site for
-        # every backend, with middle-truncation), not here.
-        return final_message
-    finally:
-        if cleanup_capture:
-            try:
-                capture_path.unlink(missing_ok=True)
-            except OSError:
-                pass
+    if capture_path.exists() and capture_path.stat().st_size > 0:
+        final_message = capture_path.read_text(
+            encoding="utf-8", errors="replace"
+        )
+    else:
+        final_message = result.stdout or ""
+    # The final message is logged centrally by `run_inference` (one site for
+    # every backend, with middle-truncation), not here.
+    return final_message

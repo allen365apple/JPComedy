@@ -1,0 +1,8 @@
+{
+  "name": "jpcomedy-glossary-api",
+  "private": true,
+  "type": "module",
+  "scripts": {"test": "node --test", "check": "wrangler types && tsc --noEmit", "deploy": "wrangler deploy", "dev": "wrangler dev"},
+  "dependencies": {"jose": "^6.0.0"},
+  "devDependencies": {"wrangler": "^4.0.0", "typescript": "^5.9.0", "@types/node": "^22.0.0"}
+}

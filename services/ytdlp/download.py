@@ -111,6 +111,13 @@ def download_video(
         },
         "merge_output_format": "mp4",
         "format": _download_format(),
+        # YouTube currently requires a JavaScript runtime for the signed
+        # player responses. Node is already bundled on the supported macOS
+        # workstation and avoids the incomplete-format/403 path.
+        "js_runtimes": {"node": {}},
+        # Keep intermediate/download evidence; this project is resumable and
+        # its operator policy forbids deleting source artifacts.
+        "keepvideo": True,
         # NB: the thumbnail convertor is not declared here — it is added via
         # add_post_processor below so the jpeg-extension fixup can run first.
         "postprocessors": [

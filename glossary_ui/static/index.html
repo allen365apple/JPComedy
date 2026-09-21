@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GrillMaster 漫才詞庫</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <title>JPComedy 漫才詞庫</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <header class="app-header">
@@ -27,7 +27,7 @@
           <span class="soft-icon" aria-hidden="true">字</span>
           <div>
             <strong>固定譯名管理</strong>
-            <p>這裡儲存後，下一支影片會直接套用。</p>
+            <p>成功儲存共用詞庫後，新翻譯就能取得更新。</p>
           </div>
         </div>
 
@@ -56,11 +56,18 @@
             <li>填入日文與固定繁中譯名</li>
             <li>按右上角「儲存所有變更」</li>
           </ol>
-          <p class="help-note">每次儲存都會自動備份，不怕改錯。</p>
+          <p class="help-note">本機儲存有備份；共用詞庫保留 Git 版本。尚未開放登入時，請先匯出草稿。</p>
         </section>
       </aside>
 
       <main class="main-content">
+        <section id="cloudPanel" class="help-card" hidden>
+          <p id="cloudNotice" role="status"></p>
+          <button id="loginButton" class="button button-dark" type="button">使用 GitHub 登入</button>
+          <button id="exportDraft" class="button button-secondary" type="button">匯出草稿</button>
+          <a id="suggestLink" target="_blank" rel="noopener noreferrer">提出詞庫建議</a>
+          <a href="https://github.com/allen365apple/owarai-grillmaster#readme">如何自己翻譯影片</a>
+        </section>
         <section class="hero-panel">
           <div>
             <p class="eyebrow">TRANSLATION GLOSSARY</p>
@@ -137,6 +144,8 @@
     </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="/app.js" defer></script>
+    <script src="./cloud-config.js" defer></script>
+    <script src="./storage.js" defer></script>
+    <script src="./app.js" defer></script>
   </body>
 </html>

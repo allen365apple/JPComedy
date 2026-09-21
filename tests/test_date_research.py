@@ -235,6 +235,12 @@ class ApplyDateResearchResultTests(unittest.TestCase):
 
 
 class WorkflowDateResearchGateTests(unittest.TestCase):
+    def setUp(self):
+        # These orchestration tests mock the project filesystem; snapshot IO
+        # is covered with real temporary files in test_glossary_sync.py.
+        from contextlib import nullcontext
+        self.enterContext(patch("services.fixed_glossary.sync.project_glossary", return_value=nullcontext()))
+
     """Kick-off gating and join-time apply of the async research task."""
 
     def _build_completed_project_mock(self) -> MagicMock:

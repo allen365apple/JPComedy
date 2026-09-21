@@ -26,9 +26,8 @@ def normalize_official_subtitle(
 
     Requires all raw subtitle files to belong to a single video part
     (multi-part projects are not supported); language variants of that part
-    are duplicates and the exact `ja` one is preferred. Raw files are deleted
-    after a successful write, mirroring how combine_videos consumes its
-    inputs. Returns True when the official SRT was written.
+    are duplicates and the exact `ja` one is preferred. Raw files are kept as
+    download evidence. Returns True when the official SRT was written.
     """
     if not raw_paths:
         logger.info(
@@ -72,8 +71,6 @@ def normalize_official_subtitle(
         for i, block in enumerate(blocks, start=1)
     ]
     output_path.write_text(serialize_srt(blocks), encoding="utf-8")
-    for path in raw_paths:  # unused language variants are duplicates
-        path.unlink()
     logger.success(
         f"Official subtitle normalized: {output_path.name} "
         f"({len(blocks)} blocks from {raw_path.name})"
