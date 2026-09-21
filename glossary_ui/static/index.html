@@ -13,6 +13,14 @@
         <p class="eyebrow">OWARAI GRILLMASTER</p>
         <h1>日本漫才詞庫</h1>
       </div>
+      <section id="cloudPanel" class="header-editor-tools" hidden aria-label="共用詞庫編輯功能">
+        <p id="cloudNotice" class="cloud-notice" role="status"></p>
+        <label id="passwordBox" class="password-box">
+          <span>編輯密碼</span>
+          <input id="editorPassword" type="password" autocomplete="current-password" placeholder="請輸入密碼" />
+        </label>
+        <button id="loginButton" class="button button-dark" type="button">解鎖編輯</button>
+      </section>
       <div class="save-area">
         <span id="saveStatus" class="save-status">已載入</span>
         <button id="saveButton" class="button button-primary" type="button" disabled>
@@ -58,21 +66,17 @@
           </ol>
           <p class="help-note">本機儲存有備份；共用詞庫保留 Git 版本。尚未開放登入時，請先匯出草稿。</p>
         </section>
+
+        <section class="sidebar-actions" aria-label="其他工具">
+          <p class="eyebrow">其他工具</p>
+          <button id="exportDraft" class="button button-secondary sidebar-button" type="button">匯出詞庫草稿</button>
+          <a id="suggestLink" class="button button-secondary sidebar-button" target="_blank" rel="noopener noreferrer">提出詞庫建議</a>
+          <a class="button button-secondary sidebar-button" href="./tutorial.html">新手教學：怎麼翻譯影片？</a>
+          <a class="button button-secondary sidebar-button" href="https://github.com/allen365apple/JPComedy#readme">如何自己翻譯影片</a>
+        </section>
       </aside>
 
       <main class="main-content">
-        <section id="cloudPanel" class="help-card" hidden>
-          <p id="cloudNotice" role="status"></p>
-          <label id="passwordBox" class="password-box">
-            <span>共用編輯密碼</span>
-            <input id="editorPassword" type="password" autocomplete="current-password" placeholder="請向柏文索取密碼" />
-          </label>
-          <button id="loginButton" class="button button-dark" type="button">解鎖編輯功能</button>
-          <button id="exportDraft" class="button button-secondary" type="button">匯出草稿</button>
-          <a id="suggestLink" target="_blank" rel="noopener noreferrer">提出詞庫建議</a>
-          <a href="./tutorial.html">新手教學：怎麼翻譯影片？</a>
-          <a href="https://github.com/allen365apple/JPComedy#readme">如何自己翻譯影片</a>
-        </section>
         <section class="hero-panel">
           <div>
             <p class="eyebrow">TRANSLATION GLOSSARY</p>
