@@ -30,6 +30,7 @@ from .base import (
     DEFAULT_TIMEOUT_SECS,
     InferenceError,
     InferenceNotInstalledError,
+    run_cli,
 )
 from .schema_enforce import extract_json_object
 from .tools import frame_tool_command_prefixes
@@ -203,15 +204,10 @@ def _invoke_once(
         f"(via stdin) cwd={cwd} timeout={timeout}s"
     )
     try:
-        result = subprocess.run(
+        result = run_cli(
             cmd,
-            check=False,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            timeout=timeout,
-            capture_output=True,
             input=prompt,
+            timeout=timeout,
             env=_gemini_cli_env(),
             cwd=str(cwd) if cwd is not None else None,
         )
