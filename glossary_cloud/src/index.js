@@ -7,6 +7,16 @@ import { validateGlossary, isAllowed } from "./validation.js";
 const MAX_BODY = 2_000_000;
 const secrets = ["GH_CLIENT_ID", "GH_CLIENT_SECRET", "GH_APP_ID", "GH_INSTALLATION_ID", "GH_PRIVATE_KEY", "SESSION_SECRET"];
 
+/** Encode UTF-8 JSON as Base64 without relying on Node's Buffer global. */
+function encodeBase64(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  for (let index = 0; index < bytes.length; index += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + 0x8000));
+  }
+  return btoa(binary);
+}
+
 /** A safe error whose message may be displayed to users. */
 export class ApiError extends Error {
   constructor(status, message) { super(message); this.status = status; }
@@ -36,10 +46,41 @@ async function readJson(stream) {
   } finally { reader.releaseLock(); }
 }
 
+/** Fetch a bounded UTF-8 response body for public raw-file reads. */
+async function readBytes(stream) {
+  const reader = stream?.getReader();
+  if (!reader) throw new ApiError(502, "上游沒有回傳資料");
+  let length = 0;
+  const chunks = [];
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      length += value.byteLength;
+      if (length > MAX_BODY) { await reader.cancel(); throw new ApiError(502, "詞庫檔案過大"); }
+      chunks.push(value);
+    }
+    const bytes = new Uint8Array(length);
+    let offset = 0;
+    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
+    return bytes;
+  } finally { reader.releaseLock(); }
+}
+
+/** Compute the SHA-1 blob identifier expected by GitHub's contents API. */
+async function gitBlobSha(bytes) {
+  const header = new TextEncoder().encode(`blob ${bytes.length}\0`);
+  const payload = new Uint8Array(header.length + bytes.length);
+  payload.set(header);
+  payload.set(bytes, header.length);
+  const digest = await crypto.subtle.digest("SHA-1", payload);
+  return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
+}
+
 /** Make a bounded GitHub API call without forwarding credentials to other hosts. */
 async function github(path, token = "", init = {}) {
   const response = await fetch(`https://api.github.com${path}`, {
-    ...init, signal: AbortSignal.timeout(12000), redirect: "error",
+    ...init, signal: AbortSignal.timeout(12000), redirect: "manual",
     headers: { "User-Agent": "JPComedy", Accept: "application/vnd.github+json",
       "X-GitHub-Api-Version": "2022-11-28", "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}) },
@@ -49,6 +90,19 @@ async function github(path, token = "", init = {}) {
     throw new ApiError(502, `GitHub 暫時無法完成操作 (${response.status})`);
   }
   return readJson(response.body);
+}
+
+/** Read the public glossary without consuming GitHub's REST API rate limit. */
+async function rawGlossary(env) {
+  const url = `https://raw.githubusercontent.com/${env.GLOSSARY_REPO}/${encodeURIComponent(env.GLOSSARY_BRANCH)}/glossary.json`;
+  const response = await fetch(url, {
+    signal: AbortSignal.timeout(12000), redirect: "manual",
+    headers: { "User-Agent": "JPComedy" },
+  });
+  if (!response.ok) throw new ApiError(502, `詞庫來源暫時無法讀取 (${response.status})`);
+  const bytes = await readBytes(response.body);
+  const data = validateGlossary(JSON.parse(new TextDecoder().decode(bytes)));
+  return { data, sha: await gitBlobSha(bytes) };
 }
 
 /** Fixed server-side destination: clients cannot choose repository or path. */
@@ -114,7 +168,7 @@ async function callback(request, env) {
   const code = url.searchParams.get("code");
   if (!code) throw new ApiError(400, "GitHub 授權已取消");
   const response = await fetch("https://github.com/login/oauth/access_token", {
-    method: "POST", signal: AbortSignal.timeout(12000), redirect: "error",
+    method: "POST", signal: AbortSignal.timeout(12000), redirect: "manual",
     headers: { Accept: "application/json", "Content-Type": "application/json" },
     body: JSON.stringify({ client_id: env.GH_CLIENT_ID, client_secret: env.GH_CLIENT_SECRET, code,
       redirect_uri: `${url.origin}/auth/callback` }),
@@ -149,7 +203,7 @@ async function save(request, env) {
   const result = await github(contentsPath(env), token, {
     method: "PUT", body: JSON.stringify({ branch: env.GLOSSARY_BRANCH, sha: body.sha,
       message: `fix(glossary): 更新詞庫（@${user.login}, GitHub ID ${user.sub}）`,
-      content: Buffer.from(JSON.stringify(data, null, 2) + "\n").toString("base64") }),
+      content: encodeBase64(JSON.stringify(data, null, 2) + "\n") }),
   });
   return Response.json({ ok: true, data, sha: result.content.sha, commit: result.commit.sha });
 }
@@ -164,9 +218,8 @@ async function route(request, env) {
   if (url.pathname === "/api/glossary") {
     if (request.method === "PUT") return save(request, env);
     if (request.method === "GET") {
-      const file = await github(`${contentsPath(env)}?ref=${encodeURIComponent(env.GLOSSARY_BRANCH)}`);
-      const data = validateGlossary(JSON.parse(Buffer.from(file.content, "base64").toString("utf8")));
-      return Response.json({ ok: true, sha: file.sha, data });
+      const file = await rawGlossary(env);
+      return Response.json({ ok: true, sha: file.sha, data: file.data });
     }
   }
   throw new ApiError(404, "找不到這個操作");

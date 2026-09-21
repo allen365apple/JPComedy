@@ -37,6 +37,19 @@ test("missing OAuth config is explicit, login state cannot be forged", async () 
   assert.equal(bad.status, 403);
 });
 
+test("public reads use the raw glossary and return the Git blob SHA", async (t) => {
+  const data = { talents: [], others: [{ jp: ["漫才"], zh: "漫才" }] };
+  t.mock.method(globalThis, "fetch", async (url) => {
+    assert.equal(url, "https://raw.githubusercontent.com/test/glossary/main/glossary.json");
+    return new Response(JSON.stringify(data));
+  });
+  const response = await worker.fetch(new Request("https://api.test/api/glossary"), env);
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.deepEqual(body.data, data);
+  assert.match(body.sha, /^[0-9a-f]{40}$/);
+});
+
 test("authorized writes target only glossary.json and preserve optimistic locking", async (t) => {
   const { privateKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
   const configured = { ...env, GH_PRIVATE_KEY: privateKey.export({ type: "pkcs8", format: "pem" }) };
