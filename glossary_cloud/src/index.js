@@ -46,37 +46,6 @@ async function readJson(stream) {
   } finally { reader.releaseLock(); }
 }
 
-/** Fetch a bounded UTF-8 response body for public raw-file reads. */
-async function readBytes(stream) {
-  const reader = stream?.getReader();
-  if (!reader) throw new ApiError(502, "上游沒有回傳資料");
-  let length = 0;
-  const chunks = [];
-  try {
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      length += value.byteLength;
-      if (length > MAX_BODY) { await reader.cancel(); throw new ApiError(502, "詞庫檔案過大"); }
-      chunks.push(value);
-    }
-    const bytes = new Uint8Array(length);
-    let offset = 0;
-    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.length; }
-    return bytes;
-  } finally { reader.releaseLock(); }
-}
-
-/** Compute the SHA-1 blob identifier expected by GitHub's contents API. */
-async function gitBlobSha(bytes) {
-  const header = new TextEncoder().encode(`blob ${bytes.length}\0`);
-  const payload = new Uint8Array(header.length + bytes.length);
-  payload.set(header);
-  payload.set(bytes, header.length);
-  const digest = await crypto.subtle.digest("SHA-1", payload);
-  return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
-}
-
 /** Make a bounded GitHub API call without forwarding credentials to other hosts. */
 async function github(path, token = "", init = {}) {
   const response = await fetch(`https://api.github.com${path}`, {
@@ -92,19 +61,24 @@ async function github(path, token = "", init = {}) {
   return readJson(response.body);
 }
 
-/** Read the public glossary without consuming GitHub's REST API rate limit. */
+/** Decode GitHub Contents API's Base64 file payload into UTF-8 bytes. */
+function decodeBase64(text) {
+  const binary = atob(text.replaceAll(/\s/g, ""));
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
+  return bytes;
+}
+
+/** Read the glossary and use GitHub's authoritative blob SHA for optimistic locking. */
 async function rawGlossary(env) {
-  const url = `https://raw.githubusercontent.com/${env.GLOSSARY_REPO}/${encodeURIComponent(env.GLOSSARY_BRANCH)}/glossary.json`;
-  const response = await fetch(url, {
-    signal: AbortSignal.timeout(12000), redirect: "manual",
-    cache: "no-store",
-    cf: { cacheTtl: 0, cacheEverything: false },
-    headers: { "User-Agent": "JPComedy" },
-  });
-  if (!response.ok) throw new ApiError(502, `詞庫來源暫時無法讀取 (${response.status})`);
-  const bytes = await readBytes(response.body);
+  const path = `${contentsPath(env)}?ref=${encodeURIComponent(env.GLOSSARY_BRANCH)}`;
+  const result = await github(path);
+  if (typeof result.content !== "string" || !/^[0-9a-f]{40}$/.test(result.sha || "")) {
+    throw new ApiError(502, "GitHub 沒有回傳有效的詞庫檔案");
+  }
+  const bytes = decodeBase64(result.content);
   const data = validateGlossary(JSON.parse(new TextDecoder().decode(bytes)));
-  return { data, sha: await gitBlobSha(bytes) };
+  return { data, sha: result.sha };
 }
 
 /** Fixed server-side destination: clients cannot choose repository or path. */
