@@ -14,7 +14,7 @@
 - 使用共用漫才詞庫，統一藝人、組合、節目和術語的譯名。
 - 重新執行時沿用已完成的步驟，減少重做和額外消耗。
 
-如果你完全不懂程式，請直接看[新手教學頁](https://allen365apple.github.io/owarai-grillmaster/tutorial.html)。下面也把每一步寫出來。
+如果你完全不懂程式，請直接看[新手教學頁](https://allen365apple.github.io/JPComedy/tutorial.html)。下面也把每一步寫出來。
 
 ## 先看懂：你需要準備什麼？
 
@@ -63,8 +63,8 @@ codex login
 ### 2. 下載 JPComedy
 
 ```bash
-git clone https://github.com/allen365apple/owarai-grillmaster.git
-cd owarai-grillmaster
+git clone https://github.com/allen365apple/JPComedy.git
+cd JPComedy
 uv sync
 ```
 
@@ -100,8 +100,8 @@ Windows 也可以使用。請先安裝：
 安裝後，按右鍵在 JPComedy 資料夾開啟「終端機」，輸入：
 
 ```powershell
-git clone https://github.com/allen365apple/owarai-grillmaster.git
-cd owarai-grillmaster
+git clone https://github.com/allen365apple/JPComedy.git
+cd JPComedy
 uv sync
 npm install -g @openai/codex
 codex login
@@ -142,7 +142,7 @@ YouTube、Bilibili、AcFun 等網站是否能下載，取決於影片權限與 `
 
 ## 維護共用漫才詞庫
 
-請開啟 [漫才詞庫網頁](https://allen365apple.github.io/owarai-grillmaster/)。
+請開啟 [漫才詞庫網頁](https://allen365apple.github.io/JPComedy/)。
 
 ### 一般夥伴怎麼修改？
 
@@ -185,7 +185,7 @@ YouTube、Bilibili、AcFun 等網站是否能下載，取決於影片權限與 `
 
 ## 需要幫忙
 
-請先看[新手教學頁](https://allen365apple.github.io/owarai-grillmaster/tutorial.html)。如果仍然失敗，請提供：
+請先看[新手教學頁](https://allen365apple.github.io/JPComedy/tutorial.html)。如果仍然失敗，請提供：
 
 - Mac 或 Windows
 - `jpcomedy.py --check` 的結果
@@ -195,7 +195,7 @@ YouTube、Bilibili、AcFun 等網站是否能下載，取決於影片權限與 `
 
 ## 相關連結
 
-- [新手教學頁](https://allen365apple.github.io/owarai-grillmaster/tutorial.html)
+- [新手教學頁](https://allen365apple.github.io/JPComedy/tutorial.html)
 - [共用漫才詞庫 repository](https://github.com/allen365apple/jpcomedy-glossary)
 - [進階翻譯與字幕操作](doc/使用指南.md)
 - [共用詞庫部署說明（管理員用）](doc/共享詞庫部署.md)
