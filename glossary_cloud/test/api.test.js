@@ -56,10 +56,12 @@ test("unauthorized and cross-origin writes fail before any GitHub call", async (
   }
 });
 
-test("public reads use the raw glossary and return the Git blob SHA", async (t) => {
+test("public reads bypass raw-file caches and return the Git blob SHA", async (t) => {
   const data = { talents: [], others: [{ jp: ["漫才"], zh: "漫才" }] };
-  t.mock.method(globalThis, "fetch", async (url) => {
+  t.mock.method(globalThis, "fetch", async (url, init) => {
     assert.equal(url, "https://raw.githubusercontent.com/test/glossary/main/glossary.json");
+    assert.equal(init.cache, "no-store");
+    assert.deepEqual(init.cf, { cacheTtl: 0, cacheEverything: false });
     return new Response(JSON.stringify(data));
   });
   const response = await worker.fetch(new Request("https://api.test/api/glossary"), env);

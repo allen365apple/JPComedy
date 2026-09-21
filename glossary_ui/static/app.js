@@ -331,7 +331,16 @@ async function saveGlossary() {
     showToast("儲存成功！下一支翻譯會直接使用。", false);
   } catch (error) {
     setDirty(true);
-    showToast(error.message, true);
+    if (error.status === 409 && glossaryStorage.refreshVersion) {
+      try {
+        await glossaryStorage.refreshVersion();
+        showToast("版本已更新。你的修改仍保留在畫面上；確認沒有其他人的修改後，請再按一次儲存。", true);
+      } catch {
+        showToast(error.message, true);
+      }
+    } else {
+      showToast(error.message, true);
+    }
   } finally {
     button.textContent = "儲存所有變更";
     button.disabled = !state.dirty || !glossaryStorage.canSave();

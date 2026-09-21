@@ -97,6 +97,8 @@ async function rawGlossary(env) {
   const url = `https://raw.githubusercontent.com/${env.GLOSSARY_REPO}/${encodeURIComponent(env.GLOSSARY_BRANCH)}/glossary.json`;
   const response = await fetch(url, {
     signal: AbortSignal.timeout(12000), redirect: "manual",
+    cache: "no-store",
+    cf: { cacheTtl: 0, cacheEverything: false },
     headers: { "User-Agent": "JPComedy" },
   });
   if (!response.ok) throw new ApiError(502, `詞庫來源暫時無法讀取 (${response.status})`);

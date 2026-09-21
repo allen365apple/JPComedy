@@ -10,9 +10,11 @@ async function jsonRequest(url, options = {}) {
   const response = await fetch(url, { cache: "no-store", ...options });
   const result = await response.json();
   if (!response.ok || result.ok === false) {
-    throw new Error(response.status === 409
+    const error = new Error(response.status === 409
       ? "有人已更新詞庫。你的修改仍在畫面上；請先匯出草稿，再重新載入、比對後儲存。"
       : result.message || `連線失敗 (${response.status})`);
+    error.status = response.status;
+    throw error;
   }
   return result;
 }
@@ -41,6 +43,11 @@ window.glossaryStorage = {
     });
     cloudSha = result.sha;
     return result;
+  },
+  async refreshVersion() {
+    if (!cloudMode || !cloudConfig.apiBase) return;
+    const result = await jsonRequest(`${cloudConfig.apiBase}/api/glossary`);
+    cloudSha = result.sha;
   },
 };
 
