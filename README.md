@@ -4,7 +4,7 @@
 
 我看到 [elishahung 的 Owarai GrillMaster](https://github.com/elishahung/owarai-grillmaster) 後，覺得這個工具很棒，所以把它 fork 下來，再加上我自己翻譯日本綜藝、漫才和 Podcast 時需要的功能。
 
-以前我們常常只能等字幕組或翻譯大大分享日本搞笑影片。現在有了 AI，我希望台灣的漫才圈、日式搞笑圈可以自己翻更多作品，一邊看、一邊學，也讓更多人認識日本搞笑。
+以前因為資源落差，日本搞笑那邊有很多內容，但台灣的我們不一定有辦法接觸。現在希望透過這個工具，讓台灣漫才圈的大家更容易一起取得、攝取更多日本搞笑資源，在觀看、翻譯與討論中一起進步，也讓更多人認識日本搞笑。
 
 這個工具可以幫你：
 
@@ -14,121 +14,57 @@
 - 使用共用漫才詞庫，統一藝人、組合、節目和術語的譯名。
 - 重新執行時沿用已完成的步驟，減少重做和額外消耗。
 
-如果你完全不懂程式，請直接看[新手教學頁](https://allen365apple.github.io/JPComedy/tutorial.html)。下面也把每一步寫出來。
+如果你完全不懂程式，不需要自己研究安裝指令；照下面的方式，把工作交給 ChatGPT 或 Claude 即可。
 
-## 先看懂：你需要準備什麼？
+## 新手先準備兩樣東西
 
-你要準備兩個自己的帳號：
+### 1. AI 服務：推薦 ChatGPT 桌面版
 
-1. **ElevenLabs**：負責聽日文，產生有時間軸的日文字幕。需要 API Key，會使用 ElevenLabs 額度。
-2. **Codex**：負責把日文翻成繁體中文。需要登入 Codex CLI，會使用你帳號的額度。
+建議先下載並登入 [ChatGPT 桌面版](https://chatgpt.com/download/)，再訂閱目前最便宜的付費方案即可。ChatGPT 會代你操作電腦、安裝 JPComedy 需要的工具，並協助你執行翻譯。
 
-這不是完全免費的線上服務。開始翻譯前，程式會再次提醒你；第一次建議先拿短片測試。
+如果想使用 Claude，也可以下載 [Claude Desktop](https://claude.com/download/)；其他資訊請看 [Claude 官方頁面](https://claude.com/pricing)。
 
-### ElevenLabs 帳號和 API Key：照這 5 步做
+### 2. ElevenLabs API
 
-1. 開啟 [ElevenLabs 註冊頁](https://elevenlabs.io/app/sign-up)，註冊並登入。
-2. 開啟 [ElevenLabs API Keys 頁面](https://elevenlabs.io/app/settings/api-keys)。如果找不到，請看[官方 API Key 說明](https://elevenlabs.io/docs/help-center/technical/how-do-i-authorize-myself-using-an-api-key)。
-3. 按 **Create API key**，名稱可以寫 `JPComedy`。
-4. API Key 顯示後，立刻按複製。很多時候它只會完整顯示一次。
-5. 這串 Key 只貼到自己電腦的設定畫面，**不要貼到群組、不要放進 GitHub、不要放進公開網頁**。
+ElevenLabs 主要負責把影片日文語音轉成「有時間軸的日文字幕」（ASR），之後再由 ChatGPT 或 Claude 協助翻成繁體中文。建議使用 **Pay as you go 按量計費**，不用固定訂閱月方案；目前 Scribe v2 的語音辨識約為 **US$0.22／小時**。
 
-ElevenLabs 官方也提醒 API Key 是秘密，若被別人拿到，對方可能使用你的帳號額度。費用與方案請看 [ElevenLabs Pricing](https://elevenlabs.io/pricing/api)。
+簡單估算：如果一次準備 **US$10** 的使用額度，大約可以處理 **45 小時音訊**。換算成影片大約是：
 
-### Codex：照這 2 步做
+- 1 小時一部：約 45 部。
+- 1.5 小時一部：約 30 部。
+- 30 分鐘一部：約 90 部。
 
-安裝後打開「終端機」或「Windows 終端機」，輸入：
+依目前 JPComedy 的實際使用經驗，一部常見影片的日文 ASR 約 **NT$8**；實際仍會依影片長度與當時價格變化。請看 [ElevenLabs API 價格](https://elevenlabs.io/pricing/api)。
+
+申請好 API Key 後，不要把 Key 貼到聊天或 GitHub；請讓 AI 引導你在自己的電腦上安全設定。
+
+## 把這段 prompt 貼給 AI
 
 ```text
-npm install -g @openai/codex
-codex login
+我想在這台電腦安裝並使用 JPComedy，請使用這個 GitHub repository：
+https://github.com/allen365apple/JPComedy
+
+請完整幫我完成以下事情，並用繁體中文一步一步引導我：
+1. 檢查這台電腦的環境，安裝 JPComedy 及它需要的工具與檔案。
+2. 教我如何申請 ElevenLabs 帳號與 API Key，並說明它的用途、方案和可能的費用。請不要要求我把 API Key 貼在這個對話裡，改為引導我在本機安全設定。
+3. 安裝完成後，簡單教我怎麼翻譯日文節目：我會提供影片網址或本機影片、節目或人物提示；請先檢查輸入，再告訴我可能使用的 AI 額度或費用，等我確認後才開始。
+4. 翻譯時請協助我完成下載或讀取影片、日文語音辨識、繁體中文翻譯、字幕整理，以及輸出字幕或完成影片。
+5. 如果遇到錯誤，請先用簡單中文解釋原因，再協助我繼續處理。
+
+每次要執行可能付費、下載檔案、修改設定或要求系統權限的操作，請先說明用途並等我確認。不要把我的 API Key、密碼或 cookies 顯示在對話、寫進 GitHub 或提交到公開檔案。
 ```
 
-`codex login` 會開啟登入流程。需要更完整的說明時，請看 [Codex CLI 官方教學](https://developers.openai.com/codex/cli)。
+之後照著 AI 的指示操作即可。第一次建議先用短片測試；ElevenLabs 的語音辨識和其他 AI 翻譯可能會消耗額度。
 
-## Mac：第一次安裝
+## 開始翻譯
 
-### 1. 安裝基本工具
-
-如果你的 Mac 還沒有 Homebrew，先到 [Homebrew 官網](https://brew.sh/) 安裝。接著打開「終端機」，逐行輸入：
-
-```bash
-brew install git uv node ffmpeg-full
-npm install -g @openai/codex
-codex login
-```
-
-字幕需要繁中文字型。建議安裝 [Noto Sans CJK](https://github.com/notofonts/noto-cjk)，或把設定改成電腦裡已有的繁中字型。
-
-### 2. 下載 JPComedy
-
-```bash
-git clone https://github.com/allen365apple/JPComedy.git
-cd JPComedy
-uv sync
-```
-
-### 3. 第一次設定 ElevenLabs Key
-
-```bash
-.venv/bin/python jpcomedy.py --setup
-```
-
-畫面會問你 ElevenLabs API Key。貼上時不會顯示文字，這是正常的。接著選擇你有權限使用的 Codex 模型。
-
-設定只會保存在自己電腦的 `.env`，不會提交到 GitHub。
-
-### 4. 檢查有沒有裝好
-
-```bash
-export PATH="$(brew --prefix ffmpeg-full)/bin:$PATH"
-.venv/bin/python jpcomedy.py --check
-```
-
-看到工具前面有 `✓`，就可以開始。
-
-## Windows：第一次安裝
-
-Windows 也可以使用。請先安裝：
-
-- [Python](https://www.python.org/downloads/windows/)
-- [Git for Windows](https://git-scm.com/download/win)
-- [uv](https://docs.astral.sh/uv/getting-started/installation/)
-- Node.js
-- FFmpeg：請從 [FFmpeg 官方下載頁](https://ffmpeg.org/download.html) 的 Windows build 連結下載，並把包含 `ffmpeg.exe`、`ffprobe.exe` 的資料夾加入 PATH。
-
-安裝後，按右鍵在 JPComedy 資料夾開啟「終端機」，輸入：
-
-```powershell
-git clone https://github.com/allen365apple/JPComedy.git
-cd JPComedy
-uv sync
-npm install -g @openai/codex
-codex login
-uv run python jpcomedy.py --setup
-uv run python jpcomedy.py --check
-```
-
-之後直接雙擊：
-
-- `開始翻譯.bat`：最簡單，推薦先用這個。
-- `開始翻譯.ps1`：PowerShell 版本。
-
-如果 Windows 擋住 PowerShell，先使用 `.bat`；不需要修改系統安全設定。
-
-## 開始翻譯：Mac、Windows 都一樣
-
-1. 雙擊啟動檔：Mac 用 `開始翻譯.command`，Windows 用 `開始翻譯.bat`。
-2. 貼上影片網址，或貼上本機影片的完整路徑。
-3. 輸入節目名稱、藝人名稱等提示；不知道可以直接按 Enter。
-4. 看清楚費用提醒；確定要開始時輸入 `YES`。
-5. 等字幕完成，程式會問你要不要把黑底中文字幕燒進影片。
+安裝完成後，回到同一個 ChatGPT 或 Claude 對話，直接提供影片網址或本機影片，並補充節目、人物、固定譯名等提示。
 
 YouTube、Bilibili、AcFun 等網站是否能下載，取決於影片權限與 `yt-dlp` 支援。如果下載失敗，可以先用你有權取得的本機影片。
 
 ## 完成後的檔案在哪裡？
 
-每支影片會放在 `projects/影片ID/`：
+新完成的影片會放在 `projects/中文片名__影片ID/`。中文片名由翻譯前的 AI 分析產生，後面的影片 ID 用來避免同名影片互相覆蓋；如果 AI 無法判斷片名，才會保留原本的影片 ID 資料夾。已經完成的舊專案不會被自動改名：
 
 | 檔案 | 用途 |
 | --- | --- |
@@ -138,69 +74,33 @@ YouTube、Bilibili、AcFun 等網站是否能下載，取決於影片權限與 `
 | `.burnin/.../video.cht.blackbox.mp4` | 字幕已經直接燒進去的影片 |
 | `.glossary/snapshot.json` | 這部影片實際採用的詞庫版本 |
 
-中途失敗時，重新輸入同一支影片即可續跑。已完成的階段會沿用；還沒完成的付費請求可能會重新執行，所以不要一直重試不明錯誤。
+中途失敗時，回到原本的 ChatGPT 或 Claude 對話，請它檢查狀態並繼續處理。已完成的階段會沿用；還沒完成的付費請求可能會重新執行，所以不要一直重試不明錯誤。
 
-## 維護共用漫才詞庫
+## 漫才詞庫
 
-請開啟 [漫才詞庫網頁](https://allen365apple.github.io/JPComedy/)。
+請開啟 [漫才詞庫網頁](https://allen365apple.github.io/JPComedy/)。網頁內已有操作方式；如果要新增或修改資料，請向柏文索取共用編輯密碼。
 
-### 一般夥伴怎麼修改？
-
-1. 搜尋日文名字，確認是不是已經有資料。
-2. 按「新增」或「編輯」。
-3. 填入日文原名、固定繁中譯名和備註。
-4. 請向柏文取得共用編輯密碼，在網頁輸入密碼解鎖。
-5. 按右上角「儲存所有變更」。
-
-密碼不會寫進網頁或 GitHub；網頁只會暫時取得一個編輯工作階段。忘記密碼或不確定譯名時，請先按「匯出草稿」或[提出詞庫建議](https://github.com/allen365apple/jpcomedy-glossary/issues/new)。
-
-每次成功儲存都會留下 Git 歷史。如果兩個人同時修改，系統會拒絕較舊版本，請先匯出自己的草稿、重新載入最新詞庫，再比對後儲存。
-
-### 詞庫更新會不會影響舊影片？
-
-- 新影片開始時會確認共用詞庫有沒有新版本。
-- 這支影片會固定使用當下的詞庫版本。
-- 詞庫更新只影響之後的新翻譯，不會自動改寫已完成的字幕。
-
-## 字幕版型已經幫你保存
+## 預設字幕樣式
 
 設定放在 [preferences.json](preferences.json)：
 
 - 白字、實心黑底、不加粗。
 - 正常字幕放在畫面下方。
 - 日文大字卡出現時，指定時段的中文字幕往上移。
-- 預設字幕字級 117。
+- 預設字幕字級 100。
 - Podcast 影片左側 1/3 放封面，右側 2/3 放大字幕。
 
-目前日文大字卡還需要提供時段資料，不是每支影片都會自動偵測。建議先產生預覽截圖，確認位置後再輸出整部影片。
-
-## 「直接做成網頁」可不可以？
-
-可以，但要分清楚兩種網頁：
-
-1. **公開 HTML 網頁**：適合做詞庫、教學和操作介面，但瀏覽器不能安全地直接啟動本機 Python、`yt-dlp` 和 FFmpeg。
-2. **本機網頁工具**：你在自己電腦啟動一個小型本機服務，瀏覽器只是控制面板；影片、API Key、字幕和渲染都留在本機。
-
-目前本專案先完成安全的「公開詞庫網頁＋本機翻譯工具」。下一階段可以把 `jpcomedy.py` 的設定、下載、轉錄、翻譯、預覽和燒片流程包成「本機網頁工具」，讓使用者不用碰終端機；API Key 仍只留在自己的電腦，不放到公開 GitHub Pages。
-
-## 需要幫忙
-
-請先看[新手教學頁](https://allen365apple.github.io/JPComedy/tutorial.html)。如果仍然失敗，請提供：
-
-- Mac 或 Windows
-- `jpcomedy.py --check` 的結果
-- 終端機最後 20 行錯誤
-
-請不要把 ElevenLabs API Key、共用詞庫密碼或 `.env` 截圖傳出來。
+API Key、密碼、cookies 和私人影片不要貼進 AI 對話，也不要提交到 GitHub。
 
 ## 相關連結
 
-- [新手教學頁](https://allen365apple.github.io/JPComedy/tutorial.html)
-- [共用漫才詞庫 repository](https://github.com/allen365apple/jpcomedy-glossary)
 - [進階翻譯與字幕操作](doc/使用指南.md)
-- [共用詞庫部署說明（管理員用）](doc/共享詞庫部署.md)
 - [原作者的 Owarai GrillMaster](https://github.com/elishahung/owarai-grillmaster)
+
+## 版權與分享提醒
+
+請尊重影片原作者、演出者與平台的版權。本工具不代表你取得影片、字幕、翻譯或公開散布的權利；請只處理自己有權使用的內容，不要隨意下載、上傳或分享沒有取得授權的影片、字幕與翻譯成品。分享前也請確認所在地法律、平台規範與權利人的許可。
 
 謝謝原作者，也謝謝長期分享日本搞笑翻譯資源的字幕組和前輩。希望這個工具能讓更多台灣夥伴一起看懂、討論、學習日本搞笑。
 
-分享影片或字幕前，請尊重原作者、演出者與影片平台的權利；AI 翻譯結果也請務必人工確認。
+AI 翻譯結果也請務必人工確認。
