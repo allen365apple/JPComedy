@@ -1,0 +1,59 @@
+# CANDIDATE — NOT INSTALLED. This file lives in web/deploy/ on purpose so it does
+# NOT auto-trigger. The live workflow is still .github/workflows/pages.yml, which
+# publishes the OLD standalone glossary (glossary_ui/static).
+#
+# When the user authorises publishing the integrated site, copy this to
+# .github/workflows/pages.yml (replacing the old one), after completing every
+# item in web/PUBLISH_CHECKLIST.md.
+#
+# How the integrated site maps to GitHub Pages:
+# - Project site serves at https://<user>.github.io/JPComedy/ , so the base path
+#   is /JPComedy/. All asset/data links in the site are relative, so no code
+#   change is needed; verify locally with `npm run preview:basepath`.
+# - The artifact is ONLY web/public-release (an allowlisted, prebuilt directory), never
+#   the repository root, the archive, the PPT, or any collaboration file.
+# - web/content/public-data.json and web/public/assets/ are the committed,
+#   source-attributed public input. The publish build assembles only this set.
+name: 漫才詞庫網頁（整合版候選）
+on:
+  push:
+    branches: [main]
+    paths: ['web/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build public source-attributed release
+        working-directory: web
+        run: npm run build:public
+      # The public build must NOT read the developer's local archive. It uses only
+      # the source-attributed content committed under web/.
+      - name: Verify publishable artifact exists
+        run: |
+          test -f web/public-release/index.html
+          test -f web/public-release/data.json
+          test -f web/public-release/glossary-snapshot.json
+          PUBLIC_DIR=public-release node web/scripts/verify-public-artifact.mjs
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/public-release
+      - uses: actions/deploy-pages@v4
+        id: deployment

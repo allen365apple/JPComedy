@@ -1,0 +1,7 @@
+# Generated data is rebuilt from the committed source-attributed release input.
+public/data.json
+public/glossary-snapshot.json
+public-release/
+glossary-crosswalk.json
+qa/
+node_modules/
