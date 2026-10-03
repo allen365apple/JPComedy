@@ -3,7 +3,7 @@
 這是 JPComedy 網站的**正式維護位置**：首頁「日式搞笑大補帖」與「漫才詞庫」子頁面同屬一個原生 JS 單頁應用，共用頁首／導覽／頁尾與版型，站內完成瀏覽、解鎖、編輯與儲存，不外跳舊詞庫、不使用 iframe。
 
 - 原始示範 `../../jpcomedy-site/` 保留不動，作為歷史對照；後續開發集中在本目錄。
-- Git repository：`owarai-grillmaster`（fork 遠端為 `allen365apple/JPComedy`）。目前線上 Pages 仍是舊獨立詞庫，本整合尚未上線。
+- Git repository：`owarai-grillmaster`（fork 遠端為 `allen365apple/JPComedy`）。Pages 整合版網址為 `https://allen365apple.github.io/JPComedy/`，部署由主分支的 Pages workflow 管理。
 
 ## 本機開發與預覽
 
@@ -43,4 +43,6 @@ PLAYWRIGHT_MODULE=<playwright/index.mjs> JPCOMEDY_URL=http://127.0.0.1:4173/ nod
 
 ## 發布
 
-Pages workflow 候選見 `deploy/pages.candidate.yml`（未安裝、不自動觸發）；發布前逐項檢查 `PUBLISH_CHECKLIST.md`。目前僅完成本機整合與驗收，未合併 main、未部署、未寫入正式共用詞庫。
+正式 Pages workflow 為 `.github/workflows/pages.yml`，主分支的網站更新會建置並驗證 `public-release` 後部署。只發布白名單產物，不上傳本機 archive、私人設定或工作區。舊 `tutorial.html` 轉向整合詞庫頁。正式詞庫使用既有 Worker 與密碼，不因網站部署覆寫詞庫。
+
+2026-10-03 查核：網站與備用快照為 265 位，正式雲端詞庫為 205 位。網站建頁完成不代表正式詞庫已同步；後續需另行核對並經授權更新。

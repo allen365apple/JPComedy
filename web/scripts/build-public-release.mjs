@@ -6,7 +6,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const sourceDir = path.join(root, 'public');
 const releaseDir = path.join(root, 'public-release');
 const source = JSON.parse(await readFile(path.join(root, 'content/public-data.json'), 'utf8'));
-const staticFiles = ['index.html', 'app.js', 'catalog.mjs', 'glossary-core.mjs', 'glossary.mjs', 'styles.css', 'favicon.svg', 'profile-placeholder.svg'];
+const staticFiles = ['index.html', 'tutorial.html', 'app.js', 'catalog.mjs', 'glossary-core.mjs', 'glossary.mjs', 'styles.css', 'favicon.svg', 'profile-placeholder.svg'];
 await mkdir(releaseDir, { recursive: true });
 for (const file of staticFiles) await copyFile(path.join(sourceDir, file), path.join(releaseDir, file));
 
