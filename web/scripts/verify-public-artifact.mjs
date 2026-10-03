@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const webRoot = fileURLToPath(new URL('../', import.meta.url));
 const publicRoot = path.join(webRoot, process.env.PUBLIC_DIR || 'public');
-const required = ['index.html', 'app.js', 'catalog.mjs', 'glossary-core.mjs', 'glossary.mjs', 'site-config.js', 'styles.css', 'favicon.svg', 'data.json', 'glossary-snapshot.json'];
+const required = ['index.html', 'app.js', 'catalog.mjs', 'catalog.json', 'glossary-core.mjs', 'glossary.mjs', 'site-config.js', 'styles.css', 'favicon.svg', 'data.json', 'glossary-snapshot.json'];
 const forbiddenMarkers = [
   'local-preview-only',
   '/Users/',
@@ -40,6 +40,15 @@ if (!Array.isArray(data.groups) || data.groups.length === 0) throw new Error('�
 if (!snapshot.data?.talents || !Array.isArray(snapshot.data.others)) throw new Error('公開詞庫快照格式不完整');
 
 const files = await walk(publicRoot);
+const catalog = JSON.parse(await readFile(path.join(publicRoot, 'catalog.json'), 'utf8'));
+if (catalog.groups.length !== data.groups.length) throw new Error('快速目錄與完整資料數量不符');
+for (const group of catalog.groups) {
+  await assertFile(group.detailUrl);
+  const detail = JSON.parse(await readFile(path.join(publicRoot, group.detailUrl), 'utf8'));
+  if (detail.id !== group.id) throw new Error('介紹檔案與目錄 ID 不符');
+  if (JSON.stringify(detail) !== JSON.stringify(data.groups.find(g => g.id === group.id))) throw new Error('詳細介紹資料不完整');
+  await assertFile(group.coverSmall);
+}
 const textFiles = files.filter((file) => /\.(html|js|mjs|css|json|svg|txt)$/i.test(file));
 for (const relative of textFiles) {
   const text = await readFile(path.join(publicRoot, relative), 'utf8');

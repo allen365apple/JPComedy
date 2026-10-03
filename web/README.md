@@ -8,12 +8,13 @@
 ## 本機開發與預覽
 
 ```sh
+npm ci                # 安裝鎖定版本的圖片最佳化建置工具
 npm run build          # 由來源產生 public/data.json、public/assets、glossary-snapshot.json
 npm run build:public   # 由 content/public-data.json 組裝 source-attributed 公開產物
 npm run verify:public  # 檢查公開產物的來源、檔案與敏感資訊
 npm start              # http://127.0.0.1:4173/ （根路徑預覽）
 npm run preview:basepath   # http://127.0.0.1:4190/JPComedy/ （模擬 Pages 子路徑）
-npm test              # 20 項 Node 單元測試（catalog + glossary 核心，含 409 衝突）
+npm test              # 22 項 Node 單元測試（含完整資料拆分、快取版本與 409 衝突）
 PLAYWRIGHT_MODULE=<playwright/index.mjs> JPCOMEDY_URL=http://127.0.0.1:4173/ node tests/browser.mjs
 ```
 
@@ -42,6 +43,12 @@ PLAYWRIGHT_MODULE=<playwright/index.mjs> JPCOMEDY_URL=http://127.0.0.1:4173/ nod
 `glossary-core.mjs` 以穩定藝人 ID 對應詞條（含改名／藝名／單人）；已建介紹頁顯示「查看介紹」雙向連結，未建介紹頁的詞條仍可瀏覽與編輯，但不生成不存在的介紹連結。介紹、作品與風格標籤仍屬網站編輯資料（`content/profiles.json`），不寫進翻譯詞庫 schema。
 
 ## 發布
+
+### 載入效能
+
+公開建置保留完整 `data.json` 供驗證，但首頁只讀取 `catalog.json` 搜尋目錄；每位藝人的完整文章另存為具內容雜湊的 `profiles/*.json`，點進頁面才載入，同一分頁重訪會重用已成功的請求。詞庫模組也只在進入詞庫時載入。
+
+圖片由 Sharp 產生不裁切、不放大的 WebP 衍生檔，卡片 480px、主要照片 960px、文章附圖 1100px；來源原檔不修改、不刪除。首頁預載搜尋目錄與主圖，非首屏卡片採延遲載入。資料、程式與圖片版本變更會改變資源版本，兼顧快取與更新。
 
 正式 Pages workflow 為 `.github/workflows/pages.yml`，主分支的網站更新會建置並驗證 `public-release` 後部署。只發布白名單產物，不上傳本機 archive、私人設定或工作區。舊 `tutorial.html` 轉向整合詞庫頁。正式詞庫使用既有 Worker 與密碼，不因網站部署覆寫詞庫。
 
