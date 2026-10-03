@@ -1,5 +1,19 @@
 import { filterGroups, matchesQuery, relatedGroups, escapeHtml as esc } from './catalog.mjs';
-import { mountGlossary, unmountGlossary } from './glossary.mjs';
+let glossaryModule;
+const profileRequests = new Map();
+let routeVersion = 0;
+
+/** Reuse successful profile requests, and let a failed request be retried. */
+async function loadProfile(group) {
+  if (!group.detailUrl) return group;
+  if (!profileRequests.has(group.id)) {
+    profileRequests.set(group.id, fetch(`./${group.detailUrl}`).then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    }).catch(error => { profileRequests.delete(group.id); throw error; }));
+  }
+  return profileRequests.get(group.id);
+}
 
 const main = document.querySelector('#main');
 const arrow = '<span aria-hidden="true">↗</span>';
@@ -32,7 +46,7 @@ function tagList(g) {
 function groupCard(g, compact = false) {
   return `<article class="group-card${compact ? ' compact' : ''}">
     <a class="card-link" href="#/groups/${g.id}" aria-label="認識 ${esc(g.zh)} ${esc(g.jp)}">
-      <div class="card-image${g.photo.imageUrl ? ' official-photo' : ''}"><img src="./${g.cover}" alt="${esc(g.zh)}的藝人照片" loading="lazy" width="600" height="400"><span class="rank-badge">${badge(g)}</span><span class="card-go" aria-hidden="true">↗</span></div>
+      <div class="card-image${g.photo.imageUrl ? ' official-photo' : ''}"><img src="./${g.coverSmall || g.cover}" srcset="./${g.coverSmall || g.cover} 480w, ./${g.cover} 960w" sizes="(max-width: 600px) 90vw, (max-width: 1000px) 45vw, 30vw" decoding="async" alt="${esc(g.zh)}的藝人照片" loading="lazy" width="600" height="400"><span class="rank-badge">${badge(g)}</span><span class="card-go" aria-hidden="true">↗</span></div>
       <div class="card-copy"><p class="card-kicker">${esc(g.styleGroup || g.format)}</p><h3>${esc(g.zh)}</h3><p class="card-jp" lang="ja">${esc(g.jp)}</p><p class="card-headline">${esc(g.headline)}</p>${tagList(g)}</div>
     </a>
   </article>`;
@@ -50,9 +64,9 @@ function hero() {
     </div>
     <div class="hero-art" aria-label="藝人精選：拓郎、DonDecollete、笨蛋節奏">
       <span class="orbit orbit-one" aria-hidden="true"></span><span class="orbit orbit-two" aria-hidden="true"></span>
-      <a class="photo-note photo-back solo-note" href="#/groups/${third.id}"><img src="./${third.cover}" alt="${esc(third.zh)}" width="600" height="400"><span><b>03 / ${esc(third.zh)}</b><small lang="ja">${esc(third.jp)}</small></span></a>
-      <a class="photo-note photo-front" href="#/groups/${first.id}"><img src="./${first.cover}" alt="${esc(first.zh)}" width="500" height="333"><span><b>01 / ${esc(first.zh)}</b><small lang="ja">${esc(first.jp)}</small></span></a>
-      <a class="photo-note photo-side" href="#/groups/${second.id}"><img src="./${second.cover}" alt="${esc(second.zh)}" width="500" height="333"><span><b>02 / ${esc(second.zh)}</b><small lang="ja">${esc(second.jp)}</small></span></a>
+      <a class="photo-note photo-back solo-note" href="#/groups/${third.id}"><img fetchpriority="high" decoding="async" src="./${third.cover}" alt="${esc(third.zh)}" width="600" height="400"><span><b>03 / ${esc(third.zh)}</b><small lang="ja">${esc(third.jp)}</small></span></a>
+      <a class="photo-note photo-front" href="#/groups/${first.id}"><img fetchpriority="high" decoding="async" src="./${first.cover}" alt="${esc(first.zh)}" width="500" height="333"><span><b>01 / ${esc(first.zh)}</b><small lang="ja">${esc(first.jp)}</small></span></a>
+      <a class="photo-note photo-side" href="#/groups/${second.id}"><img fetchpriority="high" decoding="async" src="./${second.cover}" alt="${esc(second.zh)}" width="500" height="333"><span><b>02 / ${esc(second.zh)}</b><small lang="ja">${esc(second.jp)}</small></span></a>
       <span class="round-stamp" aria-hidden="true">各有風格<br><b>お笑い</b></span><span class="art-caption">違う笑いに、出会おう。</span>
     </div>
   </section>`;
@@ -166,7 +180,7 @@ function profilePage(g) {
   const related = relatedGroups(data.groups, g);
   const picture = g.memberPhotos?.length
     ? `<figure class="profile-picture profile-picture-gallery"><div class="profile-gallery">${g.memberPhotos.map(photo => `<figure><img src="./${esc(photo.src)}" alt="${esc(g.zh)}：${esc(photo.label)}"><figcaption>${esc(photo.label)}</figcaption></figure>`).join('')}</div><figcaption><p class="photo-credit">圖片出處：${external(g.photo.url, g.photo.credit)}</p></figcaption></figure>`
-    : `<figure class="profile-picture${g.photo.imageUrl ? ' official-photo' : ''}"><img src="./${g.cover}" alt="${esc(g.zh)}的藝人照片"><figcaption><p class="photo-credit">圖片出處：${external(g.photo.url, g.photo.credit)}</p></figcaption></figure>`;
+    : `<figure class="profile-picture${g.photo.imageUrl ? ' official-photo' : ''}"><img src="./${g.cover}" decoding="async" alt="${esc(g.zh)}的藝人照片"><figcaption><p class="photo-credit">圖片出處：${external(g.photo.url, g.photo.credit)}</p></figcaption></figure>`;
   return `<div class="wrap profile-page"><a class="back-link" href="#/explore">← 回到藝人列表</a>
     <section class="profile-hero">${picture}
       <div class="profile-title"><p class="eyebrow">${badge(g)} / ${esc(g.styleGroup || g.format)}</p><h1>${esc(g.zh)}</h1><p class="profile-jp" lang="ja">${esc(g.jp)}</p><p class="profile-reading">${esc(g.reading)}</p>${tagList(g)}<p class="profile-headline">${esc(g.headline)}</p></div></section>
@@ -191,7 +205,7 @@ function resourcesPage() {
 // 漫才詞庫已改為可掛載的完整模組，見 glossary.mjs / glossary-core.mjs。
 
 function channelsPage() {
-  return `<div class="wrap subpage"><a class="back-link" href="#/resources">← 回到搞笑資源</a><div class="page-intro"><p class="eyebrow">PRESS PLAY</p><h1>舞台，不只一個。</h1><p>官方頻道、節目播放清單與其他影音入口。<br>各頻道內容與可觀看狀態，以原平台為準。</p></div><div class="channel-grid">${data.groups.filter(g => g.videoUrl).map(g=>`<article class="channel-card"><img src="./${g.cover}" alt="${esc(g.jp)}" loading="lazy"><div><h2>${esc(g.zh)}</h2><p lang="ja">${esc(g.jp)}</p>${external(g.videoUrl, g.videoResource?.title || '打開影音入口','text-link')}<a class="channel-profile" href="#/groups/${g.id}">查看藝人介紹 →</a></div></article>`).join('')}</div></div>`;
+  return `<div class="wrap subpage"><a class="back-link" href="#/resources">← 回到搞笑資源</a><div class="page-intro"><p class="eyebrow">PRESS PLAY</p><h1>舞台，不只一個。</h1><p>官方頻道、節目播放清單與其他影音入口。<br>各頻道內容與可觀看狀態，以原平台為準。</p></div><div class="channel-grid">${data.groups.filter(g => g.videoUrl).map(g=>`<article class="channel-card"><img src="./${g.coverSmall || g.cover}" decoding="async" alt="${esc(g.jp)}" loading="lazy"><div><h2>${esc(g.zh)}</h2><p lang="ja">${esc(g.jp)}</p>${external(g.videoUrl, g.videoResource?.title || '打開影音入口','text-link')}<a class="channel-profile" href="#/groups/${g.id}">查看藝人介紹 →</a></div></article>`).join('')}</div></div>`;
 }
 
 function bindResources() {
@@ -205,9 +219,10 @@ function bindResources() {
 }
 
 /** Render hash routes so each profile remains directly addressable on static hosting. */
-function route() {
+async function route() {
   if (!data) return;
-  unmountGlossary(); // detach glossary listeners before leaving; the store (drafts) is kept
+  const version = ++routeVersion;
+  glossaryModule?.unmountGlossary(); // preserve drafts while detaching listeners
   const [pathname, query = ''] = location.hash.slice(1).split('?');
   const params = new URLSearchParams(query);
   const page = pathname || '/';
@@ -217,7 +232,17 @@ function route() {
     catalogState = { query: params.get('query') || '', style: params.get('style') || 'all', tag: params.get('tag') || 'all', type: ['duo','trio','ensemble','solo'].includes(params.get('type')) ? params.get('type') : 'all', sort: params.get('sort') === 'name' ? 'name' : 'featured' };
     main.innerHTML = (page === '/' ? hero() : '') + catalog() + teaser(); bindCatalog();
   } else if (page.startsWith('/groups/')) {
-    const g = data.groups.find(g => g.id === page.split('/')[2]);
+    let g = data.groups.find(g => g.id === page.split('/')[2]);
+    if (g?.detailUrl) {
+      main.innerHTML = `<div class="loading">正在載入 ${esc(g.zh)} 的介紹…</div>`;
+      try { g = await loadProfile(g); }
+      catch (error) {
+        if (version === routeVersion) main.innerHTML = '<div class="empty-state"><p>介紹暫時無法載入，請稍後重試。</p><button class="button primary" id="retry-profile">重試</button></div>';
+        document.querySelector('#retry-profile')?.addEventListener('click', route);
+        return;
+      }
+      if (version !== routeVersion) return;
+    }
     main.innerHTML = g ? profilePage(g) : notFound(); title = g ? `${g.zh}・${g.jp}` : '找不到藝人';
   } else if (page === '/resources') {
     main.innerHTML = resourcesPage(); nav = 'resources'; title = '搞笑資源'; bindResources();
@@ -226,7 +251,9 @@ function route() {
   } else if (page === '/glossary') {
     nav = 'glossary'; title = '漫才詞庫';
     main.innerHTML = '<div class="glossary-page wrap subpage" id="glossary-root"></div>';
-    mountGlossary(document.querySelector('#glossary-root'), { group: params.get('group'), query: params.get('query'), groups: data.groups });
+    glossaryModule ||= await import('./glossary.mjs');
+    if (version !== routeVersion) return;
+    glossaryModule.mountGlossary(document.querySelector('#glossary-root'), { group: params.get('group'), query: params.get('query'), groups: data.groups });
   } else { main.innerHTML = notFound(); title = '找不到頁面'; }
   document.querySelectorAll('[data-nav]').forEach(a => { if (a.dataset.nav === nav) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
   document.title = `${title}｜日式搞笑大補帖`;
@@ -240,7 +267,9 @@ function notFound() {
 document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); main.focus(); main.scrollIntoView(); });
 window.addEventListener('hashchange', route);
 try {
-  const response = await fetch('./data.json');
+  const suffix = window.JPCOMEDY_SITE?.assetVersion ? `?v=${window.JPCOMEDY_SITE.assetVersion}` : '';
+  let response = await fetch(`./catalog.json${suffix}`);
+  if (response.status === 404) response = await fetch('./data.json'); // older local builds
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   data = await response.json(); route();
 } catch (error) {

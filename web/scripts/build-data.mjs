@@ -128,5 +128,7 @@ const glossarySnapshot = {
   data: shared
 };
 await writeFile(path.join(publicDir, 'glossary-snapshot.json'), JSON.stringify(glossarySnapshot, null, 2) + '\n');
+const { prepareFastData } = await import('./prepare-fast-data.mjs');
+await prepareFastData(publicDir, data);
 
 console.log(`Built ${groups.length} profiles, ${report.members} member mappings, ${groups.filter(g => g.article).length} complete source articles. Glossary snapshot: ${shared.talents.length} talents, ${shared.others.length} others. No source files modified.`);
