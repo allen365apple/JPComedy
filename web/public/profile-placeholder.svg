@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">公開版暫無照片</title>
+  <desc id="desc">此藝人頁的公開版本尚未加入照片。</desc>
+  <rect width="1200" height="800" fill="#e9e3d7"/>
+  <circle cx="930" cy="150" r="190" fill="#d8c6b2" opacity=".7"/>
+  <path d="M0 650C220 510 430 610 610 530c220-98 350-74 590 45v225H0Z" fill="#cbb8a5" opacity=".55"/>
+  <text x="80" y="380" fill="#6b6158" font-family="Arial, sans-serif" font-size="44" letter-spacing="5">JPComedy</text>
+  <text x="80" y="450" fill="#3c3732" font-family="Arial, sans-serif" font-size="30">公開版暫無照片</text>
+</svg>

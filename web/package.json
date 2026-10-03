@@ -1,0 +1,13 @@
+{
+  "name": "jpcomedy-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-data.mjs",
+    "build:public": "node scripts/build-public-data.mjs && node scripts/build-public-release.mjs",
+    "verify:public": "PUBLIC_DIR=public-release node scripts/verify-public-artifact.mjs",
+    "start": "node server.mjs",
+    "preview:basepath": "node scripts/preview-basepath.mjs",
+    "test": "node --test tests/*.test.mjs"
+  }
+}
