@@ -3,6 +3,8 @@
 主要藝人資料在 `content/profiles.json`；最後補齊來源名單的 44 筆附加資料在 `content/profiles-backfill.mjs`。`content/profiles.mjs` 會合併兩邊資料並保留既有建置介面。
 新增或修改一般藝人資料請編輯 `profiles.json`；處理這批附加名單或其照片校正時，編輯 `profiles-backfill.mjs`，再執行建置與測試。
 
+2026-10-14 起，8 位資深代表的完整增補放在 `senior-enrichment-2026-10-14.json`，由 `profiles.mjs` 依 ID 覆蓋其 `researchedArticle` 與 `works`，不改動基本資料或照片。維護這 8 位的詳細介紹請修改此檔，不要只改會被覆蓋的舊欄位。此檔是有效資料來源（不同於只記錄增補過程的 `detail-enrichment-2026-10-02.json`）。合併會拒絕未知／重複 ID 及有《每週漫才》原文的目標；文章 `checkedAt` 僅代表本次內容查核日期，不代表全站基本資料重新查核。
+
 建置流程：`profiles.json` ＋ `profiles-backfill.mjs` ＋ 詞庫 ＋ `manzaiweek-archive/` → `public/data.json` → 網頁讀取。
 圖片會依 `postSeq` 從《每週漫才》存檔自動對應、複製，不需手動管理。
 
