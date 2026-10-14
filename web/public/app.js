@@ -124,6 +124,17 @@ function bindCatalog() {
   updateCatalog();
 }
 
+/** Render newly discovered posts as attributed summaries, never as author verbatim text. */
+function weeklySummary(g) {
+  const source = g.weeklyUpdate;
+  if (!source) return '';
+  const date = new Date(source.publishedAt).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
+  return `<section class="weekly-section weekly-update" aria-labelledby="weekly-update-title"><div class="weekly-heading"><span class="weekly-seal" aria-hidden="true">每週<br>漫才</span><div><p class="eyebrow">WEEKLY MANZAI</p><h2 id="weekly-update-title">每週漫才是這樣寫的</h2></div></div>
+    <p class="article-meta">每週漫才 · 原始發文 ${esc(date)} · ${external(source.url, '閱讀完整原文')}</p>
+    <p class="article-context">以下為本站整理的重點摘要，並非作者全文；合輯只整理本組相關內容。評價與推薦屬於原作者觀點，時效性資料以本站查核日期為準。</p>
+    <div class="article-details"><h3 class="article-title">${esc(source.title)}</h3><p class="original-text">${esc(source.text)}</p></div></section>`;
+}
+
 function sourceArticle(g) {
   if (!g.article && g.researchedArticle) {
     const source = g.researchedArticle;
@@ -133,9 +144,9 @@ function sourceArticle(g) {
     return `<section class="weekly-section researched-section" aria-labelledby="researched-title"><div class="weekly-heading"><span class="weekly-seal" aria-hidden="true">人物<br>專題</span><div><p class="eyebrow">DETAILED PROFILE</p><h2 id="researched-title">詳細介紹</h2></div></div>
       <div class="article-details"><h3 class="article-title">${esc(source.title)}</h3><p class="original-text">${esc(text)}</p></div>
       <p class="article-meta">參考來源：${sources.map(item => external(item.url, item.label)).join(' · ')}</p>
-      <p class="micro-note">以上為參考日文資料後整理的繁體中文介紹，非逐字翻譯；基本資料與經歷請以原始來源為準。</p></section>`;
+      <p class="micro-note">以上為參考日文資料後整理的繁體中文介紹，非逐字翻譯；基本資料與經歷請以原始來源為準。</p></section>${weeklySummary(g)}`;
   }
-  if (!g.article) return '';
+  if (!g.article) return weeklySummary(g);
   const date = new Date(g.article.publishedAt).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit' });
   const permissionNote = g.article.permission === 'public-source-attributed'
     ? '文章與圖片保留原始出處；公開使用範圍依網站發布清單。'

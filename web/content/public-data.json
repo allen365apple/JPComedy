@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T20:06:34.144Z",
+  "generatedAt": "2026-10-14T07:27:12.140Z",
   "policy": {
     "mode": "source-attributed",
     "weeklyArticles": "all-current-with-source",
@@ -10,9 +10,9 @@
     "meta": {
       "checkedAt": "2026-10-02",
       "siteName": "日式搞笑大補帖",
-      "count": 265,
+      "count": 271,
       "sourcePostCount": 92,
-      "glossarySha256": "0716c60e15d1871548bb5efe02d55c8f5898a69a5fba8846d80d7d3e25a42aee",
+      "glossarySha256": "b8ac0f001daded12401479ec235c79969482d2abb215fabd4f2a8f4f1cae0a42",
       "glossarySource": "JPComedy 共用漫才詞庫公開快照",
       "pipelineMatched": true,
       "publication": "public-source-attributed",
@@ -26001,7 +26001,8 @@
         "intro": "森下直人與初瀬悠太於 2008 年組成ななまがり，先以漫才活動，後將超現實短劇和人物角色發展成重要特色。森下常帶來跳躍、難以預測的想法，初瀬則以響亮反應和明快回應接住；兩人也持續參加漫才與短劇賽事，在不同形式間切換。",
         "type": "duo",
         "aliases": [
-          "Nanamagari"
+          "Nanamagari",
+          "七曲"
         ],
         "bilibiliSearchTerms": [
           "ななまがり コント",
@@ -26081,11 +26082,29 @@
             "covers": "成員個人演出與創作"
           },
           {
+            "label": "FANY：2026短劇之王決賽公布",
+            "url": "https://magazine.fany.lol/289275/"
+          },
+          {
+            "label": "每週漫才：新文章／合輯原文",
+            "url": "https://www.facebook.com/61571407746423/posts/122170821356713591",
+            "covers": "本站摘要的原始文章，非全文轉載"
+          },
+          {
             "label": "圖片來源：吉本興業官方藝人資料照",
             "url": "https://profile.yoshimoto.co.jp/talent/detail?id=3721",
             "covers": "本頁藝人照片；成員位置依來源標註"
           }
         ],
+        "weeklyUpdate": {
+          "id": "122170821356713591",
+          "title": "七曲：奇怪角色、現實反應與多種賽事",
+          "publishedAt": "2026-10-11T07:37:51.000Z",
+          "url": "https://www.facebook.com/61571407746423/posts/122170821356713591",
+          "provider": "每週漫才",
+          "isSummary": true,
+          "text": "作者從大阪藝術大學落語研究社的相識過程談起，介紹森下直人負責怪異角色、初瀬悠太以直接反應接住搭檔的配合。文中認為設定雖然超現實，笑點和吐槽卻常有容易理解的現實基礎。\n\n文章推薦其自我介紹式開場、2016年《短劇之王》作品，以及兩人的個人角色系列；也回顧《水曜日DOWNTOWN》猜新年號的企劃。這些是作者的推薦與整理，不代表每個段子都用同一種方法。\n\n發文時兩人已確認進入2026年《短劇之王》決賽，但決賽預定10月17日舉行；截至本站10月14日查核，不應把參賽期待寫成奪冠結果。完整趣事與作者觀點請見原始貼文。"
+        },
         "styleGroup": "短劇式漫才",
         "zh": "Nanamagari",
         "glossaryAliases": [
@@ -33694,11 +33713,33 @@
             "covers": "人物主圖與成員位置"
           },
           {
+            "label": "蛙亭官方：2026短劇之王入選報告",
+            "url": "https://www.youtube.com/watch?v=LC2EZPngvhE"
+          },
+          {
+            "label": "FANY：2026短劇之王決賽公布",
+            "url": "https://magazine.fany.lol/289275/"
+          },
+          {
+            "label": "每週漫才：新文章／合輯原文",
+            "url": "https://www.facebook.com/61571407746423/posts/122169651854713591",
+            "covers": "本站摘要的原始文章，非全文轉載"
+          },
+          {
             "label": "圖片來源：RBB TODAY：蛙亭雙人照片",
             "url": "https://www.rbbtoday.com/article/2022/03/31/197316.html",
             "covers": "本頁藝人照片；成員位置依來源標註"
           }
         ],
+        "weeklyUpdate": {
+          "id": "122169651854713591",
+          "title": "蛙亭：角色演技與真實反應之間",
+          "publishedAt": "2026-09-27T11:32:16.000Z",
+          "url": "https://www.facebook.com/61571407746423/posts/122169651854713591",
+          "provider": "每週漫才",
+          "isSummary": true,
+          "text": "這篇介紹回顧中野周平與岩倉在養成所尋找搭檔的過程，以及組合名的由來。作者認為中野擅長把怪異人物演得具體，岩倉的自然反應則讓觀眾容易進入情境；短劇可以是生活中的怪人，也能轉入超現實設定。\n\n作者推薦2023年《壽司男孩》（寿司ボーイ）、2021年《實驗體No.164》，以及官方頻道的宅配披薩作品，並提到漫才主要採短劇型的情境推進。這些推薦以原文觀點呈現，不替未逐一查核的節目細節添加結論。\n\n文中的「今年」指2026年。《短劇之王》官方已公布蛙亭第三次入選決賽，本站查核時決賽尚未舉行；其他成績與完整趣事可回原文閱讀。"
+        },
         "zh": "蛙亭",
         "glossaryAliases": [
           "蛙亭"
@@ -37947,6 +37988,908 @@
         },
         "checkedAt": "2026-10-02",
         "videoResource": null
+      },
+      {
+        "id": "omoide-zaibatsu",
+        "jp": "おもいで財閥",
+        "formed": "2021-12",
+        "agency": "吉本興業",
+        "reading": "おもいでざいばつ",
+        "type": "duo",
+        "styleGroup": "音樂／節奏式漫才",
+        "format": "機關紙芝居與三味線結合的音樂喜劇",
+        "tags": [
+          "機關道具",
+          "和風音樂",
+          "復古世界觀"
+        ],
+        "headline": "自製紙芝居的機關，跟著三味線一起製造驚喜。",
+        "intro": "Yuudachi與弦左衛門把機關紙芝居和津輕三味線帶上搞笑舞台。前者負責自製道具與畫面變化，後者以現場演奏掌握節奏；復古裝扮不是單純造型，而是整套表演世界的一部分。兩人也參加漫才賽事，但不能把所有作品都歸為一般對話型漫才。",
+        "aliases": [
+          "回憶財閥",
+          "おもいて財閥",
+          "Omoide Zaibatsu"
+        ],
+        "bilibiliSearchTerms": [
+          "おもいで財閥 漫才",
+          "おもいで財閥 コント"
+        ],
+        "achievements": [],
+        "works": [
+          {
+            "kind": "官方 YouTube",
+            "title": "《回憶財閥彩色電視》（おもいで財閥カラーテレビ）",
+            "detail": "組合自己的頻道，觀看紙芝居、三味線與雙人企劃。",
+            "url": "https://www.youtube.com/channel/UCkhTqiyq591eaZ_8Sf5HgNg"
+          },
+          {
+            "kind": "已完成合作企劃",
+            "title": "《空庭財閥》空庭溫泉合作",
+            "detail": "2025 年 6 月演出與館內體驗拍攝，包含娛樂秀的三味線合作；不是固定節目。",
+            "url": "https://solaniwa.com/news/solaniawazaibatsu/"
+          }
+        ],
+        "sources": [
+          {
+            "label": "吉本興業：結成年、成員與專長",
+            "url": "https://profile.yoshimoto.co.jp/talent/detail?id=9170",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "空庭溫泉：雙人演出與合作企劃",
+            "url": "https://solaniwa.com/news/solaniawazaibatsu/",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "每週漫才：新文章／合輯原文",
+            "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+            "covers": "本站摘要的原始文章，非全文轉載"
+          },
+          {
+            "label": "圖片來源：吉本興業官方雙人資料照",
+            "url": "https://profile.yoshimoto.co.jp/talent/detail?id=9170",
+            "covers": "本頁藝人照片；成員位置依來源標註"
+          }
+        ],
+        "researchedArticle": {
+          "title": "自製紙芝居的機關，跟著三味線一起製造驚喜。",
+          "positioning": "回憶財閥是 2021 年結成、以道具和和風音樂建立辨識度的吉本年輕組合。相較於以談話或情境演技為主的漫才師，他們把紙芝居工藝與現場樂器演奏放在表演中心；官方活動介紹也以這兩項專長說明其特色。",
+          "positioningSources": [
+            {
+              "label": "吉本興業：結成年、成員與專長",
+              "url": "https://profile.yoshimoto.co.jp/talent/detail?id=9170"
+            },
+            {
+              "label": "空庭溫泉：雙人演出與合作企劃",
+              "url": "https://solaniwa.com/news/solaniawazaibatsu/"
+            }
+          ],
+          "text": "紙芝居原本靠逐張更換圖畫講故事，Yuudachi則加上可以轉動、抽拉或改變畫面的機關。觀眾除了聽台詞，也會等待道具下一次變化；弦左衛門的三味線讓畫面揭曉和表演節奏連在一起。這種音樂、圖像與機關的搭配，使笑點不只出現在一句吐槽，而會出現在道具動起來的時刻。\n\n2025 年空庭溫泉合作活動介紹，明確指出紙芝居由Yuudachi自製，並與弦左衛門演奏配合。合作影片除了演出，也拍攝兩人在館內體驗、解謎和參與娛樂秀；這是已完成的特別企劃，不是固定電視節目。他們自己的《回憶財閥彩色電視》（おもいで財閥カラーテレビ）則提供另一個了解其角色與作品的入口。\n\n《每週漫才》使用「大正群像劇」形容他們的世界觀。本站把這當成該文的風格線索，不宣稱它是日本漫才的通用分類；正式名稱依吉本資料採「おもいで財閥」，原貼文的「おもいて財閥」保留作搜尋別名。",
+          "sources": [
+            {
+              "label": "吉本興業：結成年、成員與專長",
+              "url": "https://profile.yoshimoto.co.jp/talent/detail?id=9170"
+            },
+            {
+              "label": "空庭溫泉：雙人演出與合作企劃",
+              "url": "https://solaniwa.com/news/solaniawazaibatsu/"
+            }
+          ],
+          "checkedAt": "2026-10-14"
+        },
+        "videoUrl": "https://www.youtube.com/channel/UCkhTqiyq591eaZ_8Sf5HgNg",
+        "checkedAt": "2026-10-14",
+        "weeklyUpdate": {
+          "id": "122170235174713591",
+          "title": "M-1一回戰有趣組合合輯：回憶財閥",
+          "publishedAt": "2026-10-04T11:57:28.000Z",
+          "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+          "provider": "每週漫才",
+          "isSummary": true,
+          "text": "這篇合輯把回憶財閥放在「組成特別」一類：Yuudachi以自製機關紙芝居配合弦左衛門的三味線，帶出復古、和風的表演世界。作者特別注意到紙製機關與遮住面孔的斗笠，並推薦到組合頻道觀看作品。原文日文名稱有一字誤寫，本站依官方資料校正。"
+        },
+        "zh": "回憶財閥",
+        "glossaryAliases": [
+          "おもいで財閥"
+        ],
+        "members": [
+          {
+            "jp": "ユウダチ",
+            "reading": "ゆうだち",
+            "role": "機關紙芝居、道具創作與表演",
+            "origin": "三重縣",
+            "zh": "Yuudachi",
+            "glossaryAliases": [
+              "ユウダチ"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "left"
+          },
+          {
+            "jp": "弦左衛門",
+            "reading": "げんざえもん",
+            "role": "津輕三味線演奏與音樂節奏",
+            "origin": "大阪府",
+            "zh": "弦左衛門",
+            "glossaryAliases": [
+              "弦左衛門"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "right"
+          }
+        ],
+        "article": null,
+        "cover": "assets/omoide-zaibatsu-cover.jpg",
+        "photo": {
+          "src": "assets/omoide-zaibatsu-cover.jpg",
+          "credit": "吉本興業官方雙人資料照",
+          "url": "https://profile.yoshimoto.co.jp/talent/detail?id=9170",
+          "imageUrl": "https://profile.yoshimoto.co.jp/assets/data/profile/9170/6c7d6b100a28eeca9925a78b803efec23432289c.jpg",
+          "permission": "public-source-attributed"
+        },
+        "videoResource": {
+          "kind": "官方 YouTube",
+          "title": "《回憶財閥彩色電視》（おもいで財閥カラーテレビ）",
+          "detail": "組合自己的官方YouTube頻道；連結由事務所或官方演出資料確認。"
+        }
+      },
+      {
+        "id": "michibata-concert",
+        "jp": "みちばたコンサート",
+        "formed": "2016-08-01",
+        "agency": "Twinkle Corporation",
+        "reading": "みちばたこんさーと",
+        "type": "duo",
+        "styleGroup": "音樂／節奏式漫才",
+        "format": "大提琴與尺八結合的雙人音樂喜劇",
+        "tags": [
+          "樂器喜劇",
+          "大提琴",
+          "尺八"
+        ],
+        "headline": "大提琴與尺八，不只伴奏，也參與兩人的搞笑對話。",
+        "intro": "左側Ramu太郎演奏大提琴，右側虛無僧.com演奏尺八。兩人把西洋弦樂和日本傳統樂器並置，利用演奏、服裝與情境之間的落差做表演；活動也涵蓋音樂刊物與現場事件，不只漫才賽事。",
+        "aliases": [
+          "路邊音樂會",
+          "らむ",
+          "Michibata Concert"
+        ],
+        "bilibiliSearchTerms": [
+          "みちばたコンサート 漫才",
+          "みちばたコンサート コント"
+        ],
+        "achievements": [],
+        "works": [
+          {
+            "kind": "官方 YouTube",
+            "title": "《路邊音樂會的後台》（みちばたコンサートのバックステージ）",
+            "detail": "事務所連結的組合頻道，提供雙人演出與影片。",
+            "url": "https://www.youtube.com/channel/UC6nygt6wbuTpo5ks_ovjBdA"
+          },
+          {
+            "kind": "音樂媒體報導",
+            "title": "ONTOMO樂器展相關報導",
+            "detail": "以樂器藝人身分參與音樂內容；不是固定廣播或冠名節目。",
+            "url": "https://ontomo-mag.com/people/michibata-concert/"
+          }
+        ],
+        "sources": [
+          {
+            "label": "Twinkle：藝名、成員與官方頻道",
+            "url": "https://twinkle-co.co.jp/talent/michibataconcert/",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "M-1：結成年與組合資料",
+            "url": "https://www.m-1gp.com/combi/4317.html",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "音樂之友ONTOMO：樂器藝人介紹",
+            "url": "https://ontomo-mag.com/people/michibata-concert/",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "每週漫才：新文章／合輯原文",
+            "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+            "covers": "本站摘要的原始文章，非全文轉載"
+          },
+          {
+            "label": "圖片來源：Twinkle Corporation官方雙人資料照",
+            "url": "https://twinkle-co.co.jp/talent/michibataconcert/",
+            "covers": "本頁藝人照片；成員位置依來源標註"
+          }
+        ],
+        "researchedArticle": {
+          "title": "大提琴與尺八，不只伴奏，也參與兩人的搞笑對話。",
+          "positioning": "路邊音樂會是把樂器技術帶進搞笑表演的雙人組，2016 年結成後持續在現場演出與活動中發展。音樂之友的ONTOMO也以「樂器藝人」介紹他們：這個定位比只把兩人當成漫才比賽參賽者，更能說明其跨越音樂與喜劇的特色。",
+          "positioningSources": [
+            {
+              "label": "Twinkle：藝名、成員與官方頻道",
+              "url": "https://twinkle-co.co.jp/talent/michibataconcert/"
+            },
+            {
+              "label": "M-1：結成年與組合資料",
+              "url": "https://www.m-1gp.com/combi/4317.html"
+            }
+          ],
+          "text": "兩人的畫面本身就有鮮明對比：一邊是抱著大提琴的Ramu太郎，另一邊是戴著編笠、演奏尺八的虛無僧.com。樂器並非表演開始前的裝飾，演奏的聲音會跟人物姿態、對話情境一起運作。《每週漫才》觀察其樂器有塑造場景、營造伴奏氣氛的功能；這是作者對段子的描述，不能據此推定所有作品都採相同結構。\n\n官方資料列出Ramu太郎的專長為大提琴，ONTOMO則明確標示兩人的大提琴與尺八分工。ONTOMO也收錄他們走訪 2018 樂器展的報導，顯示活動不只在搞笑舞台，也會與樂器文化產生交集。\n\n組合的YouTube《路邊音樂會的後台》（みちばたコンサートのバックステージ）由事務所提供連結，可作為觀看雙人作品的入口。現行官方藝名是「らむ太郎」，較早文章中的「らむ」是搜尋舊資料時可用的名稱；本頁成員與照片位置依現行官方資料整理。",
+          "sources": [
+            {
+              "label": "Twinkle：藝名、成員與官方頻道",
+              "url": "https://twinkle-co.co.jp/talent/michibataconcert/"
+            },
+            {
+              "label": "M-1：結成年與組合資料",
+              "url": "https://www.m-1gp.com/combi/4317.html"
+            },
+            {
+              "label": "音樂之友ONTOMO：樂器藝人介紹",
+              "url": "https://ontomo-mag.com/people/michibata-concert/"
+            }
+          ],
+          "checkedAt": "2026-10-14"
+        },
+        "videoUrl": "https://www.youtube.com/channel/UC6nygt6wbuTpo5ks_ovjBdA",
+        "checkedAt": "2026-10-14",
+        "weeklyUpdate": {
+          "id": "122170235174713591",
+          "title": "M-1一回戰有趣組合合輯：路邊音樂會",
+          "publishedAt": "2026-10-04T11:57:28.000Z",
+          "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+          "provider": "每週漫才",
+          "isSummary": true,
+          "text": "作者把大提琴與尺八的組合列為特色，並提到兩人原本各自活動，後來成為搭檔。文中認為樂器在段子裡像是在塑造情境的伴奏，而不只是展示演奏技術，也推薦到其頻道看作品。本站將原文的「らむ」與現行官方藝名「らむ太郎」對照，方便搜尋。"
+        },
+        "zh": "路邊音樂會",
+        "glossaryAliases": [
+          "みちばたコンサート"
+        ],
+        "members": [
+          {
+            "jp": "らむ太郎",
+            "reading": "らむたろう",
+            "role": "大提琴演奏與雙人情境表演",
+            "origin": "千葉縣千葉市",
+            "zh": "Ramu太郎",
+            "glossaryAliases": [
+              "らむ太郎"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "left"
+          },
+          {
+            "jp": "こむそう.com",
+            "reading": "こむそうどっとこむ",
+            "role": "尺八演奏與雙人情境表演",
+            "origin": "鹿兒島縣薩摩川內市",
+            "zh": "虛無僧.com",
+            "glossaryAliases": [
+              "こむそう.com"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "right"
+          }
+        ],
+        "article": null,
+        "cover": "assets/michibata-concert-cover.jpg",
+        "photo": {
+          "src": "assets/michibata-concert-cover.jpg",
+          "credit": "Twinkle Corporation官方雙人資料照",
+          "url": "https://twinkle-co.co.jp/talent/michibataconcert/",
+          "imageUrl": "https://twinkle-co.co.jp/wp-content/uploads/2024/09/michibataconcert_a_01.jpg",
+          "permission": "public-source-attributed"
+        },
+        "videoResource": {
+          "kind": "官方 YouTube",
+          "title": "《路邊音樂會的後台》（みちばたコンサートのバックステージ）",
+          "detail": "組合自己的官方YouTube頻道；連結由事務所或官方演出資料確認。"
+        }
+      },
+      {
+        "id": "onna",
+        "videoUrl": "https://www.youtube.com/@onnna",
+        "jp": "女",
+        "formed": "2026-05-07",
+        "agency": "吉本興業",
+        "reading": "おんな",
+        "type": "duo",
+        "styleGroup": "漫才（待分類）",
+        "format": "雙人漫才與談話企劃",
+        "tags": [
+          "新組合",
+          "組合名",
+          "雙人互動"
+        ],
+        "headline": "名字只有一個字，兩人的互動卻不止一種形式。",
+        "intro": "二口Ribo～Nasu與寺尾巨神兵先以聯合組合活動，2026 年 5 月正式結成「女」。兩人同時開設YouTube，以向前輩「女與男」請求組合名使用許可的企劃開場。這是新組合的起步階段，暫不以少數影片替全部段子定型。",
+        "aliases": [
+          "女",
+          "Onna",
+          "女 お笑い"
+        ],
+        "bilibiliSearchTerms": [
+          "女 漫才",
+          "女 コント",
+          "女 寺尾巨神兵 二口りぼ～なす"
+        ],
+        "achievements": [],
+        "works": [
+          {
+            "kind": "官方頻道企劃",
+            "title": "《女的戀愛頻道》（女の恋やねんちゅーぶ）",
+            "detail": "組合成立時開設，首支影片以向「女與男」請求名稱許可為題；頻道連結見結成報導。",
+            "url": "https://natalie.mu/owarai/news/671163"
+          }
+        ],
+        "sources": [
+          {
+            "label": "M-1：正式結成日、所屬與成員",
+            "url": "https://www.m-1gp.com/combi/39535.html",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "搞笑Natalie：正式結成與YouTube開設",
+            "url": "https://natalie.mu/owarai/news/671163",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "每週漫才：新文章／合輯原文",
+            "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+            "covers": "本站摘要的原始文章，非全文轉載"
+          },
+          {
+            "label": "圖片來源：M-1官方雙人舞台照",
+            "url": "https://www.m-1gp.com/combi/39535.html",
+            "covers": "本頁藝人照片；成員位置依來源標註"
+          }
+        ],
+        "researchedArticle": {
+          "title": "名字只有一個字，兩人的互動卻不止一種形式。",
+          "positioning": "「女」是 2026 年正式成立的吉本雙人組，屬於仍在建立代表作與觀眾的新組合。正式結成日期不等於兩位成員各自出道的年份；他們此前已有表演與聯合活動，不能因組合年資短就把成員都寫成第一次登台的新人。",
+          "positioningSources": [
+            {
+              "label": "M-1：正式結成日、所屬與成員",
+              "url": "https://www.m-1gp.com/combi/39535.html"
+            },
+            {
+              "label": "吉本興業：女的成員與結成資料",
+              "url": "https://profile.yoshimoto.co.jp/talent/detail?id=14898"
+            },
+            {
+              "label": "搞笑Natalie：正式結成與YouTube開設",
+              "url": "https://natalie.mu/owarai/news/671163"
+            }
+          ],
+          "text": "這組合最容易被記住、也最難搜尋的地方，是名稱只有「女」一個字。2026 年 5 月的結成報導指出，他們原先以聯合組合活動，正式成為搭檔時也開設《女的戀愛頻道》（女の恋やねんちゅーぶ）。首支企劃向前輩組合「女與男」（女と男）請求名稱許可，將名稱重疊這件事變成兩組藝人的互動題材。\n\n《每週漫才》合輯也從命名切入介紹兩人，並提及寺尾過去的聯合組合。這些能幫助讀者理解他們的起點，但還不足以替所有漫才歸納固定風格；本頁因此先保留待分類，不把人物外型或單支談話影片直接等同於漫才技法。\n\n觀看時可從正式結成企劃與M-1官方資料入手。搜尋單一「女」容易混入不相關結果，加入「寺尾巨神兵」「二口りぼ～なす」或頻道名稱更容易找到本人內容。成員介紹依本頁所用舞台照標記左右，不假設所有照片或影片的站位都相同。",
+          "sources": [
+            {
+              "label": "M-1：正式結成日、所屬與成員",
+              "url": "https://www.m-1gp.com/combi/39535.html"
+            },
+            {
+              "label": "搞笑Natalie：正式結成與YouTube開設",
+              "url": "https://natalie.mu/owarai/news/671163"
+            }
+          ],
+          "checkedAt": "2026-10-14"
+        },
+        "checkedAt": "2026-10-14",
+        "weeklyUpdate": {
+          "id": "122170235174713591",
+          "title": "M-1一回戰有趣組合合輯：女",
+          "publishedAt": "2026-10-04T11:57:28.000Z",
+          "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+          "provider": "每週漫才",
+          "isSummary": true,
+          "text": "合輯介紹二口Ribo～Nasu與寺尾巨神兵的「女」，特別關注極簡組合名，以及新頻道到前輩「女與男」那裡取得名稱許可的首支企劃。作者也提到寺尾曾組過其他名稱簡短的聯合組合；本站另用官方資料確認，正式結成日為 2026 年 5 月 7 日。"
+        },
+        "zh": "女",
+        "glossaryAliases": [
+          "女"
+        ],
+        "members": [
+          {
+            "jp": "二口りぼ～なす",
+            "reading": "ふたくちりぼーなす",
+            "role": "雙人漫才與談話企劃；分工依作品變化",
+            "origin": "大阪府",
+            "zh": "二口Ribo～Nasu",
+            "glossaryAliases": [
+              "二口りぼ～なす"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "left"
+          },
+          {
+            "jp": "寺尾巨神兵",
+            "reading": "てらおきょしんへい",
+            "role": "雙人漫才與談話企劃；分工依作品變化",
+            "origin": "大阪府",
+            "zh": "寺尾巨神兵",
+            "glossaryAliases": [
+              "寺尾巨神兵"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "right"
+          }
+        ],
+        "article": null,
+        "cover": "assets/onna-cover.jpg",
+        "photo": {
+          "src": "assets/onna-cover.jpg",
+          "credit": "M-1官方雙人舞台照",
+          "url": "https://www.m-1gp.com/combi/39535.html",
+          "imageUrl": "https://www.m-1gp.com/combi/image_cms/39600/39535_combi_.jpg",
+          "permission": "public-source-attributed"
+        },
+        "videoResource": {
+          "kind": "官方 YouTube",
+          "title": "《女的戀愛頻道》（女の恋やねんちゅーぶ）",
+          "detail": "組合自己的官方YouTube頻道；由吉本興業藝人頁連結確認。"
+        }
+      },
+      {
+        "id": "shirasu-no-kougeki",
+        "jp": "しらすのこうげき！",
+        "formed": "2016-01",
+        "agency": "太田製作",
+        "reading": "しらすのこうげき",
+        "type": "duo",
+        "styleGroup": "短劇／劇場式喜劇",
+        "format": "角色短劇、短篇短劇與漫才",
+        "tags": [
+          "角色表演",
+          "女裝",
+          "雙人反應"
+        ],
+        "headline": "鮮明角色與直接反應，讓兩人的對比成為笑點。",
+        "intro": "糟谷僚一以「かすや」活動，與以女裝角色表演的Hiyori組成吻仔魚的攻擊！。太田製作把他們的形式列為短劇與短篇短劇，兩人也演漫才。成員的服裝、動作與搭檔反應共同建立辨識度，不只是靠組合名字引人注意。",
+        "aliases": [
+          "吻仔魚的攻擊！",
+          "Shirasu no Kougeki",
+          "しらすのこうげき"
+        ],
+        "bilibiliSearchTerms": [
+          "しらすのこうげき！ 漫才",
+          "しらすのこうげき！ コント"
+        ],
+        "achievements": [],
+        "works": [
+          {
+            "kind": "節目出演紀錄",
+            "title": "《有吉之壁》（有吉の壁）／《有吉基地》（有吉ベース）",
+            "detail": "官方履歷列出的喜劇節目出演；不是兩人冠名或固定主持的節目。",
+            "url": "https://www.ohtapro.co.jp/talent/shirasunokougeki.html"
+          },
+          {
+            "kind": "本人專訪",
+            "title": "糟谷談表演起點與工作生活",
+            "detail": "本人回顧從學校、組合成立到職業演出的過程，補足舞台外的創作背景。",
+            "url": "https://jimokurigogo.jp/interview/kasuya/"
+          }
+        ],
+        "sources": [
+          {
+            "label": "太田製作：成員、形式與出演紀錄",
+            "url": "https://www.ohtapro.co.jp/talent/shirasunokougeki.html",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "ジモクリGo!Go!：糟谷本人訪談",
+            "url": "https://jimokurigogo.jp/interview/kasuya/",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "每週漫才：新文章／合輯原文",
+            "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+            "covers": "本站摘要的原始文章，非全文轉載"
+          },
+          {
+            "label": "圖片來源：太田製作官方雙人資料照",
+            "url": "https://www.ohtapro.co.jp/talent/shirasunokougeki.html",
+            "covers": "本頁藝人照片；成員位置依來源標註"
+          }
+        ],
+        "researchedArticle": {
+          "title": "鮮明角色與直接反應，讓兩人的對比成為笑點。",
+          "positioning": "吻仔魚的攻擊！是 2016 年結成、在太田製作現場演出中累積經驗的雙人組。官方資料以短劇與短篇短劇描述其表演，糟谷的本人訪談則記錄了從專門學校到職業藝人的過程；他們是持續磨練角色與舞台作品的組合，而非只因近期M-1合輯才出現。",
+          "positioningSources": [
+            {
+              "label": "太田製作：成員、形式與出演紀錄",
+              "url": "https://www.ohtapro.co.jp/talent/shirasunokougeki.html"
+            },
+            {
+              "label": "ジモクリGo!Go!：糟谷本人訪談",
+              "url": "https://jimokurigogo.jp/interview/kasuya/"
+            }
+          ],
+          "text": "糟谷的吐槽與Hiyori的女裝角色形成清楚對比，但角色辨識度不等於全部笑點都在外型上。糟谷的訪談介紹確認兩人的裝傻、吐槽分工；太田製作則列出Hiyori的舞蹈、角色扮演與化妝等專長，呈現其表演技術的一面。本頁依這些可核對資料說明分工，不替尚未逐一查證的段子添加台詞或固定套路。\n\n在《ジモクリGo!Go!》訪談中，糟谷回憶自己原先嚮往的是成為電視上的藝人，進入表演相關科系後，由同學的一句鼓勵轉向搞笑，找到搭檔並開始組合。他也談到如何兼顧清潔工作與演出，以及希望磨練自己，讓觀眾不只認識作品，也認識他這個人。\n\n官方列出的《有吉之壁》（有吉の壁）與《有吉基地》（有吉ベース）是出演紀錄，不是他們自己主持的節目。《每週漫才》則推薦以鮮明的雙人特色與可找到的段子認識他們；目前未確認組合自己的官方頻道，因此觀看資源不會把其他上傳者標成本人。",
+          "sources": [
+            {
+              "label": "太田製作：成員、形式與出演紀錄",
+              "url": "https://www.ohtapro.co.jp/talent/shirasunokougeki.html"
+            },
+            {
+              "label": "ジモクリGo!Go!：糟谷本人訪談",
+              "url": "https://jimokurigogo.jp/interview/kasuya/"
+            }
+          ],
+          "checkedAt": "2026-10-14"
+        },
+        "checkedAt": "2026-10-14",
+        "weeklyUpdate": {
+          "id": "122170235174713591",
+          "title": "M-1一回戰有趣組合合輯：吻仔魚的攻擊！",
+          "publishedAt": "2026-10-04T11:57:28.000Z",
+          "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+          "provider": "每週漫才",
+          "isSummary": true,
+          "text": "作者介紹左側糟谷負責吐槽、右側Hiyori以女裝男子角色裝傻，認為兩人的特色鮮明。合輯也提到組合名與成員姓氏的關係，以及可找到的影片；本頁以官方資料和糟谷本人訪談補足成員、分工與結成年，不把未確認的影片頻道標成組合官方。"
+        },
+        "zh": "吻仔魚的攻擊！",
+        "glossaryAliases": [
+          "しらすのこうげき！"
+        ],
+        "members": [
+          {
+            "jp": "かすや",
+            "reading": "かすや",
+            "role": "吐槽；本名糟谷僚一",
+            "origin": "茨城縣",
+            "zh": "糟谷",
+            "glossaryAliases": [
+              "かすや"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "left"
+          },
+          {
+            "jp": "ひより",
+            "reading": "ひより",
+            "role": "裝傻、女裝角色表演；本名白根陽介",
+            "origin": "東京都",
+            "zh": "Hiyori",
+            "glossaryAliases": [
+              "ひより"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "right"
+          }
+        ],
+        "article": null,
+        "cover": "assets/shirasu-no-kougeki-cover.jpg",
+        "photo": {
+          "src": "assets/shirasu-no-kougeki-cover.jpg",
+          "credit": "太田製作官方雙人資料照",
+          "url": "https://www.ohtapro.co.jp/talent/shirasunokougeki.html",
+          "imageUrl": "https://www.ohtapro.co.jp/talent/images/shirasunokougeki.jpg",
+          "permission": "public-source-attributed"
+        },
+        "videoResource": null
+      },
+      {
+        "id": "miracle-st-keikaku",
+        "jp": "ミラクルST計画",
+        "formed": "2025-08-17",
+        "agency": "學生組合（M-1登錄為業餘）",
+        "reading": "みらくるえすてぃーけいかく",
+        "type": "duo",
+        "styleGroup": "短劇式漫才",
+        "format": "短影音情境喜劇與舞台漫才",
+        "tags": [
+          "學生搞笑",
+          "短影音",
+          "現代題材"
+        ],
+        "headline": "短片的情境發想，也延伸到舞台漫才與雙人廣播。",
+        "intro": "Reiya與Makino是日本大學落語研究會出身的搭檔，2025 年獲得首屆日經學生漫才王決定戰冠軍。兩人透過短影音累積觀眾，也發表舞台漫才與音訊節目；本頁照片左側是Reiya、右側是Makino，與部分影片的站位不同。",
+        "aliases": [
+          "Miracle ST計畫",
+          "Miracle ST",
+          "ミラクルST"
+        ],
+        "bilibiliSearchTerms": [
+          "ミラクルST計画 漫才",
+          "ミラクルST計画 コント"
+        ],
+        "achievements": [
+          {
+            "kind": "比賽",
+            "year": 2025,
+            "title": "首屆日經學生漫才王決定戰",
+            "detail": "總冠軍及三洋貿易賞；不是M-1冠軍。",
+            "url": "https://prtimes.jp/main/html/rd/p/000000606.000011115.html"
+          }
+        ],
+        "works": [
+          {
+            "kind": "自主持音訊節目",
+            "title": "《Miracle ST計畫的ST大連發》（ミラクルST計画のST大連チャン）",
+            "detail": "雙人談話節目，話題涵蓋M-1、單獨演出準備與日常生活。",
+            "url": "https://stand.fm/channels/692d6fbd8ddb67b396521281"
+          },
+          {
+            "kind": "本人短影音",
+            "title": "Miracle ST計畫官方短劇影片",
+            "detail": "由本人頻道發表的情境短片；以下連結是一支影片，不是頻道首頁。",
+            "url": "https://www.youtube.com/watch?v=8DB8jsdc6_M"
+          }
+        ],
+        "sources": [
+          {
+            "label": "M-1：組合登錄資料",
+            "url": "https://www.m-1gp.com/combi/44037.html",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "日本經濟新聞社：首屆學生漫才王得獎公告",
+            "url": "https://prtimes.jp/main/html/rd/p/000000606.000011115.html",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "本人YouTube：成員分工與音訊節目",
+            "url": "https://www.youtube.com/watch?v=8DB8jsdc6_M",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "本人音訊節目：ST大連發",
+            "url": "https://stand.fm/channels/692d6fbd8ddb67b396521281",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "每週漫才：新文章／合輯原文",
+            "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+            "covers": "本站摘要的原始文章，非全文轉載"
+          },
+          {
+            "label": "圖片來源：M-1官方雙人舞台照（左Reiya、右Makino）",
+            "url": "https://www.m-1gp.com/combi/44037.html",
+            "covers": "本頁藝人照片；成員位置依來源標註"
+          }
+        ],
+        "researchedArticle": {
+          "title": "短片的情境發想，也延伸到舞台漫才與雙人廣播。",
+          "positioning": "Miracle ST計畫是從大學搞笑活動與短影音逐步被看見的年輕搭檔。2025 年首屆日經學生漫才王冠軍是其可核實的舞台成績；YouTube與雙人音訊節目則顯示他們不只參賽，也持續用自己的平台發表內容。",
+          "positioningSources": [
+            {
+              "label": "M-1：組合登錄資料",
+              "url": "https://www.m-1gp.com/combi/44037.html"
+            },
+            {
+              "label": "日本經濟新聞社：首屆學生漫才王得獎公告",
+              "url": "https://prtimes.jp/main/html/rd/p/000000606.000011115.html"
+            }
+          ],
+          "text": "他們的舞台與短片不能完全混為一談。日經學生漫才王要求參賽者依企業提供的主題創作原創漫才，兩人獲得三洋貿易的企業獎，再拿下首屆總冠軍；這個成績是在特定創作條件下完成作品，不等同於M-1或職業漫才賽事冠軍。\n\n本人影片介紹把Makino稱為低沉聲線的吐槽、Reiya列為裝傻。這種聲線和角色的對比，是認識兩人互動的線索；《每週漫才》則特別推薦短劇的發想。短影音常直接切入情境，但在沒有足夠創作訪談以前，本頁不推定其固定寫稿方式或把每支短片都歸為同一技巧。\n\n兩人另有《Miracle ST計畫的ST大連發》（ミラクルST計画のST大連チャン），在stand.fm談M-1、單獨演出、合宿與生活話題。這是由組合自己主持的談話節目，不是受邀參加他人的Podcast。成員本名在M-1與日經公告有字形差異，因此本頁先採本人使用的藝名，不自行判定哪個姓名字形才正確；結成日標示為M-1登錄資料。",
+          "sources": [
+            {
+              "label": "M-1：組合登錄資料",
+              "url": "https://www.m-1gp.com/combi/44037.html"
+            },
+            {
+              "label": "日本經濟新聞社：首屆學生漫才王得獎公告",
+              "url": "https://prtimes.jp/main/html/rd/p/000000606.000011115.html"
+            },
+            {
+              "label": "本人YouTube：成員分工與音訊節目",
+              "url": "https://www.youtube.com/watch?v=8DB8jsdc6_M"
+            },
+            {
+              "label": "本人音訊節目：ST大連發",
+              "url": "https://stand.fm/channels/692d6fbd8ddb67b396521281"
+            }
+          ],
+          "checkedAt": "2026-10-14"
+        },
+        "checkedAt": "2026-10-14",
+        "weeklyUpdate": {
+          "id": "122170235174713591",
+          "title": "M-1一回戰有趣組合合輯：Miracle ST計畫",
+          "publishedAt": "2026-10-04T11:57:28.000Z",
+          "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+          "provider": "每週漫才",
+          "isSummary": true,
+          "text": "合輯把Miracle ST計畫列為值得關注的YouTube短片組合，介紹其日本大學落語研究會背景與首屆日經學生漫才王冠軍，並推薦短劇的發想。作者對後續M-1成績的期待是當時的看法，不是已發生的賽事結果；本站另補上兩人自己的音訊節目。"
+        },
+        "zh": "Miracle ST計畫",
+        "glossaryAliases": [
+          "ミラクルST計画"
+        ],
+        "members": [
+          {
+            "jp": "れいや",
+            "reading": "れいや",
+            "role": "裝傻；官方M-1登錄姓名小林励也",
+            "origin": "",
+            "zh": "Reiya",
+            "glossaryAliases": [
+              "れいや"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "left"
+          },
+          {
+            "jp": "まきの",
+            "reading": "まきの",
+            "role": "吐槽；以較低沉聲線回應搭檔",
+            "origin": "",
+            "zh": "Makino",
+            "glossaryAliases": [
+              "まきの"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "right"
+          }
+        ],
+        "article": null,
+        "cover": "assets/miracle-st-keikaku-cover.jpg",
+        "photo": {
+          "src": "assets/miracle-st-keikaku-cover.jpg",
+          "credit": "M-1官方雙人舞台照（左Reiya、右Makino）",
+          "url": "https://www.m-1gp.com/combi/44037.html",
+          "imageUrl": "https://www.m-1gp.com/combi/image_cms/44100/44037_combi_.jpg",
+          "permission": "public-source-attributed"
+        },
+        "videoResource": null
+      },
+      {
+        "id": "werner",
+        "jp": "ヴェルナー",
+        "formed": "2024-01-18",
+        "agency": "Watanabe Digital Agency",
+        "reading": "ゔぇるなー",
+        "type": "duo",
+        "styleGroup": "短劇式漫才",
+        "format": "短影音情境短劇與舞台漫才",
+        "tags": [
+          "短影音",
+          "情境反轉",
+          "新世代"
+        ],
+        "headline": "以短片迅速建立情境，再把觀眾預期翻轉。",
+        "intro": "松井千陽與大辻於 2024 年正式結成Werner，2026 年加入Watanabe Digital Agency。兩人以節奏明快的YouTube短劇受到注意，同時參加漫才賽事。組合自己的頻道讓讀者能直接看到作品，而不只從比賽名次認識他們。",
+        "aliases": [
+          "Werner",
+          "Werner"
+        ],
+        "bilibiliSearchTerms": [
+          "ヴェルナー 漫才",
+          "ヴェルナー コント"
+        ],
+        "achievements": [],
+        "works": [
+          {
+            "kind": "官方 YouTube",
+            "title": "《Werner的漫才》（ヴェルナーのお漫才）",
+            "detail": "組合自己的頻道，發表短劇、短片及雙人企劃。",
+            "url": "https://www.youtube.com/channel/UCqGOA9FfwyzSY14UET79iSg"
+          }
+        ],
+        "sources": [
+          {
+            "label": "M-1：結成年、成員與所屬",
+            "url": "https://www.m-1gp.com/combi/27083.html",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "Watanabe Education：2026年新所屬公告",
+            "url": "https://www.we-school.net/2026/02/27/%E3%80%90%E3%83%AF%E3%82%BF%E3%83%8A%E3%83%99%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%82%B7%E3%83%BC%E6%96%B0%E6%89%80%E5%B1%9E%E8%80%85%E3%81%AE%E3%81%8A/",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "本人頻道：作品與雙人談話介紹",
+            "url": "https://www.youtube.com/watch?v=1c6C4cgL8Ck",
+            "covers": "基本資料、演出與作品；各來源支持範圍見詳細介紹"
+          },
+          {
+            "label": "每週漫才：新文章／合輯原文",
+            "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+            "covers": "本站摘要的原始文章，非全文轉載"
+          },
+          {
+            "label": "圖片來源：M-1官方雙人舞台照（左松井、右大辻）",
+            "url": "https://www.m-1gp.com/combi/27083.html",
+            "covers": "本頁藝人照片；成員位置依來源標註"
+          }
+        ],
+        "researchedArticle": {
+          "title": "以短片迅速建立情境，再把觀眾預期翻轉。",
+          "positioning": "Werner是近年透過短影音建立觀眾的新世代組合。2024 年結成，2026 年仍就讀Watanabe搞笑學校時加入其數位經紀部門；官方公告特別以YouTube Shorts的節奏型短劇說明兩人的特色，因此其起步脈絡更接近網路作品與舞台並行，而不是先有全國電視代表作。",
+          "positioningSources": [
+            {
+              "label": "M-1：結成年、成員與所屬",
+              "url": "https://www.m-1gp.com/combi/27083.html"
+            },
+            {
+              "label": "Watanabe Education：2026年新所屬公告",
+              "url": "https://www.we-school.net/2026/02/27/%E3%80%90%E3%83%AF%E3%82%BF%E3%83%8A%E3%83%99%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%82%B7%E3%83%BC%E6%96%B0%E6%89%80%E5%B1%9E%E8%80%85%E3%81%AE%E3%81%8A/"
+            }
+          ],
+          "text": "Watanabe的所屬公告形容他們的作品為適合YouTube Shorts、節奏明快的短劇。《每週漫才》則推薦《忠實思考的人》（忠実に考える人）與《真的加油吧日本》（マジでがんばれ日本），特別指出反轉的趣味。前者是官方對作品形式的描述，後者是作者的推薦與觀後感；不能把兩者直接改寫成本人對創作方法的發言。\n\n在這類短片裡，情境需要很快讓觀眾理解，接著用人物的理解或反應改變方向。這是根據推薦作品整理的觀看線索，不表示他們所有舞台漫才都採一樣的結構，也不把短影音訂閱量等同於日本搞笑界的資歷或地位。\n\n本人頻道《Werner的漫才》（ヴェルナーのお漫才）提供作品，也介紹兩人私下交談的音訊企劃。對初次認識他們的讀者，官方頻道與M-1資料能分別補上作品和基本身分。成員位置依本頁所用照片與官方公告核對；目前不把單一短劇中的角色直接固定成裝傻或吐槽。",
+          "sources": [
+            {
+              "label": "M-1：結成年、成員與所屬",
+              "url": "https://www.m-1gp.com/combi/27083.html"
+            },
+            {
+              "label": "Watanabe Education：2026年新所屬公告",
+              "url": "https://www.we-school.net/2026/02/27/%E3%80%90%E3%83%AF%E3%82%BF%E3%83%8A%E3%83%99%E3%83%87%E3%82%B8%E3%82%BF%E3%83%AB%E3%82%A8%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%B3%E3%82%B7%E3%83%BC%E6%96%B0%E6%89%80%E5%B1%9E%E8%80%85%E3%81%AE%E3%81%8A/"
+            },
+            {
+              "label": "本人頻道：作品與雙人談話介紹",
+              "url": "https://www.youtube.com/watch?v=1c6C4cgL8Ck"
+            }
+          ],
+          "checkedAt": "2026-10-14"
+        },
+        "videoUrl": "https://www.youtube.com/channel/UCqGOA9FfwyzSY14UET79iSg",
+        "checkedAt": "2026-10-14",
+        "weeklyUpdate": {
+          "id": "122170235174713591",
+          "title": "M-1一回戰有趣組合合輯：Werner",
+          "publishedAt": "2026-10-04T11:57:28.000Z",
+          "url": "https://www.facebook.com/61571407746423/posts/122170235174713591",
+          "provider": "每週漫才",
+          "isSummary": true,
+          "text": "合輯推薦Werner的短片反轉，點名《忠實思考的人》與《真的加油吧日本》兩個系列，並介紹松井千陽、大辻這對搭檔。本站另以M-1和經紀單位公告確認結成與所屬；作者喜歡的作品以推薦看法呈現，不寫成官方風格定義。"
+        },
+        "zh": "Werner",
+        "glossaryAliases": [
+          "ヴェルナー"
+        ],
+        "members": [
+          {
+            "jp": "松井千陽",
+            "reading": "まついちはる",
+            "role": "作品創作與角色表演",
+            "origin": "滋賀縣",
+            "zh": "松井千陽",
+            "glossaryAliases": [
+              "松井千陽"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "left"
+          },
+          {
+            "jp": "大辻",
+            "reading": "おおつじ",
+            "role": "角色表演與雙人互動",
+            "origin": "滋賀縣",
+            "zh": "大辻",
+            "glossaryAliases": [
+              "大辻"
+            ],
+            "match": "exact",
+            "aliasSource": null,
+            "photoPosition": "right"
+          }
+        ],
+        "article": null,
+        "cover": "assets/werner-cover.jpg",
+        "photo": {
+          "src": "assets/werner-cover.jpg",
+          "credit": "M-1官方雙人舞台照（左松井、右大辻）",
+          "url": "https://www.m-1gp.com/combi/27083.html",
+          "imageUrl": "https://www.m-1gp.com/combi/image_cms/27100/27083_combi_.jpg",
+          "permission": "public-source-attributed"
+        },
+        "videoResource": {
+          "kind": "官方 YouTube",
+          "title": "《Werner的漫才》（ヴェルナーのお漫才）",
+          "detail": "組合自己的官方YouTube頻道；連結由事務所或官方演出資料確認。"
+        }
       }
     ],
     "resources": [
@@ -38364,7 +39307,13 @@
           "heisei-nobushi-kobushi",
           "akashiya-sanma",
           "yasei-bakudan",
-          "wagyu"
+          "wagyu",
+          "omoide-zaibatsu",
+          "michibata-concert",
+          "onna",
+          "shirasu-no-kougeki",
+          "miracle-st-keikaku",
+          "werner"
         ]
       },
       {
@@ -38640,7 +39589,13 @@
           "heisei-nobushi-kobushi",
           "akashiya-sanma",
           "yasei-bakudan",
-          "wagyu"
+          "wagyu",
+          "omoide-zaibatsu",
+          "michibata-concert",
+          "onna",
+          "shirasu-no-kougeki",
+          "miracle-st-keikaku",
+          "werner"
         ]
       }
     ]
@@ -38648,15 +39603,147 @@
   "glossary": {
     "generatedAt": "2026-10-02",
     "source": "JPComedy 共用漫才詞庫公開快照",
-    "sha256": "0716c60e15d1871548bb5efe02d55c8f5898a69a5fba8846d80d7d3e25a42aee",
+    "sha256": "b8ac0f001daded12401479ec235c79969482d2abb215fabd4f2a8f4f1cae0a42",
     "counts": {
-      "talents": 265,
-      "activeTalents": 265,
+      "talents": 271,
+      "activeTalents": 271,
       "others": 67
     },
     "permission": "public-glossary-snapshot",
     "data": {
       "talents": [
+        {
+          "group": {
+            "jp": [
+              "おもいで財閥"
+            ],
+            "zh": "回憶財閥"
+          },
+          "members": [
+            {
+              "jp": [
+                "ユウダチ"
+              ],
+              "zh": "Yuudachi"
+            },
+            {
+              "jp": [
+                "弦左衛門"
+              ],
+              "zh": "弦左衛門"
+            }
+          ]
+        },
+        {
+          "group": {
+            "jp": [
+              "みちばたコンサート"
+            ],
+            "zh": "路邊音樂會"
+          },
+          "members": [
+            {
+              "jp": [
+                "らむ太郎"
+              ],
+              "zh": "Ramu太郎"
+            },
+            {
+              "jp": [
+                "こむそう.com"
+              ],
+              "zh": "虛無僧.com"
+            }
+          ]
+        },
+        {
+          "group": {
+            "jp": [
+              "女"
+            ],
+            "zh": "女"
+          },
+          "members": [
+            {
+              "jp": [
+                "二口りぼ～なす"
+              ],
+              "zh": "二口Ribo～Nasu"
+            },
+            {
+              "jp": [
+                "寺尾巨神兵"
+              ],
+              "zh": "寺尾巨神兵"
+            }
+          ]
+        },
+        {
+          "group": {
+            "jp": [
+              "しらすのこうげき！"
+            ],
+            "zh": "吻仔魚的攻擊！"
+          },
+          "members": [
+            {
+              "jp": [
+                "かすや"
+              ],
+              "zh": "糟谷"
+            },
+            {
+              "jp": [
+                "ひより"
+              ],
+              "zh": "Hiyori"
+            }
+          ]
+        },
+        {
+          "group": {
+            "jp": [
+              "ミラクルST計画"
+            ],
+            "zh": "Miracle ST計畫"
+          },
+          "members": [
+            {
+              "jp": [
+                "れいや"
+              ],
+              "zh": "Reiya"
+            },
+            {
+              "jp": [
+                "まきの"
+              ],
+              "zh": "Makino"
+            }
+          ]
+        },
+        {
+          "group": {
+            "jp": [
+              "ヴェルナー"
+            ],
+            "zh": "Werner"
+          },
+          "members": [
+            {
+              "jp": [
+                "松井千陽"
+              ],
+              "zh": "松井千陽"
+            },
+            {
+              "jp": [
+                "大辻"
+              ],
+              "zh": "大辻"
+            }
+          ]
+        },
         {
           "group": {
             "jp": [

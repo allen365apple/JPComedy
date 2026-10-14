@@ -10,6 +10,8 @@
 
 ## 頂層結構
 
+2026-10-14新增的6組及8個FB摘要放在`weekly-update-2026-10-14.json`，由`profiles.mjs`合併。`newProfiles`新增身分，`coverOrder`／`officialCovers`核對完整雙人照；`weeklyUpdates`以藝人ID連接文章摘要（`isSummary: true`、`text`、`publishedAt`、原文`url`）。它與舊`article`存檔全文分開，不能把摘要加進`posts_all.json`或冒充原文；`pending`保留來源中提及但尚未核對完整的藝人。新組合詞庫仍須與翻譯工具同步，公開快照也要重新建置。
+
 ```jsonc
 {
   "checkedAt": "2026-09-22",                       // 基本資料查核日期

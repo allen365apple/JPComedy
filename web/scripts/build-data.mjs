@@ -88,7 +88,7 @@ async function buildProfile(p) {
     detail: rank === 1 ? '冠軍' : `決賽第 ${rank} 名${repechage ? '（敗者復活）' : ''}`, url: resultsSource,
     competition: { finalRank: rank, firstRoundScore: score, repechage: !!repechage } }] : []);
   return { ...rest, type, styleGroup: styleGroup(p), zh: canonical.zh, glossaryAliases: canonical.jp,
-    members, article, cover: photo.src, photo: { ...photo, permission: 'local-preview-only' }, checkedAt,
+    members, article, cover: photo.src, photo: { ...photo, permission: 'local-preview-only' }, checkedAt: p.checkedAt || checkedAt,
     achievements, works: p.works || [], videoUrl: p.videoUrl || article?.videoUrl,
     videoResource: videoResources[p.id] || null,
     sources: [

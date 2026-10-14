@@ -49,15 +49,15 @@ test('directory includes the initial finalists, completed batches and the final 
   const eleventhBatch = ['fukura-p', 'pekopa', 'henderson', 'borujuku', 'matsumoto-club', 'marseille', 'mikabo', 'minamikawa', 'maple-chogokin', 'mou-chugakusei', 'mogurider', 'momo', 'monster-engine', 'yasuko', 'young', 'yadan', 'yuchami', 'yoiko', 'rice', 'license'];
   const finalBatch = ['rubber-girl', 'ranjyatai', 'linear', 'linda-color-infinity', 'lucifer-yoshioka', 'rozan', 'lotch', 'robert', 'watari-119', 'yasuda-dai-circus', 'igo-shogi', 'ameagari-kesshitai', 'yasukiyo', 'kaerutei', 'marugame-jango', 'onigoe-tomahawk', 'kin-no-kuni', 'kuuki-kaidan', 'gekidan-hitori', 'tsukitei-hosei', 'mitorizu', 'ganso-ichigo-chan', 'benishoga', 'imai-raipachi', 'konno-buruma', 'sanshiro', 'mikazuki-manhattan', 'sanyuukan', 'jicho-kacho', 'haru-to-hikoki', 'morisanchu', 'chihara-bros', 'asakusa-kid', 'suteki-janai-ka', 'aiseki-start', 'tenjikunezumi', 'hakata-hanamaru-daikichi', 'hakuto-peach-yopipi', 'bakusho-mondai', 'shinagawa-shoji', 'heisei-nobushi-kobushi', 'akashiya-sanma', 'yasei-bakudan', 'wagyu'];
   assert.equal(finalBatch.length, 44);
-  assert.equal(groups.length, 265);
-  assert.equal(new Set(groups.map(g => g.id)).size, 265);
-  assert.equal(groups.filter(g => g.type === 'duo').length, 223);
+  assert.equal(groups.length, 271);
+  assert.equal(new Set(groups.map(g => g.id)).size, 271);
+  assert.equal(groups.filter(g => g.type === 'duo').length, 229);
   assert.equal(groups.filter(g => g.type === 'trio').length, 15);
   assert.equal(groups.filter(g => g.type === 'ensemble').length, 2);
   assert.equal(groups.filter(g => g.type === 'solo').length, 25);
   assert.deepEqual(groups.slice(0, 10).map(g => g.achievements[0].competition.finalRank), [1,2,3,4,5,6,7,8,9,10]);
   assert.equal(filterGroups(groups)[0].id, 'takuro');
-  assert.equal(filterGroups(groups, { type: 'duo' }).length, 223);
+  assert.equal(filterGroups(groups, { type: 'duo' }).length, 229);
   assert.equal(filterGroups(groups, { type: 'trio' }).map(g => g.id).join(','), 'ginger-cat,3ji-no-heroine,cacao,dachou-club,tontsukatan,neptune,nelsons,party-chan,hanako,panther,yadan,linda-color-infinity,robert,yasuda-dai-circus,morisanchu');
   assert.ok(firstBatch.every(id => {
     const g = groups.find(group => group.id === id);
@@ -220,7 +220,7 @@ test('all original articles remain byte-for-byte intact and every copied image e
 
 test('every non-Weekly-Manzai detailed profile opens with a source-backed industry position', () => {
   const detailed = groups.filter(g => !g.article);
-  assert.equal(detailed.length, 201);
+  assert.equal(detailed.length, 207);
   for (const g of detailed) {
     assert.ok(g.researchedArticle?.positioning, `${g.id} is missing its industry position`);
     assert.ok(g.researchedArticle.positioningSources.length >= 2, `${g.id} needs positioning sources`);

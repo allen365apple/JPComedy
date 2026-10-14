@@ -7,7 +7,13 @@ import { profiles as backfillProfiles, coverOrder as backfillCoverOrder, officia
 
 const db = JSON.parse(await readFile(new URL('./profiles.json', import.meta.url), 'utf8'));
 const seniorEnrichment = JSON.parse(await readFile(new URL('./senior-enrichment-2026-10-14.json', import.meta.url), 'utf8'));
-const baseProfiles = [...db.profiles, ...(db.profilesSupplement || []), ...backfillProfiles];
+const weeklyUpdate = JSON.parse(await readFile(new URL('./weekly-update-2026-10-14.json', import.meta.url), 'utf8'));
+const baseProfiles = [...db.profiles, ...(db.profilesSupplement || []), ...backfillProfiles,
+  ...weeklyUpdate.newProfiles.map(p => ({ ...p, checkedAt: weeklyUpdate.checkedAt }))];
+if (new Set(baseProfiles.map(p => p.id)).size !== baseProfiles.length) throw new Error('Duplicate profile identity');
+for (const id of Object.keys(weeklyUpdate.weeklyUpdates)) {
+  if (!baseProfiles.some(p => p.id === id)) throw new Error(`Unknown weekly update target: ${id}`);
+}
 const enrichedById = new Map();
 for (const entry of seniorEnrichment.profiles) {
   const original = baseProfiles.find(profile => profile.id === entry.id);
@@ -20,12 +26,18 @@ for (const entry of seniorEnrichment.profiles) {
 export const checkedAt = db.checkedAt;
 export const resultsSource = db.resultsSource;
 export const aliasSource = db.aliasSource;
-export const videoResources = db.videoResources;
-export const coverOrder = { ...db.coverOrder, ...backfillCoverOrder };
-export const officialCovers = { ...db.officialCovers, ...backfillOfficialCovers };
+export const videoResources = { ...db.videoResources, ...weeklyUpdate.videoResources };
+export const coverOrder = { ...db.coverOrder, ...backfillCoverOrder, ...weeklyUpdate.coverOrder };
+export const officialCovers = { ...db.officialCovers, ...backfillOfficialCovers, ...weeklyUpdate.officialCovers };
 export const profiles = baseProfiles.map(profile => {
   const enrichment = enrichedById.get(profile.id);
-  return enrichment ? { ...profile, researchedArticle: enrichment.researchedArticle, works: enrichment.works } : profile;
+  const enriched = enrichment ? { ...profile, researchedArticle: enrichment.researchedArticle, works: enrichment.works } : profile;
+  const update = weeklyUpdate.weeklyUpdates[profile.id];
+  if (!update) return enriched;
+  return { ...enriched, weeklyUpdate: update,
+    ...(profile.id === 'nanamagari' ? { aliases: [...new Set([...(profile.aliases || []), '七曲'])] } : {}),
+    sources: [...(enriched.sources || []), ...(weeklyUpdate.existingSources[profile.id] || []),
+      { label: '每週漫才：新文章／合輯原文', url: update.url, covers: '本站摘要的原始文章，非全文轉載' }] };
 });
 
 // `resources` stores its links to artists declaratively so the database never
