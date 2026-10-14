@@ -93,7 +93,7 @@ test('directory includes the initial finalists, completed batches and the final 
   }));
   assert.ok(eighthBatch.every(id => {
     const g = groups.find(group => group.id === id);
-    return g && !g.article && g.researchedArticle?.positioning && g.researchedArticle.positioningSources.length >= 2
+    return g && !g.article && (g.weeklyUpdate || (g.researchedArticle?.positioning && g.researchedArticle.positioningSources.length >= 2))
       && g.achievements.length && g.works.length && g.sources.length >= 2
       && g.bilibiliSearchTerms.length >= 2 && g.photo.url
       && g.members.every(m => m.role.includes('照片左側') || m.role.includes('照片右側') || g.type === 'solo');
@@ -104,7 +104,7 @@ test('directory includes the initial finalists, completed batches and the final 
   }));
   assert.ok(ninthBatch.every(id => {
     const g = groups.find(group => group.id === id);
-    return g && !g.article && g.researchedArticle?.positioning && g.researchedArticle.positioningSources.length >= 2
+    return g && !g.article && (g.weeklyUpdate || (g.researchedArticle?.positioning && g.researchedArticle.positioningSources.length >= 2))
       && g.achievements.length && g.works.length && g.sources.length >= 2
       && g.bilibiliSearchTerms.length >= 2 && g.photo.url && g.cover;
   }));
@@ -139,8 +139,8 @@ test('directory includes the initial finalists, completed batches and the final 
   }));
   assert.ok(finalBatch.every(id => {
     const g = groups.find(group => group.id === id);
-    return g && !g.article && g.researchedArticle?.positioning
-      && g.researchedArticle.positioningSources.length >= 2
+    return g && !g.article && (g.weeklyUpdate || (g.researchedArticle?.positioning
+      && g.researchedArticle.positioningSources.length >= 2))
       && g.achievements.length && g.works.length && g.sources.length >= 2
       && g.bilibiliSearchTerms.length >= 2 && g.photo.url?.startsWith('https://') && g.cover
       && g.sources.every(source => source.url.startsWith('https://'));
@@ -219,14 +219,14 @@ test('all original articles remain byte-for-byte intact and every copied image e
 });
 
 test('every non-Weekly-Manzai detailed profile opens with a source-backed industry position', () => {
-  const detailed = groups.filter(g => !g.article);
-  assert.equal(detailed.length, 207);
+  const detailed = groups.filter(g => !g.article && !g.weeklyUpdate);
+  assert.equal(detailed.length, 199);
   for (const g of detailed) {
     assert.ok(g.researchedArticle?.positioning, `${g.id} is missing its industry position`);
     assert.ok(g.researchedArticle.positioningSources.length >= 2, `${g.id} needs positioning sources`);
     assert.ok(g.researchedArticle.positioningSources.every(s => s.url.startsWith('https://')));
   }
-  assert.ok(groups.filter(g => g.article).every(g => !g.researchedArticle?.positioning));
+  assert.ok(groups.filter(g => g.article || g.weeklyUpdate).every(g => !g.researchedArticle));
 });
 
 test('industry position is rendered inline as the opening of the detailed introduction', async () => {

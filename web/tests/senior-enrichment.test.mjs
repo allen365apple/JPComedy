@@ -31,9 +31,10 @@ test('enrichment leaves other artists and base identity data unchanged', async (
   for (const original of [...base.profiles, ...(base.profilesSupplement || [])]) {
     const updated = profiles.find(item => item.id === original.id);
     if (updated.weeklyUpdate) {
-      const { weeklyUpdate, sources, aliases, ...after } = updated;
-      const { sources: beforeSources, aliases: beforeAliases, ...before } = original;
+      const { weeklyUpdate, sources, aliases, works, ...after } = updated;
+      const { sources: beforeSources, aliases: beforeAliases, researchedArticle, works: beforeWorks, ...before } = original;
       assert.deepEqual(after, before);
+      assert.deepEqual(works, (beforeWorks || []).filter(work => !/專訪|訪談/.test(work.kind)));
       assert.deepEqual(sources.slice(0, beforeSources.length), beforeSources);
       assert.ok((beforeAliases || []).every(alias => aliases.includes(alias)));
     } else if (!enriched.has(original.id)) assert.deepEqual(updated, original);

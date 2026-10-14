@@ -8,6 +8,7 @@ import { profiles as backfillProfiles, coverOrder as backfillCoverOrder, officia
 const db = JSON.parse(await readFile(new URL('./profiles.json', import.meta.url), 'utf8'));
 const seniorEnrichment = JSON.parse(await readFile(new URL('./senior-enrichment-2026-10-14.json', import.meta.url), 'utf8'));
 const weeklyUpdate = JSON.parse(await readFile(new URL('./weekly-update-2026-10-14.json', import.meta.url), 'utf8'));
+const authorizedWeekly = JSON.parse(await readFile(new URL('./weekly-authorized-2026-10-14.json', import.meta.url), 'utf8'));
 const baseProfiles = [...db.profiles, ...(db.profilesSupplement || []), ...backfillProfiles,
   ...weeklyUpdate.newProfiles.map(p => ({ ...p, checkedAt: weeklyUpdate.checkedAt }))];
 if (new Set(baseProfiles.map(p => p.id)).size !== baseProfiles.length) throw new Error('Duplicate profile identity');
@@ -32,12 +33,16 @@ export const officialCovers = { ...db.officialCovers, ...backfillOfficialCovers,
 export const profiles = baseProfiles.map(profile => {
   const enrichment = enrichedById.get(profile.id);
   const enriched = enrichment ? { ...profile, researchedArticle: enrichment.researchedArticle, works: enrichment.works } : profile;
-  const update = weeklyUpdate.weeklyUpdates[profile.id];
+  const update = authorizedWeekly.weeklyUpdates[profile.id] || weeklyUpdate.weeklyUpdates[profile.id];
   if (!update) return enriched;
-  return { ...enriched, weeklyUpdate: update,
+  // Keep the historical research in its source files, but do not ship a second
+  // editorial feature on a page that already carries Weekly Manzai content.
+  const { researchedArticle, ...weeklyProfile } = enriched;
+  return { ...weeklyProfile, weeklyUpdate: update,
+    works: (weeklyProfile.works || []).filter(work => !/專訪|訪談/.test(work.kind)),
     ...(profile.id === 'nanamagari' ? { aliases: [...new Set([...(profile.aliases || []), '七曲'])] } : {}),
     sources: [...(enriched.sources || []), ...(weeklyUpdate.existingSources[profile.id] || []),
-      { label: '每週漫才：新文章／合輯原文', url: update.url, covers: '本站摘要的原始文章，非全文轉載' }] };
+      { label: '每週漫才：新文章／合輯原文', url: update.url, covers: '已獲授權刊載的作者原文；合輯顯示本組完整段落' }] };
 });
 
 // `resources` stores its links to artists declaratively so the database never
