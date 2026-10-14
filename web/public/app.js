@@ -124,7 +124,20 @@ function bindCatalog() {
   updateCatalog();
 }
 
+/** Render owner-authorized Weekly Manzai text, keeping author wording intact. */
+function weeklyArticle(g) {
+  const source = g.weeklyUpdate;
+  if (!source) return '';
+  const date = new Date(source.publishedAt).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
+  return `<section class="weekly-section weekly-update" aria-labelledby="weekly-update-title"><div class="weekly-heading"><span class="weekly-seal" aria-hidden="true">每週<br>漫才</span><div><p class="eyebrow">WEEKLY MANZAI</p><h2 id="weekly-update-title">每週漫才是這樣寫的</h2></div></div>
+    <p class="article-meta">每週漫才 · 原始發文 ${esc(date)} · ${external(source.url, '閱讀完整原文')}</p>
+    <p class="article-context">${source.contentKind === 'complete-section' ? '以下為合輯中介紹本組的完整原文段落，未改寫或摘要；整篇合輯可由原文連結閱讀。' : '以下保留《每週漫才》完整原文，未改寫或摘要。'}內容與觀點屬於原作者；「今年」「去年」及戰績請依原始發文時間理解。</p>
+    <p class="micro-note">經網站負責人確認已取得《每週漫才》刊載授權，並保留原始出處。</p>
+    <div class="article-details"><h3 class="article-title">${esc(source.title)}</h3><p class="original-text">${esc(source.text)}</p></div></section>`;
+}
+
 function sourceArticle(g) {
+  if (g.weeklyUpdate) return weeklyArticle(g);
   if (!g.article && g.researchedArticle) {
     const source = g.researchedArticle;
     const sources = [...(source.positioningSources || []), ...(source.sources || [])]
@@ -137,9 +150,7 @@ function sourceArticle(g) {
   }
   if (!g.article) return '';
   const date = new Date(g.article.publishedAt).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit' });
-  const permissionNote = g.article.permission === 'public-source-attributed'
-    ? '文章與圖片保留原始出處；公開使用範圍依網站發布清單。'
-    : '完整文章與圖片來自使用者提供的存檔，僅供本機示範；公開轉載授權尚待確認。';
+  const permissionNote = '經網站負責人確認已取得《每週漫才》文章刊載授權；原文與圖片保留原始出處。';
   return `<section class="weekly-section" aria-labelledby="weekly-title"><div class="weekly-heading"><span class="weekly-seal" aria-hidden="true">每週<br>漫才</span><div><p class="eyebrow">ANOTHER PERSPECTIVE</p><h2 id="weekly-title">每週漫才是這樣寫的</h2></div></div><p class="article-meta">每週漫才 · 原始發文 ${date} · ${external(g.article.url, '閱讀原始貼文')}</p>
     <p class="article-context">以下保留作者原文與觀點。文中的「今年」「去年」及戰績請依原始發文時間理解，最新整理見上方資料。</p>
     <div class="article-details"><h3 class="article-title">${esc(g.article.title)}</h3><div class="original-text">${esc(g.article.text)}</div>

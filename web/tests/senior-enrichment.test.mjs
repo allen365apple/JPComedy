@@ -7,7 +7,7 @@ const batch = JSON.parse(await readFile(new URL('../content/senior-enrichment-20
 
 test('eight senior profiles receive detailed, dated, source-backed introductions', () => {
   assert.equal(batch.profiles.length, 8);
-  assert.equal(profiles.length, 265);
+  assert.equal(profiles.length, 271);
   for (const entry of batch.profiles) {
     const profile = profiles.find(item => item.id === entry.id);
     assert.ok(profile);
@@ -30,7 +30,14 @@ test('enrichment leaves other artists and base identity data unchanged', async (
   const enriched = new Set(batch.profiles.map(item => item.id));
   for (const original of [...base.profiles, ...(base.profilesSupplement || [])]) {
     const updated = profiles.find(item => item.id === original.id);
-    if (!enriched.has(original.id)) assert.deepEqual(updated, original);
+    if (updated.weeklyUpdate) {
+      const { weeklyUpdate, sources, aliases, works, ...after } = updated;
+      const { sources: beforeSources, aliases: beforeAliases, researchedArticle, works: beforeWorks, ...before } = original;
+      assert.deepEqual(after, before);
+      assert.deepEqual(works, (beforeWorks || []).filter(work => !/專訪|訪談/.test(work.kind)));
+      assert.deepEqual(sources.slice(0, beforeSources.length), beforeSources);
+      assert.ok((beforeAliases || []).every(alias => aliases.includes(alias)));
+    } else if (!enriched.has(original.id)) assert.deepEqual(updated, original);
     else {
       const { researchedArticle, works, ...before } = original;
       const { researchedArticle: articleAfter, works: worksAfter, ...after } = updated;

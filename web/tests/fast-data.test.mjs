@@ -11,7 +11,7 @@ test('fast catalog retains searchable fields and complete profiles remain recove
   await prepareFastData(dir, source);
   const raw = await readFile(path.join(dir, 'catalog.json'), 'utf8');
   const catalog = JSON.parse(raw);
-  assert.equal(catalog.groups.length, 265);
+  assert.equal(catalog.groups.length, 271);
   assert.ok(Buffer.byteLength(raw) < Buffer.byteLength(JSON.stringify(source)) * 0.3);
   for (const group of catalog.groups) {
     const original = source.groups.find(g => g.id === group.id);
