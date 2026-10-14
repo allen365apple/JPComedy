@@ -25,6 +25,7 @@ for (const entry of seniorEnrichment.profiles) {
 }
 
 export const checkedAt = db.checkedAt;
+export const glossaryUpdatedAt = weeklyUpdate.checkedAt;
 export const resultsSource = db.resultsSource;
 export const aliasSource = db.aliasSource;
 export const videoResources = { ...db.videoResources, ...weeklyUpdate.videoResources };

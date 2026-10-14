@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir, copyFile, access } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { profiles, resources, checkedAt, resultsSource, aliasSource, coverOrder, officialCovers, videoResources } from '../content/profiles.mjs';
+import { profiles, resources, checkedAt, glossaryUpdatedAt, resultsSource, aliasSource, coverOrder, officialCovers, videoResources } from '../content/profiles.mjs';
 import { resolveWorkspace } from './workspace.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -120,7 +120,7 @@ await writeFile(path.join(root, 'glossary-crosswalk.json'), JSON.stringify(repor
 // term in fixture mode, and fall back to it when the live API is unavailable.
 const glossaryActiveTalents = shared.talents.filter(t => !t.disabled).length;
 const glossarySnapshot = {
-  generatedAt: checkedAt,
+  generatedAt: glossaryUpdatedAt,
   source: '../jpcomedy-glossary/glossary.json',
   sha256: data.meta.glossarySha256,
   counts: { talents: shared.talents.length, activeTalents: glossaryActiveTalents, others: shared.others.length },

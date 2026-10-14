@@ -10,6 +10,12 @@ const data = JSON.parse(await readFile(new URL('../public/data.json', import.met
 const authorized = JSON.parse(await readFile(new URL('../content/weekly-authorized-2026-10-14.json', import.meta.url), 'utf8'));
 const raw = JSON.parse(await readFile(new URL('../../../manzaiweek-archive/apify-check-2026-10-14.json', import.meta.url), 'utf8'));
 
+test('glossary snapshot has its update date without relabelling old basic artist data', async () => {
+  const snapshot = JSON.parse(await readFile(new URL('../public/glossary-snapshot.json', import.meta.url), 'utf8'));
+  assert.equal(snapshot.generatedAt, '2026-10-14');
+  assert.equal(data.groups.find(g => g.id === 'takuro').checkedAt, '2026-10-02');
+});
+
 test('six source-checked duos are added once with whole-group photos and glossary identities', async () => {
   assert.equal(batch.newProfiles.length, 6);
   assert.equal(batch.pending.length, 1);
