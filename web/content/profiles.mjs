@@ -25,7 +25,8 @@ for (const entry of seniorEnrichment.profiles) {
 }
 
 export const checkedAt = db.checkedAt;
-export const glossaryUpdatedAt = weeklyUpdate.checkedAt;
+// Glossary-only maintenance must not relabel the basic artist research dates.
+export const glossaryUpdatedAt = '2026-10-18';
 export const resultsSource = db.resultsSource;
 export const aliasSource = db.aliasSource;
 export const videoResources = { ...db.videoResources, ...weeklyUpdate.videoResources };

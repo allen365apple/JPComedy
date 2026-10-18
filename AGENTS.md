@@ -19,6 +19,10 @@ repo-wide invariants.
 
 ## What this project is
 
+### Website artist updates must include the live glossary
+
+For work under `web/`, read `web/content/ARTIST_ENRICHMENT_WORKFLOW.md` and the coverage/backlog records. Every artist-page update must also verify the group name, member names, confirmed aliases and related programme terms in the **live shared glossary**, not only the local files or website snapshot. Preserve remote manual edits; a failed live-glossary sync is unfinished work. Follow the workflow for syncing local glossary copies, publication checks and recording remaining gaps.
+
 **Owarai GrillMaster** — a single-user CLI that downloads a Japanese
 variety-show video (by ID or URL) and produces Traditional Chinese subtitles
 (SRT + styled ASS), optionally burning them into the video. No server, queue, or
