@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T08:27:02.731Z",
+  "generatedAt": "2026-10-18T15:31:49.608Z",
   "policy": {
     "mode": "source-attributed",
     "weeklyArticles": "all-current-with-source",
@@ -12,7 +12,7 @@
       "siteName": "日式搞笑大補帖",
       "count": 271,
       "sourcePostCount": 92,
-      "glossarySha256": "b8ac0f001daded12401479ec235c79969482d2abb215fabd4f2a8f4f1cae0a42",
+      "glossarySha256": "674edee5f58b1e9284ca0be7cf01a29f39ecf5b38434aea9107be79a20c6229e",
       "glossarySource": "JPComedy 共用漫才詞庫公開快照",
       "pipelineMatched": true,
       "publication": "public-source-attributed",
@@ -39389,13 +39389,13 @@
     ]
   },
   "glossary": {
-    "generatedAt": "2026-10-14",
+    "generatedAt": "2026-10-18",
     "source": "JPComedy 共用漫才詞庫公開快照",
-    "sha256": "b8ac0f001daded12401479ec235c79969482d2abb215fabd4f2a8f4f1cae0a42",
+    "sha256": "674edee5f58b1e9284ca0be7cf01a29f39ecf5b38434aea9107be79a20c6229e",
     "counts": {
       "talents": 271,
       "activeTalents": 271,
-      "others": 67
+      "others": 72
     },
     "permission": "public-glossary-snapshot",
     "data": {
@@ -45216,6 +45216,36 @@
         }
       ],
       "others": [
+        {
+          "jp": [
+            "おもいで財閥カラーテレビ"
+          ],
+          "zh": "回憶財閥彩色電視"
+        },
+        {
+          "jp": [
+            "みちばたコンサートのバックステージ"
+          ],
+          "zh": "路邊音樂會的後台"
+        },
+        {
+          "jp": [
+            "女の恋やねんちゅーぶ"
+          ],
+          "zh": "女的戀愛頻道"
+        },
+        {
+          "jp": [
+            "ミラクルST計画のST大連チャン"
+          ],
+          "zh": "Miracle ST計畫的ST大連發"
+        },
+        {
+          "jp": [
+            "ヴェルナーのお漫才"
+          ],
+          "zh": "Werner的漫才"
+        },
         {
           "jp": [
             "あちこちオードリー"

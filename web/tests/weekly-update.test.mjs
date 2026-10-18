@@ -12,7 +12,7 @@ const raw = JSON.parse(await readFile(new URL('../../../manzaiweek-archive/apify
 
 test('glossary snapshot has its update date without relabelling old basic artist data', async () => {
   const snapshot = JSON.parse(await readFile(new URL('../public/glossary-snapshot.json', import.meta.url), 'utf8'));
-  assert.equal(snapshot.generatedAt, '2026-10-14');
+  assert.equal(snapshot.generatedAt, '2026-10-18');
   assert.equal(data.groups.find(g => g.id === 'takuro').checkedAt, '2026-10-02');
 });
 
