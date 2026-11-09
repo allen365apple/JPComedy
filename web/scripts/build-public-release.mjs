@@ -17,6 +17,9 @@ for (const group of source.data.groups) {
     if (image.src?.startsWith('assets/')) assetPaths.add(image.src);
   }
 }
+for (const resource of source.data.resources || []) {
+  if (resource.image?.src?.startsWith('assets/')) assetPaths.add(resource.image.src);
+}
 for (const relativePath of assetPaths) {
   const sourcePath = path.join(sourceDir, relativePath);
   await access(sourcePath);

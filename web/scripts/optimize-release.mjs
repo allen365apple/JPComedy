@@ -32,14 +32,17 @@ for (const group of data.groups) {
   for (const image of group.article?.images || []) image.src = await variant(image.src, 1100);
   for (const image of group.memberPhotos || []) image.src = await variant(image.src, 960);
 }
+for (const resource of data.resources || []) {
+  if (resource.image?.src) resource.image.src = await variant(resource.image.src, 720);
+}
 await writeFile(path.join(root, 'data.json'), JSON.stringify(data));
 await prepareFastData(root, data);
-const version = createHash('sha256').update(JSON.stringify(data)).update(await readFile(path.join(root, 'app.js'))).digest('hex').slice(0, 12);
+const version = createHash('sha256').update(JSON.stringify(data)).update(await readFile(path.join(root, 'app.js'))).update(await readFile(path.join(root, 'styles.css'))).digest('hex').slice(0, 12);
 const configFile = path.join(root, 'site-config.js');
 await writeFile(configFile, (await readFile(configFile, 'utf8')).replace('window.JPCOMEDY_SITE = {', `window.JPCOMEDY_SITE = {\n  "assetVersion": "${version}",`));
 const indexFile = path.join(root, 'index.html');
 let html = await readFile(indexFile, 'utf8');
-html = html.replace('./site-config.js', `./site-config.js?v=${version}`).replace('./app.js', `./app.js?v=${version}`);
+html = html.replace('./site-config.js', `./site-config.js?v=${version}`).replace('./app.js', `./app.js?v=${version}`).replace('./styles.css', `./styles.css?v=${version}`);
 html = html.replace('</head>', `<link rel="preload" href="./catalog.json?v=${version}" as="fetch" crossorigin>\n<link rel="preload" href="./${data.groups[0].cover}" as="image" fetchpriority="high">\n</head>`);
 await writeFile(indexFile, html);
 console.log(`Prepared fast catalog, ${data.groups.length} on-demand profiles and ${cache.size} WebP derivatives; originals preserved.`);
