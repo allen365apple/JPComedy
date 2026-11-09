@@ -1,0 +1,526 @@
+{
+  "imageOverrides": {
+    "m1": {
+      "src": "assets/resource-m1.jpg",
+      "alt": "M-1 大賽官方標誌",
+      "credit": "M-1 大賽官方網站",
+      "sourceUrl": "https://www.m-1gp.com/",
+      "originalUrl": "https://www.m-1gp.com/2026/img/ogp_logo.png"
+    },
+    "r1": {
+      "src": "assets/resource-r1.jpg",
+      "alt": "R-1 大賽官方宣傳圖",
+      "credit": "R-1 大賽官方網站",
+      "sourceUrl": "https://www.r-1gp.com/",
+      "originalUrl": "https://www.r-1gp.com/assets/img/ogp.jpg"
+    },
+    "history": {
+      "src": "assets/resource-m1.jpg",
+      "alt": "M-1 歷年成績入口參考圖：M-1 官方標誌",
+      "credit": "M-1 大賽官方標誌",
+      "sourceUrl": "https://www.m-1gp.com/",
+      "originalUrl": "https://www.m-1gp.com/2026/img/ogp_logo.png"
+    },
+    "theater": {
+      "src": "assets/resource-theater-about.jpg",
+      "alt": "吉本漫才劇場建築入口",
+      "credit": "吉本漫才劇場：劇場介紹",
+      "sourceUrl": "https://manzaigekijyo.yoshimoto.co.jp/about/",
+      "originalUrl": "https://manzaigekijyo.yoshimoto.co.jp/assets/images/about/about-img01.jpg"
+    },
+    "conte": {
+      "src": "assets/resource-conte.jpg",
+      "alt": "短劇之王官方網站宣傳照片",
+      "credit": "TBS《短劇之王》官方網站",
+      "sourceUrl": "https://www.tbs.co.jp/kingofconte/",
+      "originalUrl": "https://www.tbs.co.jp/kingofconte/__media__/11554.gif"
+    },
+    "channels": {
+      "src": "assets/jarujaru-official.jpg",
+      "alt": "官方影音頻道示例：JARUJARU",
+      "credit": "吉本興業：JARUJARU（頻道示例）",
+      "sourceUrl": "https://profile.yoshimoto.co.jp/talent/detail?id=179",
+      "originalUrl": "https://profile.yoshimoto.co.jp/assets/data/profile/179/bbce9755d4ae79e76f40f2bd29406a1e6a05c241.jpg"
+    },
+    "weekly": {
+      "src": "assets/resource-weekly.jpg",
+      "alt": "每週漫才 Facebook 公開頁面頭像",
+      "credit": "每週漫才 Facebook 公開頁面",
+      "sourceUrl": "https://www.facebook.com/61571407746423"
+    },
+    "ippon": {
+      "src": "assets/program-ippon-stage.jpg",
+      "alt": "《IPPON 大喜利大賽》節目畫面",
+      "credit": "富士電視台：第20回大賽",
+      "sourceUrl": "https://www.fujitv.co.jp/muscat/20180898.html",
+      "originalUrl": "https://www.fujitv.co.jp/muscat/photo/20180898_02.jpg"
+    },
+    "yofukashi": {
+      "src": "assets/program-yofukashi.jpg",
+      "alt": "《月曜夜未央》節目畫面",
+      "credit": "日本電視台",
+      "sourceUrl": "https://www.ntv.co.jp/yofukashi/articles/3805mltfgi22z0jopioj.html",
+      "originalUrl": "https://www.ntv.co.jp/yofukashi/articles/images/4eimv1r0p4j7c0r7huztdc3zkpp1ta.jpg"
+    }
+  },
+  "resources": [
+    {
+      "id": "chance",
+      "title": "機會的時間",
+      "subtitle": "チャンスの時間",
+      "category": "節目",
+      "mark": "番",
+      "description": "競賽、整人與談話企劃輪番登場，例如「愛王決定戰」，讓藝人把戀愛煩惱回答成誇張金句。",
+      "cast": "千鳥（大悟、Nobu）主持，西澤由夏協助進行；來賓依企劃更換。",
+      "highlight": "大悟提出荒唐要求、藝人全力接招，再由 Nobu 吐槽收場。",
+      "url": "https://abema.tv/lp/chance-onair",
+      "related": [
+        "chidori"
+      ],
+      "bilibiliKeyword": "チャンスの時間",
+      "bilibiliVideoUrl": "https://www.bilibili.com/video/BV1gQxt6aEwT/",
+      "image": {
+        "src": "assets/program-chance.jpg",
+        "alt": "《機會的時間》節目畫面",
+        "credit": "ABEMA TIMES",
+        "sourceUrl": "https://times.abema.tv/articles/-/10115017",
+        "originalUrl": "https://times-abema.ismcdn.jp/mwimgs/2/e/1200w/img_2e278ca8775a64e6976e71ab153045801300359.jpg"
+      },
+      "extraVideos": [
+        {
+          "label": "第9屆愛王決定戰",
+          "url": "https://www.bilibili.com/video/BV1PG4y1d75n/",
+          "lineId": 4,
+          "checkedAt": "2026-11-10"
+        },
+        {
+          "label": "讓我來一發劇場",
+          "url": "https://www.bilibili.com/video/BV1TX4y1m7Qg/",
+          "lineId": 5,
+          "checkedAt": "2026-11-10"
+        },
+        {
+          "label": "康乃馨：爆料漫才",
+          "url": "https://www.bilibili.com/video/BV1bgwwz3E82/",
+          "lineId": 17,
+          "checkedAt": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "nobrock",
+      "title": "佐久間宣行的 NOBROCK TV",
+      "subtitle": "佐久間宣行のNOBROCK TV",
+      "category": "節目",
+      "mark": "番",
+      "description": "以整人與表演挑戰為主的 YouTube 頻道，例如「100 次裝傻、100 次吐槽」，讓搭檔在假會議中完成一百組互動。",
+      "cast": "製作人佐久間宣行與每集受邀藝人，包括蘭奢待等。",
+      "highlight": "同一套規則遇到不同搭檔，會呈現完全不同的表演節奏。",
+      "url": "https://www.youtube.com/@NOBROCKTV",
+      "related": [],
+      "bilibiliKeyword": "NOBROCK",
+      "image": {
+        "src": "assets/program-nobrock.jpg",
+        "alt": "《佐久間宣行的 NOBROCK TV》節目畫面",
+        "credit": "NOBROCK TV 官方 YouTube",
+        "sourceUrl": "https://www.youtube.com/watch?v=y8OGwrE1siA",
+        "originalUrl": "https://i.ytimg.com/vi/y8OGwrE1siA/hqdefault.jpg"
+      },
+      "extraVideos": [
+        {
+          "label": "蘭奢待100次裝傻吐槽挑戰",
+          "url": "https://www.bilibili.com/video/BV1qu4y1y7sw/",
+          "lineId": 11,
+          "checkedAt": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "golden-combi",
+      "title": "最強新搭檔決定戰：黃金組合",
+      "subtitle": "最強新コンビ決定戦 THEゴールデンコンビ",
+      "category": "節目",
+      "mark": "番",
+      "description": "藝人另組限定搭檔，面對突然公布的場景與題目演即興短劇，例如演出「沒看過的討厭醫生」。",
+      "cast": "千鳥主持，參賽者依季更換；第一季包括 Kuruma、堀內健等。",
+      "highlight": "看高手如何在幾秒內接住新搭檔的發想，把突發狀況接成表演。",
+      "url": "https://www.primevideo.com/-/ja/detail/0IYMHIMP8916P5NZIK4EP2TKYL",
+      "related": [
+        "chidori",
+        "reiwa-roman"
+      ],
+      "bilibiliKeyword": "ゴールデンコンビ",
+      "bilibiliVideoUrl": "https://www.bilibili.com/video/BV1qW5P6VEs6/",
+      "bilibiliVideoLabel": "Bilibili：即興搞笑第一集",
+      "image": {
+        "src": "assets/program-golden-combi.jpg",
+        "alt": "《最強新搭檔決定戰：黃金組合》節目畫面",
+        "credit": "Prime Video",
+        "sourceUrl": "https://www.primevideo.com/-/ja/detail/0IYMHIMP8916P5NZIK4EP2TKYL",
+        "originalUrl": "https://m.media-amazon.com/images/S/pv-target-images/7ca8fae0430d188a78be96de3d8cc65bb20314ef7a80608107166227a669548d._BR-6_AC_SX720_FMpng_.png"
+      }
+    },
+    {
+      "id": "one-shot",
+      "title": "THE ONE SHOT：一擊制勝",
+      "subtitle": "THE ONE SHOT",
+      "category": "節目",
+      "mark": "番",
+      "description": "八位藝人各自編寫、執導短片，整部作品只能放一個裝傻點，以故事鋪陳換取一次爆發。",
+      "cast": "大悟企劃製作；秋山龍次、又吉直樹、後藤淳平、山內健司、國崎和也等參賽。",
+      "highlight": "同樣只能有一個笑點，八位藝人會用截然不同的方式安排它。",
+      "url": "https://www.disneyplus.com/ja-jp/explore/articles/the-one-shot-watch-guide",
+      "related": [
+        "chidori"
+      ],
+      "bilibiliKeyword": "THE ONE SHOT",
+      "image": {
+        "src": "assets/program-one-shot.jpg",
+        "alt": "《THE ONE SHOT：一擊制勝》節目畫面",
+        "credit": "Disney+／FANY Studio",
+        "sourceUrl": "https://www.disneyplus.com/ja-jp/explore/articles/the-one-shot-watch-guide",
+        "originalUrl": "https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/7635F6229E38A2E8667191D72CB6F172421297787E260677CFA1A093B2962D6E/scale?format=webp&width=1200"
+      },
+      "extraVideos": [
+        {
+          "label": "THE ONE SHOT：分享影片",
+          "url": "https://www.bilibili.com/video/BV18Hg56DEVd/",
+          "lineId": 2,
+          "checkedAt": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "gaki-shichihenge",
+      "title": "Gaki no Tsukai：七變化",
+      "subtitle": "ガキの使い／七変化",
+      "category": "節目",
+      "mark": "番",
+      "description": "挑戰者接連使出七種表演，想辦法逗笑面前的節目成員，例如蘭奢待國崎的挑戰回。",
+      "cast": "《Gaki no Tsukai》節目成員與每回受邀挑戰者；陣容依年份、集數不同。",
+      "highlight": "造型、動作與出場時機都能成為笑點，幾次出場就能看見藝人的個人風格。",
+      "url": "https://www.ntv.co.jp/gaki/",
+      "related": [
+        "downtown"
+      ],
+      "bilibiliKeyword": "七变化",
+      "image": {
+        "src": "assets/program-gaki-shichihenge.jpg",
+        "alt": "《Gaki no Tsukai：七變化》節目畫面",
+        "credit": "日本電視台：森田七變化回",
+        "sourceUrl": "https://www.ntv.co.jp/gaki/articles/3302h2mly2cgs99e7wjj.html",
+        "originalUrl": "https://www.ntv.co.jp/gaki/articles/images/yoi0dosjuxty2s65es23sj22ojzmoc.jpg"
+      },
+      "extraVideos": [
+        {
+          "label": "蘭奢待國崎七變化",
+          "url": "https://www.bilibili.com/video/BV1fw411r7MP/",
+          "lineId": 8,
+          "checkedAt": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "suberanai",
+      "title": "松本人志的不冷場故事",
+      "subtitle": "人志松本のすべらない話",
+      "category": "節目",
+      "mark": "番",
+      "description": "擲出寫有參賽者名字的骰子，輪到誰就講一個故事，題材可以是家人、工作或生活中的奇遇。",
+      "cast": "歷年演出包括松本人志、千原 Junior、宮川大輔、小籔千豐等。",
+      "highlight": "幾乎只靠說話，就把小事講得好笑；人物描寫、停頓和結尾都是重點。",
+      "url": "https://www.fujitv.co.jp/suberanai/",
+      "related": [
+        "downtown"
+      ],
+      "bilibiliKeyword": "すべらない話",
+      "image": {
+        "src": "assets/program-suberanai.jpg",
+        "alt": "《松本人志的不冷場故事》節目畫面",
+        "credit": "富士電視台",
+        "sourceUrl": "https://www.fujitv.co.jp/muscat/20190008.html",
+        "originalUrl": "https://www.fujitv.co.jp/muscat/photo/20190008_01.jpg"
+      }
+    },
+    {
+      "id": "london-hearts",
+      "title": "倫敦之心",
+      "subtitle": "ロンドンハーツ",
+      "category": "節目",
+      "mark": "番",
+      "description": "透過排名、問卷、整人與藝人互評製造互動，例如讓藝人面對別人對自己的評價，再當場辯解或反擊。",
+      "cast": "田村淳等歷年主持陣容，以及各集受邀搞笑藝人。",
+      "highlight": "藝人的個性、人際關係與臨場反應，往往比題目本身更有趣。",
+      "url": "https://www.tv-asahi.co.jp/londonhearts/",
+      "related": [],
+      "bilibiliKeyword": "伦敦之心",
+      "image": {
+        "src": "assets/program-london-hearts.jpg",
+        "alt": "《倫敦之心》節目畫面",
+        "credit": "朝日電視台",
+        "sourceUrl": "https://post.tv-asahi.co.jp/post-797111/",
+        "originalUrl": "https://post.tv-asahi.co.jp/wp-content/uploads/2026/07/L3-1.jpg"
+      },
+      "extraVideos": [
+        {
+          "label": "年輕時的段子大賽",
+          "url": "https://www.bilibili.com/video/BV1ppKP6vEb8/",
+          "lineId": 7,
+          "checkedAt": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "wednesday-downtown",
+      "title": "星期三的 DOWNTOWN",
+      "subtitle": "水曜日のダウンタウン",
+      "category": "節目",
+      "mark": "番",
+      "description": "把各種「假說」做成外景實驗或整人，例如測試吐槽藝人能否立刻吐槽「怎麼是你唱啊！」。",
+      "cast": "以 DOWNTOWN 冠名，各集由不同藝人提案、接受測試及參與棚內討論。",
+      "highlight": "從小觀察出發，把情境推到荒唐程度，再看當事人如何反應。",
+      "url": "https://www.tbs.co.jp/suiyobinodowntown/",
+      "related": [
+        "downtown"
+      ],
+      "bilibiliKeyword": "水曜日",
+      "image": {
+        "src": "assets/program-wednesday-downtown.jpg",
+        "alt": "《星期三的 DOWNTOWN》節目畫面",
+        "credit": "《星期三的 DOWNTOWN》官方「説.jp」",
+        "sourceUrl": "https://setsu.jp/s0216/",
+        "originalUrl": "https://setsu.jp/wp-content/uploads/2025/06/0216_v1.png"
+      },
+      "extraVideos": [
+        {
+          "label": "私下逗笑搭檔有多難",
+          "url": "https://www.bilibili.com/video/BV1yHei6YErC/",
+          "lineId": 14,
+          "checkedAt": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "ametalk",
+      "title": "Ametalk！藝人主題談話",
+      "subtitle": "アメトーーク！",
+      "category": "節目",
+      "mark": "番",
+      "description": "找有共同興趣、經歷或困擾的藝人聊天，例如「不擅長大喜利的藝人」，分享答題時的困難與糗事。",
+      "cast": "螢原徹主持；來賓依主題更換，例如 Nobu、濱家隆一、津田篤宏等。",
+      "highlight": "看藝人如何把弱點和共同經驗變成笑話，再靠彼此接話把場面炒熱。",
+      "url": "https://www.tv-asahi.co.jp/ametalk/",
+      "related": [],
+      "bilibiliKeyword": "Ametalk",
+      "image": {
+        "src": "assets/program-ametalk.jpg",
+        "alt": "《Ametalk！藝人主題談話》節目畫面",
+        "credit": "朝日電視台：大喜利苦手藝人",
+        "sourceUrl": "https://post.tv-asahi.co.jp/post-792170/",
+        "originalUrl": "https://post.tv-asahi.co.jp/wp-content/uploads/2026/07/ame0709_2.jpg"
+      }
+    },
+    {
+      "id": "lalande-bakubaku",
+      "title": "LALANDE 單獨公演《爆爆》",
+      "subtitle": "ラランド単独ライブ「爆爆」",
+      "category": "影片",
+      "mark": "演",
+      "description": "LALANDE 在 2024 年於東京、大阪與福岡舉辦的單獨公演。",
+      "cast": "LALANDE：Saaya、Nishida。",
+      "highlight": "透過整場公演，認識兩人如何在不同段子裡塑造角色與互動。",
+      "url": "https://www.youtube.com/watch?v=hXiGcRhxfC8",
+      "related": [],
+      "bilibiliKeyword": "ラランド 爆爆",
+      "image": {
+        "src": "assets/resource-lalande-bakubaku.jpg",
+        "alt": "LALANDE 2024 單獨公演《爆爆》宣傳海報",
+        "credit": "ぴあ：公演宣傳海報",
+        "sourceUrl": "https://lp.p.pia.jp/article/news/350274/index.html",
+        "originalUrl": "https://lp.p.pia.jp/shared/materials/d93e74ff-6b0b-4483-9a37-2fa0dd38012c/origin.jpg"
+      },
+      "extraVideos": [
+        {
+          "label": "《爆爆》公演影片",
+          "url": "https://www.bilibili.com/video/BV1emXfY8EW3/",
+          "lineId": 6,
+          "checkedAt": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "the-w",
+      "title": "THE W 女藝人搞笑大賽",
+      "subtitle": "女芸人No.1決定戦 THE W",
+      "category": "比賽",
+      "mark": "賽",
+      "description": "由女性搞笑藝人以漫才、短劇等表演競逐冠軍的日本賽事。",
+      "cast": "參賽藝人依屆次不同；吉住曾於 2018 年打進決賽，並在 2020 年奪冠。",
+      "highlight": "一次認識不同世代的女性搞笑藝人，以及她們各自的舞台風格。",
+      "url": "https://www.ntv.co.jp/thew/",
+      "related": [],
+      "bilibiliVideoUrl": "https://www.bilibili.com/video/BV1Vy4y1i72T/",
+      "bilibiliVideoLabel": "Bilibili：吉住的短劇",
+      "image": {
+        "src": "assets/resource-the-w.jpg",
+        "alt": "THE W 2025 官方賽事標誌",
+        "credit": "日本電視台：THE W 2025",
+        "sourceUrl": "https://www.ntv.co.jp/thew/",
+        "originalUrl": "https://www.ntv.co.jp/thew/images_cms/og_image.jpg"
+      }
+    },
+    {
+      "id": "kamaigachi",
+      "title": "鎌鼬認真玩",
+      "subtitle": "かまいガチ",
+      "category": "節目",
+      "mark": "番",
+      "description": "鎌鼬挑戰各種認真又荒唐的企劃，例如達成指定任務就能立即回家。",
+      "cast": "鎌鼬的山內健司、濱家隆一主持，來賓隨企劃更換。",
+      "highlight": "看兩人與來賓如何全力投入遊戲、整人或看似簡單卻困難的挑戰。",
+      "url": "https://www.tv-asahi.co.jp/kamaigachi/",
+      "related": [],
+      "bilibiliKeyword": "かまいガチ",
+      "bilibiliVideoUrl": "https://www.bilibili.com/video/BV1dysZ6RECi/",
+      "bilibiliVideoLabel": "Bilibili：幫 Naruo 找新搭檔",
+      "image": {
+        "src": "assets/program-kamaigachi.jpg",
+        "alt": "《鎌鼬認真玩》節目參賽者合照",
+        "credit": "朝日電視台：達成任務立即回家企劃",
+        "sourceUrl": "https://post.tv-asahi.co.jp/?p=853183",
+        "originalUrl": "https://post.tv-asahi.co.jp/wp-content/uploads/2026/09/001-12.jpg"
+      }
+    },
+    {
+      "id": "mitorizu-jan",
+      "title": "示意圖的綜藝企劃",
+      "subtitle": "見取り図じゃん",
+      "category": "節目",
+      "mark": "番",
+      "description": "由搞笑組合示意圖主持各種企劃，例如「小聲談話會」邀請藝人小聲聊平常不敢大聲說的事。",
+      "cast": "盛山晉太郎、Lily 主持；「小聲談話會」來賓曾有拓朗、EVERS 等。",
+      "highlight": "藝人用像是在交換秘密的氣氛，分享舞台背後和日常生活中的趣事。",
+      "url": "https://www.tv-asahi.co.jp/mitorizujan/",
+      "related": [],
+      "bilibiliVideoUrl": "https://www.bilibili.com/video/BV1Vteq6EErz/",
+      "image": {
+        "src": "assets/program-mitorizujan.jpg",
+        "alt": "《見取り図じゃん》小聲談話會節目畫面",
+        "credit": "朝日電視台：小聲談話會",
+        "sourceUrl": "https://post.tv-asahi.co.jp/post-648648/",
+        "originalUrl": "https://post.tv-asahi.co.jp/wp-content/uploads/2026/01/IMG_5077.jpg"
+      }
+    },
+    {
+      "id": "daigodo",
+      "title": "大悟道：千鳥的現場劇",
+      "subtitle": "大悟道～これが千鳥の生芝居～",
+      "category": "節目",
+      "mark": "番",
+      "description": "2019 年 NHK 特別節目，由大悟編劇、導演並主演，在電視直播中演出喜劇。",
+      "cast": "千鳥的大悟、Nobu，以及吉岡里帆、渡邊直美等來賓。",
+      "highlight": "大悟在舞台上演戲，Nobu 像觀眾一樣在一旁吐槽，讓千鳥的互動延伸到現場劇。",
+      "url": "https://mantan-web.jp/article/20190722dog00m200051000c.html",
+      "urlLabel": "節目介紹",
+      "related": [
+        "chidori"
+      ],
+      "bilibiliKeyword": "大悟道",
+      "bilibiliVideoUrl": "https://www.bilibili.com/video/BV1M441197g3/",
+      "image": {
+        "src": "assets/program-daigodo.jpg",
+        "alt": "《大悟道》演出人員在布景前合照",
+        "credit": "ABEMA TIMES：演出後合照",
+        "sourceUrl": "https://times.abema.tv/articles/-/7014534",
+        "originalUrl": "https://times-abema.ismcdn.jp/mwimgs/b/4/1200w/img_b49fe9e04e7f1c6cdda94de3bb6e4e0546300.jpg"
+      }
+    },
+    {
+      "id": "jiji-neta-2019",
+      "title": "時事段子王 2019",
+      "subtitle": "時事ネタ王2019～ニュースVS芸人～",
+      "category": "節目",
+      "mark": "番",
+      "description": "NHK 特別節目，讓搞笑藝人將當年的新聞寫成漫才或短劇，再決定冠軍。",
+      "cast": "千鳥與北乃紀伊主持；EXIT、花子等六組藝人參賽。",
+      "highlight": "看藝人如何把國際新聞等嚴肅話題，變成容易理解的搞笑段子。",
+      "url": "https://lp.p.pia.jp/article/news/87438/index.html",
+      "urlLabel": "節目介紹",
+      "related": [
+        "chidori"
+      ],
+      "bilibiliVideoUrl": "https://www.bilibili.com/video/BV1rK4y1a7w5/",
+      "image": {
+        "src": "assets/program-jiji-neta.jpg",
+        "alt": "《時事段子王 2019》主持人千鳥與北乃紀伊",
+        "credit": "ぴあ／NHK：節目主持人",
+        "sourceUrl": "https://lp.p.pia.jp/article/news/87438/index.html",
+        "originalUrl": "https://lp.p.pia.jp/shared/materials/1a33d159-1ed3-4a07-aece-74413f47c7cf/origin.jpg"
+      }
+    },
+    {
+      "id": "geinin-receipt",
+      "title": "大悟的藝人發票",
+      "subtitle": "大悟の芸人領収書",
+      "category": "節目",
+      "mark": "番",
+      "description": "藝人帶著生活開銷的收據，分享背後的故事，由大悟判斷是否值得報銷。",
+      "cast": "千鳥的大悟主持，來賓依集數更換。",
+      "highlight": "從一張收據聽見藝人的生活趣事，也看大悟如何評價與接話。",
+      "url": "https://www.ntv.co.jp/geininryousyusyo/",
+      "related": [
+        "chidori"
+      ],
+      "bilibiliKeyword": "芸人领收书",
+      "image": {
+        "src": "assets/program-geinin-receipt.jpg",
+        "alt": "《大悟的藝人發票》大悟與節目來賓合照",
+        "credit": "日本電視台：節目介紹",
+        "sourceUrl": "https://www.ntv.co.jp/geininryousyusyo/articles/4158j44bcom523tlh03i.html",
+        "originalUrl": "https://www.ntv.co.jp/geininryousyusyo/articles/images/940av2mmp61psvnh7usc4o87dja2g2.jpg"
+      }
+    },
+    {
+      "id": "neta-sand",
+      "title": "段子三明治",
+      "subtitle": "ネタサンド！",
+      "category": "節目",
+      "mark": "番",
+      "description": "三明治人指定題材，讓藝人把這些「餡料」夾進漫才或短劇中演出。",
+      "cast": "三明治人主持，挑戰者依集數更換。",
+      "highlight": "看表演者如何把臨時指定的題目融入自己的段子。",
+      "url": "https://post.tv-asahi.co.jp/post-123777/",
+      "related": [],
+      "bilibiliVideoUrl": "https://www.bilibili.com/video/BV1ft411L7W4/",
+      "image": {
+        "src": "assets/program-neta-sand.jpg",
+        "alt": "《段子三明治》主持人於節目現場",
+        "credit": "朝日電視台：節目介紹",
+        "sourceUrl": "https://post.tv-asahi.co.jp/post-123777/",
+        "originalUrl": "https://post.tv-asahi.co.jp/wp-content/uploads/2020/07/netasando.jpg"
+      }
+    },
+    {
+      "id": "achikochi-audrey",
+      "title": "無處不在奧黛麗",
+      "subtitle": "あちこちオードリー",
+      "category": "節目",
+      "mark": "番",
+      "description": "奧黛麗與來賓聊工作、挫折和人際關係，也有「反省筆記」等企劃，從放不下的小事聊出真心話。",
+      "cast": "若林正恭、春日俊彰主持，每集邀請不同來賓。",
+      "highlight": "聽藝人怎麼理解自己的表演、搭檔和職涯，認識舞台之外的他們。",
+      "url": "https://www.tv-tokyo.co.jp/achikochi_audrey/",
+      "related": [
+        "audrey"
+      ],
+      "bilibiliKeyword": "あちこちオードリー",
+      "image": {
+        "src": "assets/program-achikochi-audrey.jpg",
+        "alt": "《無處不在奧黛麗》節目畫面",
+        "credit": "東京電視台：蘭奢待來賓回",
+        "sourceUrl": "https://www.tv-tokyo.co.jp/plus/entertainment/entry/2023/027259.html",
+        "originalUrl": "https://tv-tokyo.imgix.net/plus/entertainment/images/achikochi_20230118_thum.jpg?auto=format,compress"
+      }
+    }
+  ]
+}

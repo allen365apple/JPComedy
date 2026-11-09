@@ -121,3 +121,45 @@
 @media(max-width:800px){.glossary-list{grid-template-columns:1fr}.glossary-row{min-height:0;gap:12px}.glossary-form__grid{grid-template-columns:1fr}.glossary-status{margin-left:0}}
 .load-more-wrap{display:flex;justify-content:center;padding:34px 0 14px}
 .load-more-wrap .button{min-width:176px}
+.resource-details{font-size:13px;line-height:1.9;color:var(--muted);margin:8px 0 16px}.resource-details p{margin:0 0 10px}.resource-details strong{color:var(--ink)}
+.resource-picture{width:100%;margin:0 0 18px}.resource-picture img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#f2efe9}.resource-picture figcaption{font-size:10px;line-height:1.7;color:var(--muted);margin-top:5px}.resource-picture figcaption a{color:inherit}
+/* Compact resource directory: names, content, then viewing actions. */
+.resources-page .page-intro{padding-bottom:24px}
+.resources-page .page-intro h1{font-size:clamp(30px,4vw,44px);line-height:1.2;letter-spacing:0;margin:10px 0 12px}
+.resources-page .page-intro .eyebrow{font-size:10px;letter-spacing:2px}
+.resources-page .resource-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:16px}
+.resources-page .resource-toolbar #resource-count{margin:0;white-space:nowrap}
+.resources-page .resource-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px;align-items:start}
+.resources-page .resource-card{display:grid;grid-template-columns:192px minmax(0,1fr);gap:24px;padding:22px;align-items:start;min-height:0}
+.resources-page .resource-card.text-only{grid-template-columns:1fr}
+.resources-page .resource-card[hidden]{display:none}
+.resources-page .resource-picture{width:100%;margin:0}
+.resources-page .resource-picture img{aspect-ratio:16/10;width:100%;height:auto;object-fit:contain;border-radius:3px}
+.resources-page .resource-picture figcaption{font-size:10px;line-height:1.6;margin-top:6px}
+.resources-page .resource-content{min-width:0}
+.resources-page .resource-heading{display:flex;align-items:start;justify-content:space-between;gap:16px;margin-bottom:12px}
+.resources-page .resource-heading h2{font-size:22px;line-height:1.35;letter-spacing:0;margin:0}
+.resources-page .resource-original{font-size:11px;line-height:1.5;color:var(--muted);margin:5px 0 0}
+.resources-page .resource-category{font-size:10px;line-height:1.5;background:#f2efe9;color:var(--muted);padding:3px 8px;white-space:nowrap;border-radius:3px}
+.resources-page .resource-details{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin:0;font-size:13px;line-height:1.7}
+.resources-page .resource-details>div{display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px;align-items:baseline}
+.resources-page .resource-details .resource-summary{grid-column:1/-1}
+.resources-page .resource-details dt{color:var(--muted);font-size:11px;font-weight:500}
+.resources-page .resource-details dd{margin:0;color:var(--ink);overflow-wrap:anywhere}
+.resources-page .resource-actions{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:14px;padding-top:12px;border-top:1px solid #eeeae3;font-size:12px;line-height:1.6}
+.resources-page .resource-primary{color:var(--red);font-weight:600}
+.resources-page .resource-search{color:var(--muted)}
+.resources-page .resource-actions a:hover{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){
+.resources-page .resource-card{grid-template-columns:144px minmax(0,1fr);padding:18px;gap:16px}
+.resources-page .resource-details{grid-template-columns:1fr;gap:8px}
+.resources-page .resource-heading h2{font-size:20px}
+.resources-page .resource-toolbar{align-items:start;flex-direction:column;gap:12px}
+}
+@media(max-width:520px){
+.resources-page .resource-card{grid-template-columns:1fr;padding:18px;gap:14px}
+.resources-page .resource-picture{max-width:none}
+.resources-page .resource-picture img{aspect-ratio:16/9}
+.resources-page .resource-heading{margin-bottom:10px}
+.resources-page .resource-actions{gap:8px 16px;margin-top:12px;padding-top:10px}
+}

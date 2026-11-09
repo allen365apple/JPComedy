@@ -6,6 +6,7 @@ import { readFile } from 'node:fs/promises';
 import { profiles as backfillProfiles, coverOrder as backfillCoverOrder, officialCovers as backfillOfficialCovers } from './profiles-backfill.mjs';
 
 const db = JSON.parse(await readFile(new URL('./profiles.json', import.meta.url), 'utf8'));
+const programResources = JSON.parse(await readFile(new URL('./program-resources.json', import.meta.url), 'utf8'));
 const seniorEnrichment = JSON.parse(await readFile(new URL('./senior-enrichment-2026-10-14.json', import.meta.url), 'utf8'));
 const weeklyUpdate = JSON.parse(await readFile(new URL('./weekly-update-2026-10-14.json', import.meta.url), 'utf8'));
 const authorizedWeekly = JSON.parse(await readFile(new URL('./weekly-authorized-2026-10-14.json', import.meta.url), 'utf8'));
@@ -49,8 +50,9 @@ export const profiles = baseProfiles.map(profile => {
 
 // `resources` stores its links to artists declaratively so the database never
 // goes stale: relatedScope 'm1' = every M-1 finalist, 'all' = every artist.
-export const resources = db.resources.map(({ relatedScope, related, ...rest }) => ({
+export const resources = [...db.resources, ...programResources.resources].map(({ relatedScope, related, ...rest }) => ({
   ...rest,
+  ...(programResources.imageOverrides[rest.id] ? { image: programResources.imageOverrides[rest.id] } : {}),
   related: relatedScope === 'm1' ? profiles.filter(p => p.m1Id).map(p => p.id)
     : relatedScope === 'all' ? profiles.map(p => p.id)
     : (related || [])

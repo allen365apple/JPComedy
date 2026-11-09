@@ -39,6 +39,12 @@ const snapshot = JSON.parse(await readFile(path.join(publicRoot, 'glossary-snaps
 if (!Array.isArray(data.groups) || data.groups.length === 0) throw new Error('公開 data.json 沒有藝人資料');
 if (!snapshot.data?.talents || !Array.isArray(snapshot.data.others)) throw new Error('公開詞庫快照格式不完整');
 
+for (const resource of data.resources || []) {
+  if (!resource.image?.src || !resource.image.credit || !resource.image.sourceUrl) {
+    throw new Error(`資源 ${resource.id} 缺少圖片或來源`);
+  }
+  if (!resource.image.src.startsWith('http')) await assertFile(resource.image.src);
+}
 const files = await walk(publicRoot);
 const catalog = JSON.parse(await readFile(path.join(publicRoot, 'catalog.json'), 'utf8'));
 if (catalog.groups.length !== data.groups.length) throw new Error('快速目錄與完整資料數量不符');

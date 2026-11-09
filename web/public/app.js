@@ -201,16 +201,34 @@ function profilePage(g) {
     ${related.length ? `<section class="related"><div class="section-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2>這種風格你可能也喜歡</h2></div><span class="micro-note">依共同風格標籤推薦</span></div><div class="group-grid">${related.map(g=>groupCard(g,true)).join('')}</div></section>` : ''}</div>`;
 }
 
+/** Render each resource once, with a short introduction and compact viewing links. */
 function resourceCard(r) {
-  const link = r.url.startsWith('#') ? `<a class="text-link" href="${r.url}">打開資源 ${arrow}</a>` : external(r.url, '前往官方網站', 'text-link');
-  const artists = (r.related || []).slice(0, 3).map(id => data.groups.find(g => g.id === id)).filter(Boolean);
-  const context = r.searchTerms?.length ? `<p class="micro-note">日文搜尋：${r.searchTerms.map(esc).join('、')}</p>` : '';
-  const related = artists.length ? `<p class="micro-note">相關藝人：${artists.map(g => `<a href="#/groups/${g.id}">${esc(g.zh)}</a>`).join('、')}</p>` : '';
-  return `<article class="resource-card" data-category="${r.category}"><div class="resource-card-top"><span class="resource-mark">${esc(r.mark)}</span><span class="resource-category">${esc(r.category)}</span></div><h2>${esc(r.title)}</h2><h3>${esc(r.subtitle)}</h3><p>${esc(r.description)}</p>${context}${related}${link}</article>`;
+  const shortTitles = { m1: 'M-1 大賽', r1: 'R-1 大賽', ippon: 'IPPON 大喜利大賽', yofukashi: '月曜夜未央', conte: '短劇之王' };
+  const summaries = {
+    m1: '日本的重要漫才賽事。看不同組合如何用對話、角色與節奏，在有限時間內完成一段作品。',
+    r1: '日本單人搞笑賽事。角色扮演、動作、語言與道具都能成為表演，適合認識藝人的個人創作。',
+    ippon: '藝人針對題目即席回答的大喜利競賽，例如替照片配上一句話。看誰能用最短的答案製造意外。',
+    yofukashi: '村上信五與松子 Deluxe 觀看街訪與調查影片，再於棚內聊天。看點來自受訪者的獨特觀點與兩位主持人的反應。',
+    weekly: '以繁體中文認識日本搞笑組合，閱讀藝人介紹、觀看心得與作品推薦。'
+  };
+  const title = shortTitles[r.id] || r.title;
+  const original = /[ぁ-ヿ]/.test(r.subtitle) && !title.includes(r.subtitle) ? `<p class="resource-original" lang="ja">${esc(r.subtitle)}</p>` : '';
+  const picture = r.image ? `<figure class="resource-picture"><img src="./${esc(r.image.src)}" alt="${esc(r.image.alt)}" width="720" height="405" loading="lazy" decoding="async"><figcaption>${external(r.image.sourceUrl, `圖源：${r.image.credit}`)}</figcaption></figure>` : '';
+  const fields = `<div class="resource-summary"><dt>簡介</dt><dd>${esc(summaries[r.id] || r.description)}</dd></div>`
+    + (r.cast ? `<div><dt>成員</dt><dd>${esc(r.cast)}</dd></div>` : '')
+    + (r.highlight ? `<div><dt>看點</dt><dd>${esc(r.highlight)}</dd></div>` : '');
+  const link = r.url.startsWith('#') ? `<a class="resource-primary" href="${r.url}">查看資源 ${arrow}</a>` : external(r.url, r.urlLabel || (r.url.includes('youtube.com/') ? '官方 YouTube' : '官方網站'), 'resource-primary');
+  const history = r.id === 'm1' ? data.resources.find(item => item.id === 'history') : null;
+  const historyLink = history ? external(history.url, '歷年成績', 'resource-search') : '';
+  const videos = r.extraVideos?.length ? `<details class="resource-videos"><summary>更多影片（${r.extraVideos.length}）</summary><ul>${r.extraVideos.map(video => `<li>${external(video.url, video.label)}</li>`).join('')}</ul></details>` : '';
+  const search = (r.bilibiliKeyword ? external(`https://search.bilibili.com/all?keyword=${encodeURIComponent(r.bilibiliKeyword)}`, `Bilibili 搜尋「${r.bilibiliKeyword}」`, 'resource-search') : '') + (r.bilibiliVideoUrl ? external(r.bilibiliVideoUrl, r.bilibiliVideoLabel || '觀看 Bilibili 影片', 'resource-search') : '');
+  return `<article class="resource-card ${r.image ? 'has-picture' : 'text-only'}" data-category="${esc(r.category)}">${picture}<div class="resource-content"><header class="resource-heading"><div><h2>${esc(title)}</h2>${original}</div><span class="resource-category">${esc(r.category)}</span></header><dl class="resource-details">${fields}</dl><footer class="resource-actions">${link}${historyLink}${search}</footer>${videos}</div></article>`;
 }
 
 function resourcesPage() {
-  return `<div class="wrap subpage"><div class="page-intro"><p class="eyebrow">THE OWARAI FIELD GUIDE</p><h1>舞台之外，<br>還有一整個世界。</h1><p>認識重要賽事、電視節目與演出資源。<br>從舞台段子，到街訪、談話和大喜利。</p></div><div class="resource-filters filter-chips" aria-label="資源分類">${['全部','比賽','節目','劇場','影片','中文資源'].map((t,i)=>`<button class="chip" data-resource-filter="${t}" aria-pressed="${i === 0}">${t}</button>`).join('')}</div><p class="micro-note" id="resource-count" role="status" aria-live="polite">共 ${data.resources.length} 項資源</p><div class="resource-grid">${data.resources.map(resourceCard).join('')}</div><p class="editorial-note">外部連結會開啟新分頁。演出場次、票價與播放地區限制，請以各平台公告為準。</p></div>`;
+  const resources = data.resources.some(item => item.id === 'm1')
+    ? data.resources.filter(item => item.id !== 'history') : data.resources;
+  return `<div class="wrap subpage resources-page"><div class="page-intro"><p class="eyebrow">THE OWARAI FIELD GUIDE</p><h1>搞笑資源</h1><p>認識重要賽事、節目與頻道，找到下一部想看的作品。</p></div><div class="resource-toolbar"><div class="resource-filters filter-chips" aria-label="資源分類">${['全部','比賽','節目','劇場','影片','中文資源'].map((t,i)=>`<button class="chip" data-resource-filter="${t}" aria-pressed="${i === 0}">${t}</button>`).join('')}</div><p class="micro-note" id="resource-count" role="status" aria-live="polite">共 ${resources.length} 項資源</p></div><div class="resource-grid">${resources.map(resourceCard).join('')}</div><p class="editorial-note">外部連結開啟新分頁；播放地區與內容供應以原平台為準。</p></div>`;
 }
 
 // 漫才詞庫已改為可掛載的完整模組，見 glossary.mjs / glossary-core.mjs。
