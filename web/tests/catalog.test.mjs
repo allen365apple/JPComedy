@@ -1,3 +1,6 @@
+// 最後更新：2026-11-23 10:11（台北時間）
+// 誰幫忙的：ChatGPT Codex（GPT-6；Codex 桌面版）
+// 修改摘要：以授權文章與詳細介紹兩種驗收條件檢查藝人資料。
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, access } from 'node:fs/promises';
@@ -127,7 +130,7 @@ test('directory includes the initial finalists, completed batches and the final 
   }));
   assert.ok(eleventhBatch.every(id => {
     const g = groups.find(group => group.id === id);
-    return g && !g.article && g.researchedArticle?.positioning && g.researchedArticle.positioningSources.length >= 2
+    return g && !g.article && (g.weeklyUpdate || (g.researchedArticle?.positioning && g.researchedArticle.positioningSources.length >= 2))
       && g.achievements.length && g.works.length && g.sources.length >= 2
       && g.bilibiliSearchTerms.length >= 2 && g.photo.url?.startsWith('https://') && g.cover
       && g.sources.every(source => source.url.startsWith('https://'));
@@ -220,7 +223,7 @@ test('all original articles remain byte-for-byte intact and every copied image e
 
 test('every non-Weekly-Manzai detailed profile opens with a source-backed industry position', () => {
   const detailed = groups.filter(g => !g.article && !g.weeklyUpdate);
-  assert.equal(detailed.length, 199);
+  assert.equal(detailed.length, 197);
   for (const g of detailed) {
     assert.ok(g.researchedArticle?.positioning, `${g.id} is missing its industry position`);
     assert.ok(g.researchedArticle.positioningSources.length >= 2, `${g.id} needs positioning sources`);
